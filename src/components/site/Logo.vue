@@ -2,7 +2,7 @@
 import { CookingPot } from '@lucide/vue';
 
 
-
+// vue-tsc -b && 
 withDefaults(defineProps<{
     name?: string
 }>(), {

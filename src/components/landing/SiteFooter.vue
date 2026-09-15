@@ -41,7 +41,7 @@ const navLinks = [
       </div>
 
       <div>
-        <ul class="flex gap-4 items-center">
+        <ul class="flex flex-col md:flex gap-1 items-center">
           <li v-for="nav in navLinks" :key="nav.title" @click="scrollPage(nav.to)">
             <a class="text-muted-foreground text-sm">{{ nav.title }}</a>
           </li>

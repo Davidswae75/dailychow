@@ -21,7 +21,6 @@ const profilePreference = reactive({
 
 <template>
   <main class="bg-cream grain">
-    {{ profilePreference }}
     <section class="mx-auto max-w-2xl">
       <OContainer :current-step="currentStep" :steps="steps">
         <template #content>
@@ -35,7 +34,7 @@ const profilePreference = reactive({
           />
         </template>
         <template #footer>
-          <div class="flex justify-between item-center sticky bottom-0">
+          <div class="flex justify-between item-center sticky bottom-0 pb-6 bg-cream grain">
             <Button
               class="flex items-center"
               @click="currentStep -= 1"
