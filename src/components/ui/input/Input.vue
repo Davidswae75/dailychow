@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { toRef, type HTMLAttributes } from "vue";
-import { useVModel } from "@vueuse/core";
+import { toRef, type HTMLAttributes, type InputHTMLAttributes } from "vue";
 import { cn } from "@/lib/utils";
 import { useField } from "vee-validate";
 
 export type BaseInput = {
-  attrs: Partial<HTMLInputElement>;
+  attrs?: InputHTMLAttributes;
 };
 
 export type InputProps = {
   defaultValue?: string | number;
   modelValue?: any;
   inputClass?: HTMLAttributes["class"];
-
   name: string;
 } & BaseInput;
 
@@ -29,25 +27,24 @@ const {
   errorMessage,
   handleBlur,
   handleChange,
-  meta,
 } = useField(name, undefined, {
   initialValue: props.defaultValue,
 });
 
-const handleInput = (e: InputEvent) => {
+const handleInput = (e: Event) => {
   const value = (e.target as HTMLInputElement).value;
-  
   emits("update:modelValue", value);
-  handleChange(e)
+  handleChange(e);
 };
 </script>
 
 <template>
-  <div class="w-full space-y-">
+  <div class="w-full">
     <div class="relative w-full">
       <input
-        v-bind="{ ...attrs }"
+        v-bind="{ ...(attrs || {}), capture: undefined }"
         :name="name"
+        :value="inputValue"
         class="w-full transition-all"
         :class="
           cn(
@@ -57,30 +54,18 @@ const handleInput = (e: InputEvent) => {
             inputClass
           )
         "
-        :value="inputValue"
         @input="handleInput"
         @blur="handleBlur"
       />
-      <div v-if="$slots['append-icon']" class="absolute right-6 top-3 ">
+      <div v-if="$slots['append-icon']" class="absolute right-6 top-3">
         <slot name="append-icon" />
       </div>
-      <p class="text-red-500 text-sm animate__animated animate__headShake text-center pt-1.5" v-if="errorMessage">{{ errorMessage }}</p>
+      <p
+        v-if="errorMessage"
+        class="text-red-500 text-sm animate__animated animate__headShake text-center pt-1.5"
+      >
+        {{ errorMessage }}
+      </p>
     </div>
   </div>
 </template>
-
-<!-- const modelValue = useVModel(props, "modelValue", emits, {
-   passive: true,
-   defaultValue: props.defaultValue,
-  }) -->
-
-<!-- <input
-  v-model="modelValue"
-> -->
-<!-- data-slot="input"
-:class="cn(
-  'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-  'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3',
-  'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
-  props.class,
-)" -->
