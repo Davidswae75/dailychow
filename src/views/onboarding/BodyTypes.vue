@@ -7,7 +7,7 @@ const bodyTypeskeys = Object.keys(bodyTypes)
 
 const model = defineModel<BodyType>({
     default: () => ({
-        category: '',
+        category: 'Athletic',
         description: '',
         id: '',
         name: ''
