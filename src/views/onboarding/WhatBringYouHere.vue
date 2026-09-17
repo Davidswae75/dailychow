@@ -4,6 +4,7 @@ import Chip from "@/components/utils/chip.vue";
 
 
 const options = [
+
   { label: "Eat Healthier", value: "eat_healthier" },
   { label: "Lose Weight", value: "lose_weight" },
   { label: "Maintain My Weight", value: "maintain_my_weight" },
@@ -12,8 +13,10 @@ const options = [
   { label: "Spend Less On Food", value: "spend_less_on_food" },
 ];
 
-const model = defineModel<string>({ default: "" });
+const model = defineModel<string>({ default: "eat_healthier" });
 const isSelected = (value: string) => model.value === value;
+
+console.log(model)
 </script>
 
 <template>

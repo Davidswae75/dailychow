@@ -14,8 +14,7 @@ type InputField = {
   label: string;
   labelClass?: string;
   secondLabel?: SecondLabel;
-} & InputProps &
-  BaseInput;
+} & InputProps 
 
 export interface FieldsProp {
   fields: InputField[];

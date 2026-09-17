@@ -5,17 +5,24 @@ import NotInterested from "./NotInterested.vue";
 import { reactive, ref } from "vue";
 import Button from "@/components/ui/button/Button.vue";
 import { ArrowLeft, ArrowRight } from "@lucide/vue";
+import BodyTypes from "./BodyTypes.vue";
 
 
 const currentStep = ref(1);
 const steps = ref(4);
 
 const profilePreference = reactive({
-  interests: "",
+  interests: "eat_healthier",
   notInterested: {
     dietaryNeeds: [],
     pepperLevel: '',
   },
+  bodyType: {
+    id: '',
+    name: '',
+    category: '',
+    description: '',
+  }
 });
 </script>
 
@@ -32,6 +39,7 @@ const profilePreference = reactive({
             v-else-if="currentStep == 2"
             v-model="profilePreference.notInterested"
           />
+          <BodyTypes v-else-if="currentStep == 3" v-model="profilePreference.bodyType"/>
         </template>
         <template #footer>
           <div class="flex justify-between item-center sticky bottom-0 pb-6 bg-cream grain">
