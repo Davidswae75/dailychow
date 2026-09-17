@@ -14,8 +14,8 @@ const steps = ref(4);
 const profilePreference = reactive({
   interests: "eat_healthier",
   notInterested: {
-    dietaryNeeds: [],
-    pepperLevel: '',
+    dietaryNeeds: ['vegetarian'],
+    pepperLevel: 'mild',
   },
   bodyType: {
     id: '',
