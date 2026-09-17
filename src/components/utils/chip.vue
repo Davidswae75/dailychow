@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    class="rounded-4xl py-2 px-3.5  text-xs tracking-wider inline-flex gap-2 items-center transition-all relative"
+    class="rounded-full py-2 px-3.5  text-xs tracking-wider inline-flex gap-2 items-center transition-all relative shadow-2xl"
     :class="[presets[variant], hover && 'hover:border-terracotta/60 cursor-pointer!', active && 'text-cream!']"
   >
     <component v-if="icon" :is="icon" class="size-4" :class="iconClass"/>
@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
           v-if="active"
           layout
           layout-id="selected-bg"
-          class="absolute inset-0 rounded-full bg-terracotta"
+          class="absolute inset-0 rounded-full  bg-terracotta"
           :transition="{
             type: 'spring',
             stiffness: 400,

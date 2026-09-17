@@ -125,3 +125,5 @@ export const bodyTypesByCategory = {
   Athletic: bodyTypes.filter(t => t.category === "Athletic"),
   Softer: bodyTypes.filter(t => t.category === "Softer"),
 };
+
+export type BodyTypesByCategory = keyof typeof bodyTypesByCategory 

@@ -6,6 +6,9 @@ import { reactive, ref } from "vue";
 import Button from "@/components/ui/button/Button.vue";
 import { ArrowLeft, ArrowRight } from "@lucide/vue";
 import BodyTypes from "./BodyTypes.vue";
+import type { BodyType } from "@/types";
+import FoodTypes from "./FoodTypes.vue";
+import type { FoodType } from "@/types/FoodTypes";
 
 
 const currentStep = ref(1);
@@ -18,11 +21,17 @@ const profilePreference = reactive({
     pepperLevel: 'mild',
   },
   bodyType: {
-    id: '',
-    name: '',
-    category: '',
-    description: '',
-  }
+    id: "lean",
+    name: "Lean & Thin",
+    category: "Lean",
+    description: "Naturally slim. Hard to put on weight or muscle."
+  } as BodyType,
+  foodType:{
+    id: "",
+    name: "",
+    category: "Rice",
+    description: ""
+  } as FoodType
 });
 </script>
 
@@ -40,9 +49,10 @@ const profilePreference = reactive({
             v-model="profilePreference.notInterested"
           />
           <BodyTypes v-else-if="currentStep == 3" v-model="profilePreference.bodyType"/>
+          <FoodTypes v-else-if="currentStep == 4" v-model="profilePreference.foodType"/>
         </template>
         <template #footer>
-          <div class="flex justify-between item-center sticky bottom-0 pb-6 bg-cream grain">
+          <div class="flex justify-between item-center sticky bottom-0 pb-6 bg-cream grain z-30">
             <Button
               class="flex items-center"
               @click="currentStep -= 1"
