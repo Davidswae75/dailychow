@@ -92,5 +92,4 @@ const viewport = props.once ? { once: true, amount: props.amount } : undefined;
     <slot />
   </motion.div>
 
-  <template> </template>
 </template>

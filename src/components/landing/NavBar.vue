@@ -2,6 +2,7 @@
 import { CookingPot } from "@lucide/vue";
 import { Button } from "../ui/button";
 import { scrollPage } from "@/utils";
+import Logo from "../site/Logo.vue";
 
 const navLinks = [
   {
@@ -34,12 +35,7 @@ const navLinks = [
     class="h-16 bg-cream/90 inset-0 top-0 sticky border-b border-border z-100 px-5 md:px-8 backdrop-blur-md"
   >
     <nav class="mx-auto max-w-6xl flex justify-between h-full items-center">
-      <div class="flex gap-3 items-center">
-        <div class="rounded-full bg-terracotta grid place-items-center p-2">
-          <CookingPot class="size-5 stroke-olive-50" />
-        </div>
-        <span class="font-sans font-bold">Daily Bite</span>
-      </div>
+      <Logo/>
       <ul class="gap-4 hidden md:flex">
         <li v-for="link in navLinks" :key="link.title">
           <a

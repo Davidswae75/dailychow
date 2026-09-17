@@ -5,7 +5,13 @@ import Login from "@/views/auth/login.vue";
 import onboardingRegistration from "@/views/onboarding/index.vue";
 
 const routes = [
-  { path: "/", component: index },
+  {
+    path: "/",
+    component: index,
+    meta: {
+      layout: "default",
+    },
+  },
   { path: "/sign-in", component: Login },
   { path: "/onboarding/registration", component: onboardingRegistration },
 ];

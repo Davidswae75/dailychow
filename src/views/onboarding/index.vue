@@ -25,11 +25,11 @@ const profilePreference = reactive({
       <OContainer :current-step="currentStep" :steps="steps">
         <template #content>
           <WhatBringYouHere
-            v-show="currentStep == 1"
+            v-if="currentStep == 1"
             v-model="profilePreference.interests"
             />
           <NotInterested
-            v-show="currentStep == 2"
+            v-else-if="currentStep == 2"
             v-model="profilePreference.notInterested"
           />
         </template>

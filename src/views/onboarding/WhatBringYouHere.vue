@@ -1,45 +1,19 @@
 <script setup lang="ts">
 import HeaderText from "@/components/landing/HeaderText.vue";
 import Chip from "@/components/utils/chip.vue";
-import { ref } from "vue";
+
 
 const options = [
-  {
-    label: "Eat Healthier",
-    value: "eat_healthier",
-  },
-  {
-    label: "Lose Weight",
-    value: "lose_weight",
-  },
-  {
-    label: "Maintain My Weight",
-    value: "maintain_my_weight",
-  },
-  {
-    label: "Gain Weight",
-    value: "gain_weight",
-  },
-  {
-    label: "Eat Nigerian Food",
-    value: "eat_nigerian_food",
-  },
-  {
-    label: "Spend Less On Food",
-    value: "spend_less_on_food",
-  },
+  { label: "Eat Healthier", value: "eat_healthier" },
+  { label: "Lose Weight", value: "lose_weight" },
+  { label: "Maintain My Weight", value: "maintain_my_weight" },
+  { label: "Gain Weight", value: "gain_weight" },
+  { label: "Eat Nigerian Food", value: "eat_nigerian_food" },
+  { label: "Spend Less On Food", value: "spend_less_on_food" },
 ];
 
-
-const selection = ref("");
-const emit = defineEmits<{
-  (e: "update:modelValue", v: string): void;
-}>();
-
-const handleSelection = (select: string) => {
-  selection.value = select;
-  emit("update:modelValue", select);
-};
+const model = defineModel<string>({ default: "" });
+const isSelected = (value: string) => model.value === value;
 </script>
 
 <template>
@@ -54,11 +28,14 @@ const handleSelection = (select: string) => {
       <Chip
         v-for="o in options"
         :key="o.value"
-        :variant="selection == o.value ? 'secondary': 'primary'"
+        variant="primary"
         hover
-        @click="handleSelection(o.value)"
-        >{{ o.label }}</Chip
+        :active="isSelected(o.value)"
+        @click="model = o.value"
       >
+        <!-- Text on top -->
+        <span class="relative z-10">{{ o.label }}</span>
+      </Chip>
     </div>
   </main>
 </template>

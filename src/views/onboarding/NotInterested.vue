@@ -89,11 +89,12 @@ const toggleSelection = (value: string, type: "multiple" | "single"): void => {
           <Chip
             v-for="option in section.options"
             :key="option.value"
-            :variant="isSelected(option.value, section.type) ? 'secondary' : 'primary'"
+            :variant="isSelected(option.value, 'multiple') ? 'secondary' : 'primary'"
             hover
+            :active="isSelected(option.value, 'single')"
             @click="toggleSelection(option.value, section.type)"
           >
-            {{ option.label }}
+          <span class="relative z-20">  {{ option.label }}</span>
           </Chip>
         </div>
       </div>

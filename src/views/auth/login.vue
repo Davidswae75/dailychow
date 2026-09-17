@@ -92,7 +92,7 @@ const fields = computed<FieldsProp["fields"]>(() => [
         </Form>
 
         <p
-          class="text-muted-foreground text-sm text-center inline-flex items-center"
+          class="text-muted-foreground text-sm text-center inline-flex items-center flex-wrap"
         >
           New here?
           <Button
