@@ -48,7 +48,7 @@ const handleInput = (e: Event) => {
         class="w-full transition-all"
         :class="
           cn(
-            'h-12 rounded-full border border-line outline-0 w-64 px-5 bg-cream placeholder:text-sm',
+            'h-12 rounded-full border border-line outline-0 text-charcoal w-64 px-5 bg-cream placeholder:text-sm placeholder:text-muted-foreground text-base caret-terracotta',
             'focus:ring-terracotta focus:border-none focus:ring',
             $slots['append-icon'] ? 'pr-14' : '',
             inputClass

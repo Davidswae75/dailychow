@@ -15,9 +15,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <main class="bg-transparent py-3 md:py-5 px-5 md:px-8 min-h-screen relative  flex flex-col justify-between">
+  <main class="bg-transparent px-5 md:px-8 min-h-screen relative  flex flex-col justify-between">
     <slot name="header">
-      <div class="flex justify-between items-center sticky top-0 z-20 bg-cream grain pt-4">
+      <div class="flex justify-between items-center sticky top-0 z-50 bg-cream grain py-4">
       <RouterLink to="/"><Logo /></RouterLink>
         <StepBar :current-step="currentStep" :steps="steps" />
       </div>

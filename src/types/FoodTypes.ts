@@ -111,3 +111,5 @@ export const foodsByCategory = {
   "Corn / Maize": nigerianFoods.filter(f => f.category === "Corn / Maize"),
   "Other Staples": nigerianFoods.filter(f => f.category === "Other Staples"),
 };
+
+export type FoodsByCategory = keyof typeof foodsByCategory

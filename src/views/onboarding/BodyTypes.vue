@@ -42,7 +42,7 @@ const model = defineModel<BodyType>({
         </Chip>
       </div>
       <p class="text-muted-foreground text-sm">More Specificity</p>
-      <AnimatePresence mode="wait" class="flex flex-wrap gap-2">
+      <AnimatePresence mode="wait" class="grid md:grid-cols-2 gap-2">
         <motion.div
           :key="model.category"
           :initial="{ opacity: 0 }"
