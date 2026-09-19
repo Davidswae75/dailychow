@@ -31,7 +31,7 @@ const handleSelection = (item: FoodType) => {
 </script>
 
 <template>
-  <main class="space-y-3 py-3">
+  <main class="space-y-3 py-3 h-[100dvh]">
     <HeaderText
       eyebrow="Question 4 of 5"
       title="Category of food you eat the most"
@@ -43,7 +43,7 @@ const handleSelection = (item: FoodType) => {
         <Chip
           v-for="b in foodKeys"
           :key="b"
-          :variant="isSelected(b) ? 'secondary' : 'primary'"
+          variant="primary"
           :active="!!isSelected(b)"
           hover
           @click="category = b"

@@ -16,7 +16,6 @@ const options = [
 const model = defineModel<string>({ default: "eat_healthier" });
 const isSelected = (value: string) => model.value === value;
 
-console.log(model)
 </script>
 
 <template>

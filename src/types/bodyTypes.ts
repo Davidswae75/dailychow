@@ -71,8 +71,8 @@ export type BodyTypeCategory = "Lean" | "Athletic" | "Softer";
 export interface BodyType {
   id: string;
   name: string;
-  category: BodyTypeCategory;
-  description: string;
+  category: string;
+  description?: string;
 }
 
 export const bodyTypes: BodyType[] = [
@@ -127,3 +127,32 @@ export const bodyTypesByCategory = {
 };
 
 export type BodyTypesByCategory = keyof typeof bodyTypesByCategory 
+
+
+export const bodyTypes2 = [
+  {
+    id: "lean_frame",
+    name: "Lean Frame",
+    category: "Lean",
+  },
+  {
+    id: "average_build",
+    name: "Average Build",
+    category: "Athletic",
+  },
+  {
+    id: "curvy_build",
+    name: "Curvy Build",
+    category: "Softer",
+  },
+  {
+    id: "athletic_build",
+    name: "Athletic Build",
+    category: "Athletic",
+  },
+  {
+    id: "big_build",
+    name: "Big Build",
+    category: "Softer",
+  },
+];

@@ -22,10 +22,9 @@ const profilePreference = reactive({
     pepperLevel: "mild",
   },
   bodyType: {
-    id: "lean",
-    name: "Lean & Thin",
+    id: "lean_frame",
+    name: "Lean Frame",
     category: "Lean",
-    description: "Naturally slim. Hard to put on weight or muscle.",
   } as BodyType,
   foodType: [
     {
@@ -82,9 +81,9 @@ const animation = computed(() => {
 
   // Full animation (with blur) for iPhone & high-end devices
   return {
-    initial: { scale: 0.9, filter: "blur(20px)", opacity: 0, },
+    initial: { scale: 0.8, filter: "blur(20px)", opacity: 0, },
     animate: { scale: 1, filter: "blur(0px)", opacity:1, },
-    exit: { scale: 0.9, filter: "blur(20px)" , opacity: 0,},
+    exit: { scale: 0.8, filter: "blur(20px)" , opacity: 0,},
     transition: {
       duration: 0.5,
     },

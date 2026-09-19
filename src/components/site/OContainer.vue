@@ -23,7 +23,10 @@ withDefaults(defineProps<Props>(), {
       </div>
     </slot>
 
+    <div class="overflow-scroll">
+
       <slot name="content" />
+    </div>
 
     <slot name="footer">
     
