@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight } from "@lucide/vue";
 import { AnimatePresence, motion } from "motion-v";
 import type { BodyType } from "@/types";
 import type { FoodType } from "@/types/FoodTypes";
+import Favourites from "./Favourites.vue";
 
 const currentStep = ref(1);
 const totalSteps = 5;
@@ -50,8 +51,7 @@ onMounted(() => {
   const isAndroid = /Android/i.test(navigator.userAgent);
 
   // Low-end = Android with weak hardware
-  isLowEndDevice.value =
-    (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
+  isLowEndDevice.value = (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
 });
 
 // ---------- Animation variants ----------
@@ -81,9 +81,9 @@ const animation = computed(() => {
 
   // Full animation (with blur) for iPhone & high-end devices
   return {
-    initial: { scale: 0.8, filter: "blur(20px)", opacity: 0, },
-    animate: { scale: 1, filter: "blur(0px)", opacity:1, },
-    exit: { scale: 0.8, filter: "blur(20px)" , opacity: 0,},
+    initial: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
+    animate: { scale: 1, filter: "blur(0px)", opacity: 1 },
+    exit: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
     transition: {
       duration: 0.5,
     },
@@ -126,10 +126,7 @@ const goBack = () => {
                 v-else-if="currentStep === 4"
                 v-model="profilePreference.foodType"
               />
-              <Register
-                v-else-if="currentStep === 5"
-                v-model="profilePreference.foodType"
-              />
+              <Register v-else-if="currentStep === 5" />
             </motion.div>
           </AnimatePresence>
         </template>

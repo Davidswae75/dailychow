@@ -15,7 +15,7 @@ export type FoodCategory =
 export interface FoodType {
   id: string;
   name: string;
-  category: FoodCategory;
+  category: string;
   description?: string; // short optional note
 }
 

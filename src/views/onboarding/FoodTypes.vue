@@ -8,6 +8,7 @@ import {
 } from "@/types/FoodTypes";
 import { AnimatePresence, motion } from "motion-v";
 import { ref } from "vue";
+import Favourites from "./Favourites.vue";
 
 const model = defineModel<FoodType[]>({
   default: () => [],
@@ -31,6 +32,10 @@ const handleSelection = (item: FoodType) => {
 </script>
 
 <template>
+  <Favourites/>
+</template>
+
+<!-- <template>
   <main class="space-y-3 py-3 h-[100dvh]">
     <HeaderText
       eyebrow="Question 4 of 5"
@@ -86,4 +91,4 @@ const handleSelection = (item: FoodType) => {
       </div>
     </section>
   </main>
-</template>
+</template> -->
