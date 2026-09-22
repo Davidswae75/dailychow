@@ -26,6 +26,7 @@ const props = defineProps<FieldsProp>();
 
 <template>
   <main>
+    {{ form }}
     <div v-for="f in fields" :key="f.fieldType" class="">
       <div class="flex justify-between items-end mb-0">
         <label

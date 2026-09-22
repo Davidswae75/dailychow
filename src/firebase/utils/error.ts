@@ -1,0 +1,41 @@
+import { FirebaseError } from "firebase/app"
+import { initUser } from "../services/user"
+import { toast } from "vue-sonner"
+
+const errorCapture = async (func: () => Promise<void>, fallBack = 'An Error As Occured') => {
+    try {
+        Promise.resolve(func())
+    } catch (error) {
+        console.log(error)
+        throw new Error(fallBack)
+    }
+}
+
+export const showErr = (error: FirebaseError) => {
+        const msg = getFirebaseErrorMessage(error.code || error.message)
+        toast.error(msg || error.message)
+        console.log({error, msg})
+}
+
+const getFirebaseErrorMessage = (code: string): string | null => {
+    const errorMap: Record<string, string> = {
+      // Auth
+      'auth/user-not-found': 'No account found with this email.',
+      'auth/wrong-password': 'Incorrect password.',
+      'auth/email-already-in-use': 'This email is already registered.',
+      'auth/weak-password': 'Password should be at least 6 characters.',
+      'auth/invalid-email': 'Please enter a valid email address.',
+      'auth/too-many-requests': 'Too many attempts. Please try again later.',
+      
+      // Firestore
+      'permission-denied': 'You don\'t have permission to perform this action.',
+      'not-found': 'The requested document was not found.',
+      'already-exists': 'This document already exists.',
+      
+      // Storage
+      'storage/unauthorized': 'You are not authorized to access this file.',
+      'storage/quota-exceeded': 'Storage quota has been exceeded.',
+    };
+  
+    return errorMap[code] ?? null;
+  };

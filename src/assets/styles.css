@@ -259,6 +259,14 @@
   a {
     cursor : pointer;
   }
+
+  .v-lazy-image {
+    filter: blur(40px);
+    transition: all 0.7s;
+  }
+  .v-lazy-image-loaded {
+    filter: blur(0);
+  }
 }
 
 @utility measure {

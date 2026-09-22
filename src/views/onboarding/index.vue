@@ -4,19 +4,19 @@ import OContainer from "@/components/site/OContainer.vue";
 import WhatBringYouHere from "./WhatBringYouHere.vue";
 import NotInterested from "./NotInterested.vue";
 import BodyTypes from "./BodyTypes.vue";
-import FoodTypes from "./FoodTypes.vue";
 import Register from "../auth/Register.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { ArrowLeft, ArrowRight } from "@lucide/vue";
 import { AnimatePresence, motion } from "motion-v";
-import type { BodyType } from "@/types";
-import type { FoodType } from "@/types/FoodTypes";
+import { Form } from "vee-validate";
+import { registerSchema } from "@/types";
+import type { Dish } from "@/lib/dishes";
 import Favourites from "./Favourites.vue";
 
 const currentStep = ref(1);
 const totalSteps = 5;
 
-const profilePreference = reactive({
+const userPreference = reactive({
   interests: "eat_healthier",
   notInterested: {
     dietaryNeeds: ["vegetarian"],
@@ -26,16 +26,11 @@ const profilePreference = reactive({
     id: "lean_frame",
     name: "Lean Frame",
     category: "Lean",
-  } as BodyType,
-  foodType: [
-    {
-      id: "jollof-rice",
-      name: "Jollof Rice",
-      category: "Rice",
-      description: "Classic party rice in tomato-pepper sauce",
-    },
-  ] as FoodType[],
+  },
+  favourites: [] as Dish[],
 });
+
+export type UserPreference = typeof userPreference;
 
 // ---------- Device detection ----------
 const isLowEndDevice = ref(false);
@@ -97,6 +92,22 @@ const goNext = () => {
 const goBack = () => {
   if (currentStep.value > 1) currentStep.value--;
 };
+
+const formControl = computed(() => ({
+  fullName: "",
+  email: "",
+  password: "",
+  ...userPreference,
+}));
+
+const onSubmit = (values: any) => {
+  console.log(values);
+  // const payload = {
+  //   values
+  // }
+
+  // const submit = props.mode == 'register' ? initUser()
+};
 </script>
 
 <template>
@@ -104,31 +115,38 @@ const goBack = () => {
     <section class="mx-auto max-w-2xl">
       <OContainer :current-step="currentStep" :steps="totalSteps">
         <template #content>
+          <Form
+            @submit="onSubmit"
+            :validation-schema="registerSchema"
+            :initial-values="formControl"
+            keep-values
+          >
           <AnimatePresence mode="popLayout">
             <motion.div
               :key="currentStep"
               v-bind="animation"
               class="motion-step w-full"
             >
-              <WhatBringYouHere
-                v-if="currentStep === 1"
-                v-model="profilePreference.interests"
-              />
-              <NotInterested
-                v-else-if="currentStep === 2"
-                v-model="profilePreference.notInterested"
-              />
-              <BodyTypes
-                v-else-if="currentStep === 3"
-                v-model="profilePreference.bodyType"
-              />
-              <FoodTypes
-                v-else-if="currentStep === 4"
-                v-model="profilePreference.foodType"
-              />
-              <Register v-else-if="currentStep === 5" />
-            </motion.div>
-          </AnimatePresence>
+                <WhatBringYouHere
+                  v-if="currentStep === 1"
+                  v-model="userPreference.interests"
+                />
+                <NotInterested
+                  v-else-if="currentStep === 2"
+                  v-model="userPreference.notInterested"
+                />
+                <BodyTypes
+                  v-else-if="currentStep === 3"
+                  v-model="userPreference.bodyType"
+                />
+                <Favourites
+                  v-else-if="currentStep === 4"
+                  v-model="userPreference.favourites"
+                />
+                <Register :form="formControl" v-else-if="currentStep === 5" />
+              </motion.div>
+            </AnimatePresence>
+          </Form>
         </template>
 
         <template #footer>

@@ -3,14 +3,15 @@ import HeaderText from "@/components/landing/HeaderText.vue";
 import Logo from "@/components/site/Logo.vue";
 import Button from "@/components/ui/button/Button.vue";
 import Fields, { type FieldsProp } from "@/components/utils/Fields.vue";
+import { initUser } from "@/firebase/services/user";
+import type { RegisterSchemaType, UserProps } from "@/types";
 import { Eye, EyeClosed } from "@lucide/vue";
-import { toTypedSchema } from "@vee-validate/zod";
-import { Form } from "vee-validate";
-import { computed, reactive, ref } from "vue";
-import * as z from "zod";
+
+import { computed, ref } from "vue";
 
 interface Props {
   mode: "login" | "register";
+  form: RegisterSchemaType;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,28 +19,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 // const loginSchema =
-
-const schema = toTypedSchema(
-  z.object({
-    ...(props.mode == "register"
-      ? { fullName: z.string().min(1, { message: "Full Name is required" }) }
-      : {}),
-    email: z
-      .string()
-      .min(1, { message: "Email is required" })
-      .email({ message: "Enter a valid email address" }),
-    password: z.string().min(1, "Password is required"),
-  })
-);
-
-const form = reactive({
-  email: "",
-  password: "",
-});
-
-const onSubmit = (values: any) => {
-  console.log(values);
-};
 
 const pV = ref(false);
 
@@ -107,24 +86,22 @@ const fields = computed<FieldsProp["fields"]>(() => [
           titleClass="text-xl md:text-3xl"
         />
 
-        <Form class="space-y-4" @submit="onSubmit" :validationSchema="schema">
-          <Fields :form="form" :fields="fields">
-            <template #password:append-icon>
-              <div @click="pV = !pV">
-                <Eye v-if="pV" class="size-5 text-muted-foreground" />
-                <EyeClosed v-else class="size-5 text-muted-foreground" />
-              </div>
-            </template>
-          </Fields>
+        <Fields :form="form" :fields="fields">
+          <template #password:append-icon>
+            <div @click="pV = !pV">
+              <Eye v-if="pV" class="size-5 text-muted-foreground" />
+              <EyeClosed v-else class="size-5 text-muted-foreground" />
+            </div>
+          </template>
+        </Fields>
 
-          <Button block="full" variant="terracotta" size="2xl" type="submit">
-            {{
-              props.mode == "login"
-                ? "Sign In"
-                : "Create an account & see my dish"
-            }}
-          </Button>
-        </Form>
+        <Button block="full" variant="terracotta" size="2xl" type="submit">
+          {{
+            props.mode == "login"
+              ? "Sign In"
+              : "Create an account & see my dish"
+          }}
+        </Button>
 
         <div>
           <p class="text-muted-foreground text-sm text-center">
