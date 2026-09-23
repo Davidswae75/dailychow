@@ -13,11 +13,11 @@ const routes = [
       layout: "default",
     },
   },
-  { path: "/sign-in",   component: () => import("../views/auth/Login.vue"), },
+  { path: "/sign-in", component: () => import("@/views/auth/Login.vue") },
   { path: "/onboarding/registration", component: onboardingRegistration },
 
   //for dashboard
-  ...DashboardRoutes
+  ...DashboardRoutes,
 ];
 
 export const router = createRouter({
