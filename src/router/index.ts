@@ -13,7 +13,7 @@ const routes = [
       layout: "default",
     },
   },
-  { path: "/sign-in", component: () => import("@/views/auth/Login.vue") },
+  { path: "/sign-in", component: () => import("@/views/auth/login.vue") },
   { path: "/onboarding/registration", component: onboardingRegistration },
 
   //for dashboard
