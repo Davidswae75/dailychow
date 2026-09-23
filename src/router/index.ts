@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import index from "../views/index.vue";
-// import Login from "@/views/auth/Login.vue";
 import onboardingRegistration from "@/views/onboarding/index.vue";
 import DashboardRoutes from "./dashboardRoutes";
+import Login from "@/views/auth/Login.vue";
 
 const routes = [
   {
@@ -13,7 +13,7 @@ const routes = [
       layout: "default",
     },
   },
-  // { path: "/sign-in", component: Login },
+  { path: "/sign-in", component: Login },
   { path: "/onboarding/registration", component: onboardingRegistration },
 
   //for dashboard
