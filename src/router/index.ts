@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import index from "../views/index.vue";
 import onboardingRegistration from "@/views/onboarding/index.vue";
 import DashboardRoutes from "./dashboardRoutes";
-import Login from "@/views/auth/Login.vue";
+import Login from "../views/auth/Login.vue";
 
 const routes = [
   {
