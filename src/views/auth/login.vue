@@ -4,6 +4,7 @@ import AuthForm, {
 } from "@/components/site/Auth/AuthForm.vue";
 import { loginSchema } from "@/types";
 import { useForm } from "vee-validate";
+import { defineComponent } from "vue";
 
 const { values, setFieldValue, handleSubmit } = useForm<AuthFormType>({
   validationSchema: loginSchema,
@@ -15,6 +16,10 @@ const { values, setFieldValue, handleSubmit } = useForm<AuthFormType>({
 const submitForm = handleSubmit(async (formValues) => {
   console.log(formValues);
 });
+
+defineComponent({
+  name: 'Login'
+})
 </script>
 
 <template>
