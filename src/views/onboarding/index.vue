@@ -118,6 +118,10 @@ const goNext = () => {
 const goBack = () => {
   if (currentStep.value > 1) currentStep.value--;
 };
+
+const updateField = <T extends keyof RegisterSchemaType>(key: T, val: RegisterSchemaType[T]) => {
+  setFieldValue(key as any, val)
+}
 </script>
 
 <template>
@@ -136,14 +140,12 @@ const goBack = () => {
                 <WhatBringYouHere
                   v-if="currentStep === 1"
                   :modeValue="values.interests"
-                  @update:model-value="(val) => setFieldValue('interests', val)"
+                  @update:model-value="(val) => updateField('interests', val)"
                 />
                 <NotInterested
                   v-else-if="currentStep === 2"
                   :modelValue="values.notInterested"
-                  @update:model-value="
-                    (val) => setFieldValue('notInterested', val)
-                  "
+                  @update:model-value="(val) => updateField('notInterested', val)"
                 />
                 <BodyTypes
                   v-else-if="currentStep === 3"
