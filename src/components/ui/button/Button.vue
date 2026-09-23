@@ -13,10 +13,12 @@ interface Props extends PrimitiveProps {
   block?: ButtonVariants["block"];
   class?: HTMLAttributes["class"];
   to?: string;
+  loading?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   as: "button",
+  loading: false
 });
 </script>
 
@@ -29,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
     :data-rounded="rounded"
     :as="as"
     :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class)"
+    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class, loading && 'opacity-50')"
   >
     <template v-if="to">
       <RouterLink :to="to">

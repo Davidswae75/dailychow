@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, unref } from "vue";
 import OContainer from "@/components/site/OContainer.vue";
 import WhatBringYouHere from "./WhatBringYouHere.vue";
 import NotInterested from "./NotInterested.vue";
@@ -8,29 +8,64 @@ import Register from "../auth/Register.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { ArrowLeft, ArrowRight } from "@lucide/vue";
 import { AnimatePresence, motion } from "motion-v";
-import { Form } from "vee-validate";
-import { registerSchema } from "@/types";
+import { useForm } from "vee-validate";
+import {
+  registerSchema,
+  type RegisterSchemaType,
+  type UserProps,
+} from "@/types";
 import type { Dish } from "@/lib/dishes";
 import Favourites from "./Favourites.vue";
+import { useRouter } from "vue-router";
+import { initUser } from "@/firebase/services/user";
+import { useScreenSize } from "@/hooks/useScreenSize";
 
 const currentStep = ref(1);
 const totalSteps = 5;
 
-const userPreference = reactive({
-  interests: "eat_healthier",
-  notInterested: {
-    dietaryNeeds: ["vegetarian"],
-    pepperLevel: "mild",
+const { handleSubmit, values, setFieldValue } = useForm<RegisterSchemaType>({
+  validationSchema: registerSchema,
+  initialValues: {
+    fullName: "",
+    email: "",
+    password: "",
+    interests: "eat_healthier",
+    notInterested: {
+      dietaryNeeds: ["vegetarian"],
+      pepperLevel: "mild",
+    },
+    bodyType: {
+      id: "lean_frame",
+      name: "Lean Frame",
+      category: "Lean",
+    },
+    favourites: [],
   },
-  bodyType: {
-    id: "lean_frame",
-    name: "Lean Frame",
-    category: "Lean",
-  },
-  favourites: [] as Dish[],
 });
 
-export type UserPreference = typeof userPreference;
+const { smallerThan } = useScreenSize();
+
+const submitForm = handleSubmit(async (formValues) => {
+  const payload: Omit<UserProps, "id" | "userID"> = {
+    bodyType: formValues.bodyType,
+    createdAt: new Date(),
+    dislikes: [],
+    email: formValues.email,
+    fullName: formValues.fullName,
+    favourites: formValues.favourites as Dish[],
+    foodEaten: [],
+    interests: formValues.interests,
+    joinedDate: new Date(),
+    notInterested: formValues.notInterested,
+    password: formValues.password,
+    role: "user",
+  };
+
+  console.log("Submitting payload:", payload);
+
+  // const initializeAccount = await initUser(payload);
+  // router.push('/dashboard/home');
+});
 
 // ---------- Device detection ----------
 const isLowEndDevice = ref(false);
@@ -45,13 +80,11 @@ onMounted(() => {
   const memory = (navigator as any).deviceMemory || 4;
   const isAndroid = /Android/i.test(navigator.userAgent);
 
-  // Low-end = Android with weak hardware
   isLowEndDevice.value = (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
 });
 
 // ---------- Animation variants ----------
 const animation = computed(() => {
-  // No animation
   if (prefersReducedMotion.value) {
     return {
       initial: { opacity: 1 },
@@ -61,27 +94,20 @@ const animation = computed(() => {
     };
   }
 
-  // Light animation for low-end Android
   if (isLowEndDevice.value) {
     return {
       initial: { opacity: 0, y: 10 },
       animate: { opacity: 1, y: 0 },
       exit: { opacity: 0, y: -10 },
-      transition: {
-        duration: 0.15,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.15, ease: "easeOut" },
     };
   }
 
-  // Full animation (with blur) for iPhone & high-end devices
   return {
     initial: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
     animate: { scale: 1, filter: "blur(0px)", opacity: 1 },
     exit: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
-    transition: {
-      duration: 0.5,
-    },
+    transition: { duration: 0.5 },
   };
 });
 
@@ -92,61 +118,63 @@ const goNext = () => {
 const goBack = () => {
   if (currentStep.value > 1) currentStep.value--;
 };
-
-const formControl = computed(() => ({
-  fullName: "",
-  email: "",
-  password: "",
-  ...userPreference,
-}));
-
-const onSubmit = (values: any) => {
-  console.log(values);
-  // const payload = {
-  //   values
-  // }
-
-  // const submit = props.mode == 'register' ? initUser()
-};
 </script>
 
 <template>
   <main class="bg-cream grain">
+    <!-- {{ values }} -->
     <section class="mx-auto max-w-2xl">
       <OContainer :current-step="currentStep" :steps="totalSteps">
         <template #content>
-          <Form
-            @submit="onSubmit"
-            :validation-schema="registerSchema"
-            :initial-values="formControl"
-            keep-values
-          >
           <AnimatePresence mode="popLayout">
             <motion.div
               :key="currentStep"
               v-bind="animation"
               class="motion-step w-full"
             >
+              <form @submit.prevent="submitForm">
                 <WhatBringYouHere
                   v-if="currentStep === 1"
-                  v-model="userPreference.interests"
+                  :modeValue="values.interests"
+                  @update:model-value="(val) => setFieldValue('interests', val)"
                 />
                 <NotInterested
                   v-else-if="currentStep === 2"
-                  v-model="userPreference.notInterested"
+                  :modelValue="values.notInterested"
+                  @update:model-value="
+                    (val) => setFieldValue('notInterested', val)
+                  "
                 />
                 <BodyTypes
                   v-else-if="currentStep === 3"
-                  v-model="userPreference.bodyType"
+                  :modelValue="values.bodyType"
+                  @update:model-value="(val) => setFieldValue('bodyType', val)"
                 />
                 <Favourites
                   v-else-if="currentStep === 4"
-                  v-model="userPreference.favourites"
+                  :modelValue="values.favourites"
+                  @update:model-value="
+                    (val) => setFieldValue('favourites', val)
+                  "
                 />
-                <Register :form="formControl" v-else-if="currentStep === 5" />
-              </motion.div>
-            </AnimatePresence>
-          </Form>
+                <Register
+                  :modelValue="{
+                    fullName: values.fullName,
+                    email: values.email,
+                    password: values.password,
+                  }"
+                  @update:model-value="
+                    (val) => {
+                      setFieldValue('fullName', val.fullName || 'Dave');
+                      setFieldValue('email', val.email);
+                      setFieldValue('password', val.password);
+                    }
+                  "
+                  v-else-if="currentStep === 5"
+                />
+              </form>
+            </motion.div>
+          </AnimatePresence>
         </template>
 
         <template #footer>
@@ -173,7 +201,15 @@ const onSubmit = (values: any) => {
               Continue
               <ArrowRight class="size-4" />
             </Button>
-            <div v-else />
+
+            <Button
+              v-else-if="smallerThan('md')"
+              variant="terracotta"
+              type="submit"
+              @click="submitForm"
+            >
+              Create Account
+            </Button>
           </div>
         </template>
       </OContainer>

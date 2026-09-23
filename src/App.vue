@@ -2,10 +2,12 @@
 import { RouterView, useRoute } from "vue-router";
 import DefaultLayout from "./layouts/DefaultLayout.vue";
 import { computed } from "vue";
+import Dashboard from "./layouts/Dashboard.vue";
 
 
 const layouts = {
-  default : DefaultLayout
+  default : DefaultLayout,
+  dashboard: Dashboard
 }
 const route = useRoute()
 

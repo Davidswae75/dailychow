@@ -59,11 +59,12 @@ const isSelected = (value: string, type: "multiple" | "single"): boolean => {
 const toggleSelection = (value: string, type: "multiple" | "single"): void => {
   if (type === "multiple") {
     const current = model.value.dietaryNeeds;
-    model.value.dietaryNeeds = current.includes(value)
+    const mod = current.includes(value)
       ? current.filter((item) => item !== value)
       : [...current, value];
+      model.value = { ...model.value, dietaryNeeds: mod}
   } else {
-    model.value.pepperLevel = value;
+    model.value = {...model.value, pepperLevel: value };
   }
 };
 </script>

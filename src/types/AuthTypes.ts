@@ -1,6 +1,6 @@
-import type { UserPreference } from "@/views/onboarding/index.vue";
+import type { Dish } from "@/lib/dishes";
 import { toTypedSchema } from "@vee-validate/zod";
-import z from "zod";
+import * as z from "zod";
 
 export type UserProps = {
   fullName: string;
@@ -14,6 +14,20 @@ export type UserProps = {
   createdAt: Date | string;
   joinedDate: Date | string;
 } & UserPreference;
+
+export interface UserPreference {
+  interests: string;
+  notInterested: {
+    dietaryNeeds: string[];
+    pepperLevel: string;
+  };
+  bodyType: {
+    id: string;
+    name: string;
+    category: string;
+  };
+  favourites: Dish[];
+}
 
 const registerSchemaZod = z.object({
   fullName: z.string().nonempty("Full name is required"),
@@ -29,8 +43,16 @@ const registerSchemaZod = z.object({
     name: z.string(),
     category: z.string(),
   }),
-  favourites: z.array(z.record(z.string(), z.any())).default([]),
+  favourites: z.array(z.custom<Dish>()).default([]),
 });
 
 export type RegisterSchemaType = z.infer<typeof registerSchemaZod>;
 export const registerSchema = toTypedSchema(registerSchemaZod);
+
+const loginSchemaZod = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export type loginSchemaType = z.infer<typeof loginSchemaZod>;
+export const loginSchema = toTypedSchema(loginSchemaZod);

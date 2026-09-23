@@ -15,9 +15,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <main class="bg-transparent px-5 md:px-8 min-h-screen relative  flex flex-col justify-between">
+  <main class="bg-transparent px-5 md:px-8 min-h-screen relative  flex flex-col justify-between items-center">
     <slot name="header">
-      <div class="flex justify-between items-center sticky top-0 z-50 bg-cream grain py-4">
+      <div class="flex justify-between items-center sticky top-0 z-50 bg-cream grain py-4 w-full">
       <RouterLink to="/"><Logo /></RouterLink>
         <StepBar :current-step="currentStep" :steps="steps" />
       </div>
@@ -28,8 +28,9 @@ withDefaults(defineProps<Props>(), {
       <slot name="content" />
     </div>
 
-    <slot name="footer">
+    <div class="w-full sticky bottom-0">
+      <slot name="footer"/>
+    </div>
     
-    </slot>
   </main>
 </template>
