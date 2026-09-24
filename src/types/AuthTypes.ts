@@ -11,7 +11,6 @@ export type UserProps = {
   dislikes: any[];
   foodEaten: any[];
   id: string;
-  createdAt: Date | string;
   joinedDate: Date | string;
 } & UserPreference;
 

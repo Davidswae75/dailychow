@@ -1,12 +1,11 @@
-import { signIn } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { useDoc } from "@/hooks/useDoc";
 import type { UserProps } from "@/types";
-import { showErr } from "../utils/error";
-import { FirebaseError } from "firebase/app";
 
 const { setDocument } = useDoc();
+const { signIn } = useAuth()
 
-export async function initUser(user: Omit<UserProps, 'id' | 'userID'>) {
+export async function initUser(user: Omit<UserProps, "id" | "userID">) {
    try {
     const { uid } = await signIn("register", user.email, user.password);
 
@@ -20,13 +19,8 @@ export async function initUser(user: Omit<UserProps, 'id' | 'userID'>) {
       id: uid,
     });
 
-    return { ...user, userID: uid, id: uid}
-   } catch (error) {
-    if (error instanceof FirebaseError) {
-      showErr(error);
-    } else {
-      console.error("An unexpected error occurred:", error);
-    }
+    return { ...user, userID: uid, id: uid };
+   } catch (error: any) {
+    throw new Error(error)
    }
-
-}
+  } 

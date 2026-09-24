@@ -5,6 +5,7 @@ import type { ButtonVariants } from ".";
 import { Primitive } from "reka-ui";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from ".";
+import { Loader2 } from "@lucide/vue";
 
 interface Props extends PrimitiveProps {
   variant?: ButtonVariants["variant"];
@@ -31,9 +32,14 @@ const props = withDefaults(defineProps<Props>(), {
     :data-rounded="rounded"
     :as="as"
     :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class, loading && 'opacity-50')"
+    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class, loading && 'animate-pulse opacity-70 pointer-events-none')"
   >
-    <template v-if="to">
+    <template v-if="loading">
+     <div class="flex gap-2 items-center">
+      <slot/>    <Loader2 class="animate-spin" />
+     </div>
+    </template>
+    <template v-else-if="to">
       <RouterLink :to="to">
         <slot />
       </RouterLink>

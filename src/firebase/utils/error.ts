@@ -1,5 +1,4 @@
 import { FirebaseError } from "firebase/app"
-import { initUser } from "../services/user"
 import { toast } from "vue-sonner"
 
 const errorCapture = async (func: () => Promise<void>, fallBack = 'An Error As Occured') => {
@@ -11,10 +10,18 @@ const errorCapture = async (func: () => Promise<void>, fallBack = 'An Error As O
     }
 }
 
-export const showErr = (error: FirebaseError) => {
+export const firebaseError = (error: FirebaseError) => {
         const msg = getFirebaseErrorMessage(error.code || error.message)
         toast.error(msg || error.message)
         console.log({error, msg})
+}
+
+export const getError = (error: Error | unknown) => {
+    if (error instanceof FirebaseError) {
+        firebaseError(error);
+      } else {
+        console.error("An unexpected error occurred:", error);
+      }
 }
 
 const getFirebaseErrorMessage = (code: string): string | null => {

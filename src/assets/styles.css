@@ -369,6 +369,22 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Alert progress bar - CSS animation for smooth exit without JS conflict */
+.alert-progress {
+  width: 100%;
+  animation: alert-progress linear forwards;
+  will-change: width;
+}
+
+@keyframes alert-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
 /*
  ---break---
  */

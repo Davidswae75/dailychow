@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Input, { type BaseInput, type InputProps } from "../ui/input/Input.vue";
+import Input, { type InputProps } from "../ui/input/Input.vue";
 import { getNestedValue, setNestedValue } from "@/utils";
 import type { HTMLAttributes } from "vue";
 

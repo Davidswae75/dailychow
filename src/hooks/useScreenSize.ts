@@ -42,15 +42,15 @@ export function useScreenSize() {
     window.removeEventListener("resize", handleResize);
   });
 
-  const smallerThan = (screen:  keyof typeof screenSizes) => {
+  const smallerThan = (screen:  ScreenSizes) => {
     return screenSizes[screen] > width.value ? true : false
   }
 
-  const greaterThan = (screen:  keyof typeof screenSizes) => {
+  const greaterThan = (screen:  ScreenSizes) => {
     return screenSizes[screen] < width.value ? true : false
   }
 
-  const equalTo = (screen:  keyof typeof screenSizes) => {
+  const equalTo = (screen:  ScreenSizes) => {
     return screenSizes[screen] === width.value ? true : false
   }
 

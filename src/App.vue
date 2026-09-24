@@ -3,6 +3,7 @@ import { RouterView, useRoute } from "vue-router";
 import DefaultLayout from "./layouts/DefaultLayout.vue";
 import { computed } from "vue";
 import Dashboard from "./layouts/Dashboard.vue";
+import AlertBar from "./components/utils/AlertBar.vue";
 
 
 const layouts = {
@@ -21,4 +22,7 @@ const getLayout = computed(() => {
   <component :is="getLayout">
     <RouterView />
   </component>
+
+  <!-- Global alerts (outside layout so they appear on every page) -->
+  <AlertBar />
 </template>

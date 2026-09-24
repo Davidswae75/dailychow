@@ -4,6 +4,9 @@ import Chip from "../utils/chip.vue";
 import heroSpread from "@/assets/hero-spread.jpg";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
+import { useAlert } from "@/hooks/useAlert";
+import AlertBar from "../utils/AlertBar.vue";
+import { watch } from "vue";
 
 
 const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
@@ -21,9 +24,15 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
       type: "primary",
     },
   ];
+
+  const { alert, alertArray } = useAlert()
+
+
 </script>
 
 <template>
+  <AlertBar :alerts="alertArray"/>
+  
   <main class="relative min-h-[42rem]" id="hero">
     <div
       class="bg-linear-to-r from-cream via-cream/90 to-cream/40 -z-10 inset-0 top-0 absolute"
@@ -70,6 +79,7 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
               variant="terracotta"
               size="xl"
               class="rounded-full flex items-center"
+              @click="alert.info('Test run')"
               >Find tonight's dish <ArrowBigDown />
             </Button>
             <Button variant="link" class="text-lg rounded-none !no-underline"

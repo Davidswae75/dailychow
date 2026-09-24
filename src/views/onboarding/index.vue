@@ -19,6 +19,9 @@ import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
 import { initUser } from "@/firebase/services/user";
 import { useScreenSize } from "@/hooks/useScreenSize";
+import { useAuthStore } from "@/store";
+import { storeToRefs } from "pinia";
+import { getError } from "@/firebase/utils/error";
 
 const currentStep = ref(1);
 const totalSteps = 5;
@@ -44,27 +47,23 @@ const { handleSubmit, values, setFieldValue } = useForm<RegisterSchemaType>({
 });
 
 const { smallerThan } = useScreenSize();
+const loading = ref(false)
+const router = useRouter()
 
 const submitForm = handleSubmit(async (formValues) => {
-  const payload: Omit<UserProps, "id" | "userID"> = {
-    bodyType: formValues.bodyType,
-    createdAt: new Date(),
-    dislikes: [],
-    email: formValues.email,
-    fullName: formValues.fullName,
-    favourites: formValues.favourites as Dish[],
-    foodEaten: [],
-    interests: formValues.interests,
+  try {
+    const payload: Omit<UserProps, "id" | "userID"> = {
     joinedDate: new Date(),
-    notInterested: formValues.notInterested,
-    password: formValues.password,
+    dislikes: [],
+    foodEaten: [],
     role: "user",
+    ...formValues
   };
-
-  console.log("Submitting payload:", payload);
-
-  // const initializeAccount = await initUser(payload);
-  // router.push('/dashboard/home');
+  await initUser(payload);
+  router.push('/dashboard/home')
+  } catch (error) {
+   getError(error) 
+  }
 });
 
 // ---------- Device detection ----------
@@ -107,7 +106,7 @@ const animation = computed(() => {
     initial: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
     animate: { scale: 1, filter: "blur(0px)", opacity: 1 },
     exit: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
-    transition: { duration: 0.5 },
+    transition: { duration: 0.6 },
   };
 });
 
@@ -119,9 +118,12 @@ const goBack = () => {
   if (currentStep.value > 1) currentStep.value--;
 };
 
-const updateField = <T extends keyof RegisterSchemaType>(key: T, val: RegisterSchemaType[T]) => {
-  setFieldValue(key as any, val)
-}
+const updateField = <T extends keyof RegisterSchemaType>(
+  key: T,
+  val: RegisterSchemaType[T]
+) => {
+  setFieldValue(key as any, val);
+};
 </script>
 
 <template>
@@ -145,7 +147,9 @@ const updateField = <T extends keyof RegisterSchemaType>(key: T, val: RegisterSc
                 <NotInterested
                   v-else-if="currentStep === 2"
                   :modelValue="values.notInterested"
-                  @update:model-value="(val) => updateField('notInterested', val)"
+                  @update:model-value="
+                    (val) => updateField('notInterested', val)
+                  "
                 />
                 <BodyTypes
                   v-else-if="currentStep === 3"
@@ -208,6 +212,7 @@ const updateField = <T extends keyof RegisterSchemaType>(key: T, val: RegisterSc
               v-else-if="smallerThan('md')"
               variant="terracotta"
               type="submit"
+              :loading="loading"
               @click="submitForm"
             >
               Create Account

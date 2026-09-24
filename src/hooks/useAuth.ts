@@ -1,9 +1,10 @@
 import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-  } from "firebase/auth";
-  import { auth } from "@/firebase";
-  
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "@/firebase";
+
+export function useAuth() {
   const signIn = async (
     type: "register" | "login",
     email: string,
@@ -17,8 +18,8 @@ import {
       uid: cred.user.uid,
     };
   };
-  
-  export {
-      signIn
+
+  return {
+    signIn,
   }
-  
+}
