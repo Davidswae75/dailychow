@@ -38,7 +38,7 @@ defineComponent({
 <template>
   <main class="min-h-screen bg-cream grain border flex items-center">
     <section class="w-full sm:w-2/3 lg:w-1/3 mx-auto px-5 md:px-8">
-      <form @submit.prevent="submitForm" @click="toast.error('Test run')" class="border-2 border-red-500">
+      <form @submit.prevent="submitForm" >
         <AuthForm
           :modelValue="{ email: values.email, password: values.password }"
           @update:modelValue="
