@@ -23,9 +23,9 @@ onMounted(() => {
   <main class="relative">
     <AnimatePresence>
       <motion.section
-        v-if="isLoggedIn"
+        v-if="!isLoggedIn"
         key="logged_in"
-        :initial="{ opacity: 1, filter: 'blur(0px)' }"
+        :initial="{ opacity: 1 }"
         :exit="{
           opacity: 0,
           filter: 'blur(1px)',
