@@ -36,7 +36,8 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <template v-if="loading">
      <div class="flex gap-2 items-center">
-      <slot/>    <Loader2 class="animate-spin" />
+      <!-- <slot/>   -->
+        <Loader2 class="animate-spin" />
      </div>
     </template>
     <template v-else-if="to">

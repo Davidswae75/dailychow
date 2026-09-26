@@ -1,0 +1,8 @@
+<svg class="w-full h-full" fill="none" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<circle cx="100" cy="100" r="80" stroke="#E2A03A" stroke-dasharray="4 6" stroke-width="1.5"></circle>
+<circle cx="100" cy="100" r="50" stroke="#E2A03A" stroke-width="1"></circle>
+<!-- Steaming Waves -->
+<path class="animate-steam" d="M90 60 C88 50, 96 40, 92 30" stroke="#E2A03A" stroke-linecap="round" stroke-width="2"></path>
+<path class="animate-steam" d="M102 65 C100 52, 108 42, 104 32" stroke="#E2A03A" stroke-linecap="round" stroke-width="2" style="animation-delay: 1.2s;"></path>
+<path class="animate-steam" d="M114 62 C112 50, 120 40, 116 28" stroke="#E2A03A" stroke-linecap="round" stroke-width="2" style="animation-delay: 0.6s;"></path>
+</svg>

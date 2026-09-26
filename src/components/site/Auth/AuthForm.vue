@@ -5,7 +5,8 @@ import Button from "@/components/ui/button/Button.vue";
 import Fields, { type FieldsProp } from "@/components/utils/Fields.vue";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import { Eye, EyeClosed } from "@lucide/vue";
-import { computed, reactive, ref } from "vue";
+import type { Ref } from "vue";
+import { computed, inject, reactive, ref } from "vue";
 
 interface Props {
   mode: "login" | "register";
@@ -32,6 +33,9 @@ const model = defineModel<AuthFormType>({
 });
 
 const pV = ref(false);
+
+const loading = inject<Ref<boolean>>('loading')
+console.log(loading)
 
 const fields = computed<FieldsProp["fields"]>(() => [
   ...(props.mode === "register"
@@ -103,15 +107,19 @@ const fields = computed<FieldsProp["fields"]>(() => [
           </template>
         </Fields>
 
-        <Button
-          block="full"
+    <div class="mx-auto text-center">
+      <Button
+          :block="loading ? 'button' : 'full'"
           variant="terracotta"
-          size="2xl"
+          size="xl"
           type="submit"
+          :loading="loading"
           v-if="mode == 'register' ? greaterThan('md') : true"
+          class="transition-all"
         >
           {{ mode == "login" ? "Sign In" : "Create an account & see my dish" }}
         </Button>
+    </div>
 
         <div>
           <p class="text-muted-foreground text-sm text-center">

@@ -19,10 +19,11 @@ const getLayout = computed(() => {
 </script>
 
 <template>
+<main>
+  <AlertBar />
   <component :is="getLayout">
     <RouterView />
   </component>
 
-  <!-- Global alerts (outside layout so they appear on every page) -->
-  <AlertBar />
+</main>
 </template>

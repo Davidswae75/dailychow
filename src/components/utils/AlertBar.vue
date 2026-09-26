@@ -87,7 +87,7 @@ const positions = Object.keys(positionClasses) as AlertPosition[];
         :initial="{
           opacity: 0,
           y: position.startsWith('bottom') ? 16 : -16,
-          filter: 'blur(5px)',
+          filter: 'blur(10px)',
           scale: 0.985,
         }"
         :animate="{
@@ -99,14 +99,13 @@ const positions = Object.keys(positionClasses) as AlertPosition[];
         :exit="{
           opacity: 0,
           y: position.startsWith('bottom') ? 8 : -8,
-          filter: 'blur(2px)',
+          filter: 'blur(5px)',
           scale: 0.985,
         }"
         :transition="{
           type: 'spring',
-          stiffness: 520,
-          damping: 32,
-          mass: 0.75,
+          stiffness: 700,
+          damping: 20,
         }"
         class="pointer-events-auto w-full max-w-[340px] border rounded-3xl overflow-hidden shadow-sm"
         :class="typeConfig[alert.type].container"

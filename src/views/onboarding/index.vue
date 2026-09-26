@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, unref } from "vue";
+import { ref, computed, onMounted, provide } from "vue";
 import OContainer from "@/components/site/OContainer.vue";
 import WhatBringYouHere from "./WhatBringYouHere.vue";
 import NotInterested from "./NotInterested.vue";
 import BodyTypes from "./BodyTypes.vue";
 import Register from "../auth/Register.vue";
-import Button from "@/components/ui/button/Button.vue";
 import { ArrowLeft, ArrowRight } from "@lucide/vue";
 import { AnimatePresence, motion } from "motion-v";
 import { useForm } from "vee-validate";
@@ -14,14 +13,12 @@ import {
   type RegisterSchemaType,
   type UserProps,
 } from "@/types";
-import type { Dish } from "@/lib/dishes";
 import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
-import { initUser } from "@/firebase/services/user";
 import { useScreenSize } from "@/hooks/useScreenSize";
-import { useAuthStore } from "@/store";
-import { storeToRefs } from "pinia";
-import { getError } from "@/firebase/utils/error";
+import { getError, initUser } from "@/firebase";
+import { useUiStore } from "@/store";
+import Button from "@/components/ui/button/Button.vue";
 
 const currentStep = ref(1);
 const totalSteps = 5;
@@ -47,22 +44,32 @@ const { handleSubmit, values, setFieldValue } = useForm<RegisterSchemaType>({
 });
 
 const { smallerThan } = useScreenSize();
-const loading = ref(false)
-const router = useRouter()
+const loading = ref(false);
+provide("loading", loading);
+const router = useRouter();
+const { alert } = useUiStore();
 
 const submitForm = handleSubmit(async (formValues) => {
+  loading.value = true;
   try {
     const payload: Omit<UserProps, "id" | "userID"> = {
-    joinedDate: new Date(),
-    dislikes: [],
-    foodEaten: [],
-    role: "user",
-    ...formValues
-  };
-  await initUser(payload);
-  router.push('/dashboard/home')
+      joinedDate: new Date(),
+      dislikes: [],
+      foodEaten: [],
+      role: "user",
+      ...formValues,
+    };
+    await initUser(payload);
+
+    alert.success("Registered Successfully, Let's Chow");
+
+    setTimeout(() => {
+      router.push("/dashboard/home");
+    }, 3000);
   } catch (error) {
-   getError(error) 
+    getError(error);
+  } finally {
+    loading.value = false;
   }
 });
 

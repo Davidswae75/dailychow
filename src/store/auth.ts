@@ -2,17 +2,15 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useAuthStore = defineStore('authStore', () => {
-    const loading = ref(false)
+    const isLoggedIn = ref(false)
 
-    const changeLoading = () => {
-        loading.value = !loading.value
-        console.log(loading.value)
+    const changeLoggedInStatus = (state: boolean) => {
+        isLoggedIn.value = state
     }
 
-
     return {
-        loading,
-        changeLoading
+        isLoggedIn,
+        changeLoggedInStatus
     }
     
 })

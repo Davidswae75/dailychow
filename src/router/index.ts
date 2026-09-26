@@ -9,15 +9,31 @@ const routes = [
   {
     path: "/",
     component: index,
+    name: "landing-page",
     meta: {
       layout: "default",
     },
   },
-  { path: "/sign-in", component: () => import("@/views/auth/login.vue") },
-  { path: "/onboarding/registration", component: onboardingRegistration },
+  {
+    path: "/sign-in",
+    name: "sign-in",
+    component: () => import("@/views/auth/login.vue"),
+  },
+  {
+    path: "/onboarding/registration",
+    name: "registration",
+    component: onboardingRegistration,
+  },
 
   //for dashboard
   ...DashboardRoutes,
+
+  
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/components/site/Error.vue"),
+  },
 ];
 
 export const router = createRouter({

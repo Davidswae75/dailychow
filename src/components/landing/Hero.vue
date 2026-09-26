@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { ArrowBigDown,  Flame } from "@lucide/vue";
+import { ArrowBigDown, Flame } from "@lucide/vue";
 import Chip from "../utils/chip.vue";
 import heroSpread from "@/assets/hero-spread.jpg";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
 import { useAlert } from "@/hooks/useAlert";
-import AlertBar from "../utils/AlertBar.vue";
-import { watch } from "vue";
-
 
 const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
   [
@@ -25,14 +22,10 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
     },
   ];
 
-  const { alert, alertArray } = useAlert()
-
-
+const { alert } = useAlert();
 </script>
 
 <template>
-  <AlertBar :alerts="alertArray"/>
-  
   <main class="relative min-h-[42rem]" id="hero">
     <div
       class="bg-linear-to-r from-cream via-cream/90 to-cream/40 -z-10 inset-0 top-0 absolute"
@@ -54,7 +47,8 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
       <div class="space-y-6">
         <Reveal once>
           <Chip class="uppercase" icon-class="" :icon="Flame" variant="primary"
-            >Nigerian Hot Dish </Chip>
+            >Nigerian Hot Dish
+          </Chip>
         </Reveal>
         <div class="md:text-7xl font-text text-4xl flex flex-col font-bold">
           <Reveal once :delay="0.3">

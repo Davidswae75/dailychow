@@ -48,6 +48,7 @@ export const buttonVariants = cva(
       },
       block: {
         full: "w-full",
+        button:'w-5',
         inline: "inline",
       },
     },
