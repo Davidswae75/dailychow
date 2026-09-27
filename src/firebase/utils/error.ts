@@ -1,5 +1,5 @@
-import { useAlert } from "@/hooks/useAlert";
 import { FirebaseError } from "firebase/app";
+import { useToast } from "vue-toastification";
 
 const errorCapture = async (
   func: () => Promise<void>,
@@ -14,10 +14,10 @@ const errorCapture = async (
 };
 
 export const firebaseError = (error: FirebaseError) => {
-  const { alert } = useAlert();
+  const { error: toastError} = useToast();
   const msg = getFirebaseErrorMessage(error.code || error.message);
 
-  alert.error(msg || "An Error Occured");
+  toastError(msg || "An Error Occured");
   console.log({ error, msg });
 };
 

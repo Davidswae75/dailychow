@@ -17,8 +17,8 @@ import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import { getError, initUser } from "@/firebase";
-import { useUiStore } from "@/store";
 import Button from "@/components/ui/button/Button.vue";
+import { useToast } from "vue-toastification";
 
 const currentStep = ref(1);
 const totalSteps = 5;
@@ -47,7 +47,7 @@ const { smallerThan } = useScreenSize();
 const loading = ref(false);
 provide("loading", loading);
 const router = useRouter();
-const { alert } = useUiStore();
+const toast = useToast()
 
 const submitForm = handleSubmit(async (formValues) => {
   loading.value = true;
@@ -61,11 +61,11 @@ const submitForm = handleSubmit(async (formValues) => {
     };
     await initUser(payload);
 
-    alert.success("Registered Successfully, Let's Chow");
+    toast.success("Registered Successfully, Let's Chow");
 
-    setTimeout(() => {
-      router.push("/dashboard/home");
-    }, 3000);
+    loading.value = false;
+    router.push("/dashboard/home");
+
   } catch (error) {
     getError(error);
   } finally {

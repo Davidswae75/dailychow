@@ -5,13 +5,13 @@ import AuthForm, {
 import { getUserByid } from "@/firebase";
 import { getError } from "@/firebase/utils/error";
 import { useAuth } from "@/hooks/useAuth";
-import { useUiStore } from "@/store";
 import { loginSchema } from "@/types";
 import { useForm } from "vee-validate";
-import { defineComponent, provide, ref } from "vue";
+import { provide, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 
-const { alert } = useUiStore();
+const toast = useToast()
 const { signIn } = useAuth();
 const router = useRouter();
 
@@ -36,10 +36,10 @@ const submitForm = handleSubmit(async (formValues) => {
       formValues.password
     );
     // await getUserByid(uid);
-    alert.success("Successfully Logged In");
-    setTimeout(() => {
-      router.push("/dashboard/home");
-    }, 3000);
+    toast.success("Successfully Logged In");
+    router.push("/dashboard/home");
+    // setTimeout(() => {
+    // }, 3000);
   } catch (error) {
     getError(error);
   } finally {
