@@ -113,7 +113,7 @@ const animation = computed(() => {
     initial: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
     animate: { scale: 1, filter: "blur(0px)", opacity: 1 },
     exit: { scale: 0.9, filter: "blur(20px)", opacity: 0 },
-    transition: { duration: 0.6 },
+    transition: { duration: 0.4 },
   };
 });
 

@@ -13,8 +13,8 @@ const layouts = {
 const route = useRoute()
 
 const getLayout = computed(() => {
-  const layoutName = route.meta.layout
-  return layouts[layoutName as keyof typeof layouts] || layouts['default']
+  const layoutName = route.meta.layout;
+  return layouts[layoutName as keyof typeof layouts] || layouts['default'];
 })
 </script>
 

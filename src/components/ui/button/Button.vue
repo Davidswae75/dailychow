@@ -40,11 +40,11 @@ const props = withDefaults(defineProps<Props>(), {
         <Loader2 class="animate-spin" />
      </div>
     </template>
-    <template v-else-if="to">
+    <div class="w-full h-full" v-else-if="to">
       <RouterLink :to="to">
         <slot />
       </RouterLink>
-    </template>
+    </div>
     <template v-else><slot /></template>
   </Primitive>
 </template>
