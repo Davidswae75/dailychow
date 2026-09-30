@@ -28,7 +28,7 @@ withDefaults(defineProps<Props>(), {
           transition: { duration: 0.4, ease: 'easeInOut' },
         }"
         :transition="{ duration: 0.5 }"
-        class="min-h-screen bg-terracotta flex justify-center items-center inset-0 absolute top-0 left-0 weave"
+        class="min-h-screen bg-terracotta flex justify-center items-center inset-0 absolute top-0 left-0 weave z-50"
       >
         <div>
           <img
