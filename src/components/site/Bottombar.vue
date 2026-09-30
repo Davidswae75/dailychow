@@ -25,6 +25,11 @@ const routes = [
     to: "/dashboard/preferences",
     icon: Settings,
   },
+  {
+    name: "Preferences",
+    to: "/dashboard/preferences",
+    icon: Settings,
+  },
 ];
 
 const route = useRoute();

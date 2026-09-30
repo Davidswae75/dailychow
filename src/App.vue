@@ -27,22 +27,22 @@ const getLayout = computed(() => {
           :key="$route.fullPath"
           :initial="{
             opacity: 0,
-            scale: 0.9
+            scale: 0.9,
           }"
           :animate="{
             opacity: 1,
-            scale: 1
+            scale: 1,
           }"
           :exit="{
-                opacity: 0,
-                scale: 0.9,
+            opacity: 0,
+            scale: 0.9,
             transition: {
-              duration: 0.5
-            }
+              duration: 0.5,
+            },
           }"
           :transition="{
             ease: 'easeInOut',
-            duration: 0.7
+            duration: 0.7,
           }"
         >
           <RouterView />
