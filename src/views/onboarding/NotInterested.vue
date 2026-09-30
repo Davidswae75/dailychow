@@ -63,10 +63,11 @@ const toggleSelection = (value: string, type: "multiple" | "single"): void => {
       ? current.filter((item) => item !== value)
       : [...current, value];
       model.value = { ...model.value, dietaryNeeds: mod}
-  } else {
-    model.value = {...model.value, pepperLevel: value };
-  }
-};
+    } else {
+      model.value = {...model.value, pepperLevel: value };
+    }
+    
+  };
 </script>
 
 <template>

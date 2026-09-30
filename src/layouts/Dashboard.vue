@@ -3,10 +3,10 @@ import { useAuth } from "@/hooks";
 import { useAuthStore, useUserStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
-import foodgif from "@/assets/warming-food.gif";
 import { AnimatePresence, motion } from "motion-v";
 import LoadingScreen from "@/components/utils/LoadingScreen.vue";
 import Sidebar from "@/components/site/Sidebar.vue";
+import Bottombar from "@/components/site/Bottombar.vue";
 
 const authStore = useAuthStore();
 const { isLoggedIn } = storeToRefs(authStore);
@@ -56,23 +56,12 @@ onMounted(() => {
           >
             <div>
               <slot />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-              perferendis reprehenderit hic delectus eos maxime eveniet
-              consequuntur, a debitis voluptas iure, optio laborum quisquam
-              autem animi nihil beatae numquam, quia magni perspiciatis nulla
-              nam consectetur? Nesciunt alias eligendi suscipit adipisci
-              aliquid, nemo itaque repellat illo praesentium! Magni, commodi
-              illo. Voluptatum ex perferendis nulla reprehenderit, ducimus,
-              molestiae modi quo accusantium laborum alias dolorem consequuntur
-              ipsum quidem, voluptas rerum odit assumenda. Debitis, possimus.
-              Magni qui cupiditate consequuntur quae fuga nulla aut fugit
-              voluptatum voluptates, error architecto incidunt, debitis
-              reprehenderit aspernatur ex commodi, molestiae dolorum illo
-              voluptatibus? Ipsam, sapiente aperiam. Aliquid, suscipit ipsum?
+          
             </div>
           </motion.div>
         </AnimatePresence>
       </main>
     </section>
+    <Bottombar/>
   </main>
 </template>

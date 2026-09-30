@@ -130,6 +130,7 @@ const updateField = <T extends keyof RegisterSchemaType>(
   val: RegisterSchemaType[T]
 ) => {
   setFieldValue(key as any, val);
+
 };
 </script>
 

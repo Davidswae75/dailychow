@@ -2,14 +2,18 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useRouter } from "vue-router";
 import { getUserByid } from "@/firebase/services/user";
 import { getError } from "@/firebase/utils/error";
 import { useUserStore } from "@/store";
+import { useToast } from "vue-toastification";
 
 export function useAuth() {
+  const toast = useToast()
+
   const signIn = async (
     type: "register" | "login",
     email: string,
@@ -43,8 +47,15 @@ export function useAuth() {
     });
   };
 
+  const signOutUser = async () => {
+    await signOut(auth).then(() => {
+      toast.info('Logged Out Successfully')
+    })
+  }
+
   return {
     signIn,
     checkUser,
+    signOutUser
   };
 }

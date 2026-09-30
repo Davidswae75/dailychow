@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { motion } from "motion-v";
 import type { Component } from "vue";
+import { computed } from "vue";
 
 const presets = {
   primary:
@@ -25,10 +26,10 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'selection'
 });
 
-const types = {
+const types = computed(() => ({
   navigation : 'border-0 group no-underline! hover:bg-cream/100 bg-transparent shadow-none! *:text-muted-foreground cursor-pointer',
   selection: presets[props.variant]
-}
+}))
 </script>
 
 <template>
@@ -52,9 +53,9 @@ const types = {
         damping: 32,
       }"
     />
-
-
-    <div class="flex items-center gap-3">
+    
+    
+    <div class="flex  items-center justify-center gap-3">
       <component v-if="icon" :is="icon" class="size-4" :class="iconClass"/>
       <slot/>
     </div>
