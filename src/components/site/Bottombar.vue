@@ -42,7 +42,7 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
 <template>
     <main class="fixed bottom-5 left-0 md:hidden w-full">
         <div class="rounded-2xl border border-border h-16 w-11/12 mx-auto backdrop-blur-lg bg-cream/50">
-            <section class="flex justify-between  gap-3 transition-all p-3">
+            <section class="flex justify-between  gap-1 transition-all p-3">
       <Chip
         v-for="route in routes"
         :class="[getActiveRoute(route.to) && '*:text-cream!']"
@@ -53,7 +53,7 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
         :active="getActiveRoute(route.to)"
         @click="$router.push(route.to)"
         :icon="route.icon"
-        iconClass="z-20 text-crem size-5"
+        iconClass="z-20 text-crem size-5.5 mx-1"
         type="navigation"
       >
         <!-- <div
