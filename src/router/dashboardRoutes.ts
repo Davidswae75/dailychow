@@ -1,3 +1,4 @@
+import History from "@/views/app/History.vue";
 import Home from "@/views/app/home.vue";
 import Pick from "@/views/app/Pick.vue";
 import Planner from "@/views/app/Planner.vue";
@@ -19,6 +20,10 @@ const dashboardRoutes = [
     {
         path: '/dashboard/preferences',
         component: Preferences
+    },
+    {
+        path: '/dashboard/history',
+        component: History
     }
 ].map((d) => ({
     ...d,
