@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion-v";
 import LoadingScreen from "@/components/utils/LoadingScreen.vue";
 import Sidebar from "@/components/site/Sidebar.vue";
 import Bottombar from "@/components/site/Bottombar.vue";
+import NavBar from "@/components/app/NavBar.vue";
 
 const authStore = useAuthStore();
 const { isLoggedIn } = storeToRefs(authStore);
@@ -25,43 +26,39 @@ onMounted(() => {
   <main
     class="relative grid md:grid-cols-[100px_calc(100%-100px)] lg:grid-cols-[300px_calc(100%-300px)] bg-paper md:py-3 md:pr-3 transition-all grain"
   >
-    <section
-      class="bg-inherit text-cream hidden md:block"
-    >
-     <Sidebar/>
+    <section class="bg-inherit text-cream hidden md:block">
+      <Sidebar />
     </section>
 
-
     <section
-      class="min-h-screen md:min-h-0 md:h-[calc(100vh-23px)] self-center bg-cream md:rounded-[40px] overflow-scroll shadow-terracotta-deep grain"
+      class="h-screen min-h-screen relative md:min-h-0 md:h-[calc(100dvh-23px)] self-center bg-cream md:rounded-[40px] flex flex-col shadow-terracotta-deep grain overflow-scroll"
     >
-      <main>
-        <LoadingScreen :state="!isLoggedIn"/>
+    <LoadingScreen :state="!isLoggedIn" />
+      <NavBar />
 
-        <AnimatePresence>
-          <motion.div
-            v-if="isLoggedIn"
-            key="logged_in"
-            :initial="{ opacity: 1, filter: 'blur(10px)' }"
-            :animate="{
-              filter: 'blur(0px)',
-              opacity: 1,
-            }"
-            :exit="{
-              opacity: 0,
-              filter: 'blur(1px)',
-              transition: { duration: 0.4, ease: 'easeInOut' },
-            }"
-            :transition="{ duration: 1.3 }"
-          >
-            <div>
-              <slot />
-          
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </main>
+
+      <AnimatePresence>
+        <motion.div
+          v-if="isLoggedIn"
+          key="logged_in"
+          :initial="{ opacity: 1, filter: 'blur(10px)' }"
+          :animate="{
+            filter: 'blur(0px)',
+            opacity: 1,
+          }"
+          :exit="{
+            opacity: 0,
+            filter: 'blur(1px)',
+            transition: { duration: 0.4, ease: 'easeInOut' },
+          }"
+          :transition="{ duration: 1.3 }"
+        >
+          <div>
+            <slot />
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </section>
-    <Bottombar/>
+    <Bottombar />
   </main>
 </template>

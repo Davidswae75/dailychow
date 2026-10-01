@@ -250,7 +250,34 @@
     letter-spacing: -0.02em;
     font-weight: 600;
   }
+
+  a {
+    cursor : pointer;
+  }
+
+  .v-lazy-image {
+    filter: blur(40px);
+    transition: all 0.7s;
+  }
+  .v-lazy-image-loaded {
+    filter: blur(0);
+  }
 }
+
+
+@utility standard_width {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 6rem 1.25rem;
+
+  @media (min-width: 768px) {
+      padding: 8rem 1.25rem;
+  }
+  @media (min-width: 1024px) {
+      padding: 8rem 0rem;
+  }
+}
+
 
 @utility measure {
   max-width: 34rem;

@@ -46,7 +46,7 @@ const { alert } = useAlert();
     <section class="standard_width z-10 grid md:grid-cols-2 gap-10">
       <div class="space-y-6">
         <Reveal once>
-          <Chip class="uppercase" icon-class="" :icon="Flame" variant="primary"
+          <Chip class="uppercase inline-block" :icon="Flame" variant="primary"
             >Nigerian Hot Dish
           </Chip>
         </Reveal>
@@ -77,7 +77,7 @@ const { alert } = useAlert();
               >Find tonight's dish <ArrowBigDown />
             </Button>
             <Button variant="link" class="text-lg rounded-none !no-underline"
-              ><p class="border-b border-ink/50 pb-2">How it works</p>
+              ><p class="border-b border-ink/50 pb-2 text-sm">How it works</p>
             </Button>
           </div>
         </Reveal>

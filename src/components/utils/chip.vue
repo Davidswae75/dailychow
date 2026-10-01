@@ -27,14 +27,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const types = computed(() => ({
-  navigation : 'border-0 group no-underline! hover:bg-cream/100 bg-transparent shadow-none! *:text-muted-foreground cursor-pointer',
+  navigation : 'border-0 group no-underline! hover:bg-cream/100 bg-transparent shadow-none! *:text-muted-foreground cursor-pointer ' + presets[props.variant],
   selection: presets[props.variant]
 }))
 </script>
 
 <template>
   <div
-    class="rounded-full py-2 px-3.5 text-xs tracking-wider transition-all relative shadow-2xl"
+    class="rounded-full py-2 px-3.5 text-xs tracking-wider transition-all relative"
     :class="[
       types[type],
       hover && 'hover:border-terracotta/60 cursor-pointer!',
@@ -55,7 +55,7 @@ const types = computed(() => ({
     />
     
     
-    <div class="flex  items-center justify-center gap-3">
+    <div class="flex items-center justify-center gap-3">
       <component v-if="icon" :is="icon" class="size-4" :class="iconClass"/>
       <slot/>
     </div>

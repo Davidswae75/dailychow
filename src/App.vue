@@ -23,7 +23,7 @@ const getLayout = computed(() => {
     <AlertBar />
     <component :is="getLayout">
       <AnimatePresence mode="popLayout">
-        <motion.div
+        <!-- <motion.div
           :key="$route.fullPath"
           :initial="{
             opacity: 0,
@@ -44,9 +44,9 @@ const getLayout = computed(() => {
             ease: 'easeInOut',
             duration: 0.7,
           }"
-        >
+        > -->
           <RouterView />
-        </motion.div>
+        <!-- </motion.div> -->
       </AnimatePresence>
     </component>
   </main>
