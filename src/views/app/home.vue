@@ -17,7 +17,7 @@ const getImage = computed(() => images[count.value % images.length]);
 <template>
   <main class="grid grid-cols-12 px-5 md:px-8 py-5 gap-3 *:rounded-2xl">
     <section
-      class="h-64 col-span-12 flex flex-col justify-between md:col-span-8 border weave p-4 pl-3 relative overflow-clip -z-10 font-sans"
+      class="h-64 col-span-12 flex flex-col justify-between md:col-span-8 border weave p-4 pl-3 relative overflow-clip -z-10 font-sans transition-all"
     >
       <p class="text-3xl font-black text-paper z-10">
         Your Food To Eat Today is <br />
@@ -29,10 +29,10 @@ const getImage = computed(() => images[count.value % images.length]);
       <v-img
         :src="getImage"
         alt="joll0f"
-        class="-z-70 object-cover size-65 md:size-75 lg:size-120 top-0 -right-6 absolute animate-float-slower"
+        class="-z-70 object-cover size-65 sm:size-90 md:size-75 lg:size-120 top-0 -right-6 absolute animate-float-slower"
       />
       <div
-        class="bg-linear-to-l from-charcoal/50 to-charcoal/0 z-10 absolute inset-0 top-0"
+        class="bg-linear-to-l from-charcoal/55 to-charcoal/0 z-10 absolute inset-0 top-0"
       ></div>
       <div
         class="bg-linear-to-r from-terracotta-deep via-terracotta-deep via-50% to-terracotta/0 -z-10 absolute inset-0 top-0"
