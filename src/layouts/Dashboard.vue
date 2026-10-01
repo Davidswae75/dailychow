@@ -31,7 +31,7 @@ onMounted(() => {
     </section>
 
     <section
-      class="h-screen min-h-screen relative md:min-h-0 md:h-[calc(100dvh-23px)] self-center bg-cream md:rounded-[40px] flex flex-col shadow-terracotta-deep grain overflow-scroll"
+      class="h-screen min-h-screen relative md:min-h-0 md:h-[calc(100vh-23px)] self-center bg-cream md:rounded-[40px] flex flex-col shadow-terracotta-deep grain overflow-scroll"
     >
     <LoadingScreen :state="!isLoggedIn" />
       <NavBar />

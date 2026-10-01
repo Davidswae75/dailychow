@@ -77,9 +77,9 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
       </Chip>
     </section>
 
-    <section class="w-full absolute bottom-2">
+    <section class="w-full absolute left-0 px-1.5 lg:px-5 -bottom-5">
       <div
-        class="rounded-l-2xl border border-border bg-cream p-3 pr-10 space-y-2"
+        class="rounded-2xl border border-border bg-cream p-3.5 pr-10 space-y-2"
       >
         <p
           class="text-terracotta text-xs font-bold tracking-wide uppercase hidden lg:block"
@@ -93,7 +93,7 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
         @click="signOutUser"
           variant="outline"
           block="full"
-          class="text-charcoal text-sm flex gap-2 justify-start items-center"
+          class="text-charcoal text-sm flex gap-2 lg:justify-start justify-center items-center"
           ><LogOut class="size-4" />
           <span class="hidden lg:block">Sign out</span></Button
         >

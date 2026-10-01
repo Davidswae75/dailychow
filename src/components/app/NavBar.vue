@@ -6,7 +6,7 @@ import Button from "../ui/button/Button.vue";
 
 <template>
   <header
-    class="h-14 sticky top-0 z-50 bg-cream flex items-center grain border border-border p-5 pr-6 md:p-8"
+    class="h-14 sticky top-0 z-50 bg-cream flex items-center grain border-b border-border p-5 pr-6 md:p-8"
   >
     <div class="flex items-center gap-3 justify-center w-full">
       <Logo name="" bg size="md" />
