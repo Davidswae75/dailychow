@@ -23,7 +23,7 @@ const getImage = computed(() => images[count.value % images.length]);
         Your Food To Eat Today is <br />
         <span class="text-saffron text-5xl">Eba and Soup</span>
       </p>
-      <div class="bottom-0 absolute z-[1000] ">
+      <div class="bottom-5 absolute z-[1000] ">
         <Button @click="count++" class="z" variant="accent">Show Full Details</Button>
       </div>
       <v-img
