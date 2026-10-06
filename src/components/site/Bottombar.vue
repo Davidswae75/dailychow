@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Clock, LayoutDashboard, Pickaxe, Plane, Settings } from "@lucide/vue";
+import { Archive, Clock, LayoutDashboard, Pickaxe, Plane, Settings } from "@lucide/vue";
 import Chip from "../utils/chip.vue";
 import { useRoute } from "vue-router";
 
