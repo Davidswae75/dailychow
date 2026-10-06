@@ -15,6 +15,11 @@ const routes = [
     icon: Pickaxe,
   },
   {
+    name: "Foods",
+    to: "/dashboard/foods",
+    icon: Archive,
+  },
+  {
     name: "Planner",
     to: "/dashboard/planner",
     icon: Plane,
