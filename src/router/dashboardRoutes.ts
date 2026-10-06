@@ -1,3 +1,4 @@
+import Foods from "@/views/app/Foods/index.vue";
 import History from "@/views/app/History.vue";
 import Home from "@/views/app/home.vue";
 import Pick from "@/views/app/Pick.vue";
@@ -24,6 +25,10 @@ const dashboardRoutes = [
     {
         path: '/dashboard/history',
         component: History
+    },
+    {
+        path: '/dashboard/foods',
+        component: Foods
     }
 ].map((d) => ({
     ...d,

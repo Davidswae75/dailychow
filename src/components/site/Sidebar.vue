@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LayoutDashboard, Pickaxe, Plane, Settings, LogOut, Clock } from "@lucide/vue";
+import { LayoutDashboard, Pickaxe, Plane, Settings, LogOut, Clock, Archive } from "@lucide/vue";
 import Logo from "./Logo.vue";
 import { useRoute } from "vue-router";
 import Chip from "../utils/chip.vue";
@@ -20,6 +20,11 @@ const routes = [
     name: "Pick",
     to: "/dashboard/pick",
     icon: Pickaxe,
+  },
+  {
+    name: "Foods",
+    to: "/dashboard/foods",
+    icon: Archive,
   },
   {
     name: "Planner",

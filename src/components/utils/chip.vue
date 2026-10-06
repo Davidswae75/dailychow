@@ -5,9 +5,10 @@ import { computed } from "vue";
 
 const presets = {
   primary:
-    "bg-card/90 shadow-soft border-terracotta/20 border text-ink font-weight-medium *:stroke-terracotta",
+  "bg-card/90 shadow-soft border-terracotta/20 border text-ink font-weight-medium *:stroke-terracotta",
   secondary: "bg-terracotta text-cream font-weight-medium border border-border",
   accent: "bg-olive text-cream font-weight-medium",
+  saffron: 'bg-saffron text-charcoal'
 };
 
 type Type = 'navigation' | 'selection'
@@ -55,7 +56,7 @@ const types = computed(() => ({
     />
     
     
-    <div class="flex items-center justify-center gap-3">
+    <div class="flex items-center justify-center gap-2">
       <component v-if="icon" :is="icon" class="size-4" :class="iconClass"/>
       <slot/>
     </div>
