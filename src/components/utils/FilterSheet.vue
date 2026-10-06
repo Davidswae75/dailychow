@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="T extends Record<string, any>">
+import { SlidersHorizontal } from '@lucide/vue';
 import Button from '../ui/button/Button.vue';
 import Sheet from '../ui/sheet/Sheet.vue';
 import SheetClose from '../ui/sheet/SheetClose.vue';
@@ -28,8 +29,8 @@ const props = withDefaults(defineProps<FilterSheetProps<T>>(), {
 });
 
 const emit = defineEmits<{
-  'apply': [];
-  'reset': [];
+  (e: 'apply'): void;
+  (e: 'reset'): void;
 }>();
 
 </script>
@@ -38,7 +39,7 @@ const emit = defineEmits<{
   <Sheet>
     <SheetTrigger as-child>
       <slot name="trigger">
-        <Button size="xl" variant="terracotta">Open Filters</Button>
+        <Button size="xl" variant="terracotta" class="inline-flex gap-1">Filters <SlidersHorizontal /></Button>
       </slot>
     </SheetTrigger>
 
@@ -52,24 +53,26 @@ const emit = defineEmits<{
 
       <div class="flex-1 overflow-y-auto py-">
         <DividerLine color="green-500" />
-
+        
         <div class="space-y-4 mt-4">
           <slot 
             name="filters" 
             :filters="filters" 
             :items="items" 
-          />
-        </div>
+            />
+          </div>
       </div>
-
+      
+      
+      <DividerLine color="green-500" />
       <SheetFooter class="flex flex-row justify-end">
         <SheetClose as-child>
-          <Button variant="ghost" @click="$emit('reset')">
+          <Button variant="ghost" @click="emit('reset')">
             Reset
           </Button>
         </SheetClose>
         <SheetClose as-child>
-          <Button @click="$emit('apply')" variant="secondary">
+          <Button @click="emit('apply')" variant="secondary">
             Apply
           </Button>
         </SheetClose>

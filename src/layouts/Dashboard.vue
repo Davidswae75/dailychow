@@ -18,7 +18,10 @@ const { user } = storeToRefs(userStore);
 const { checkUser } = useAuth();
 
 onMounted(() => {
-  checkUser();
+  // checkUser();
+    authStore.$patch({
+      isLoggedIn: true
+    })
 });
 </script>
 

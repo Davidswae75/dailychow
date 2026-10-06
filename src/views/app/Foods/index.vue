@@ -2,13 +2,15 @@
 import Chip from "@/components/utils/chip.vue";
 import ContentCard from "@/components/utils/ContentCard.vue";
 import FilterSheet, { type Filter } from "@/components/utils/FilterSheet.vue";
-import { CookingPot, Search } from "@lucide/vue";
-import { ref } from "vue";
+import { CookingPot } from "@lucide/vue";
+import { computed, ref } from "vue";
 import FilterFoods from "./FilterFoods.vue";
 import { dishes, type Dish } from "@/lib/dishes";
-import Input from "@/components/ui/input/Input.vue";
-const foods = ref<string[]>([]);
+import SearchInput from "@/components/utils/SearchInput.vue";
 
+import DishCard from "@/components/utils/DishCard.vue";
+
+const foods = ref<string[]>([]);
 
 const filter: Filter<Dish>[] = [
   {
@@ -16,6 +18,26 @@ const filter: Filter<Dish>[] = [
     value: "category",
   },
 ];
+
+const search = ref("");
+
+const filterDishes = computed(() => {
+  const sL = search.value.toLowerCase();
+
+  return dishes.filter((dish) => {
+    const matchesCategoryFilter =
+      foods.value.length === 0 || foods.value.includes(dish.category);
+
+    const matchesSearch =
+      !sL ||
+      dish.name.toLowerCase().includes(sL) ||
+      dish.category.toLowerCase().includes(sL);
+
+    return matchesSearch && matchesCategoryFilter;
+  });
+});
+
+
 </script>
 
 <template>
@@ -32,30 +54,41 @@ const filter: Filter<Dish>[] = [
             variant="saffron"
             class="inline-block !py-1 font-bold"
             :icon="CookingPot"
-            >All Available Dishes</Chip
+            >All Available Dishes{{ foods }}</Chip
           >
         </template>
       </ContentCard>
     </div>
 
-    <div class="px-4 flex items-center justify-end text-end float-right md:w-3/5 w-full  gap-2">
-      <Input name="foodSearch" input-class="inline-block">
-        <template #append-icon>
-          <Search class="text-muted-foreground"/>
-        </template>
-      </Input>
-      <FilterSheet :items="dishes" :filters="filter" description="This is the description">
-        <template #filters>
-          <FilterFoods
-            v-for="f in filter"
-            :key="f.label"
-            :filter="f"
-            :items="dishes"
-            v-model="foods"
-          />
-        </template>
-      </FilterSheet>
-      <!-- <SelectFood v-model="foods" /> -->
-    </div>
+    <section>
+      <div
+        class="px-4 flex items-center justify-end text-end float-right md:w-3/5 w-full gap-2"
+      >
+        <SearchInput v-model="search" />
+        <FilterSheet
+          :items="dishes"
+          :filters="filter"
+          description="This is the description"
+           @reset="foods = []"
+           @apply=""
+        >
+          <template #filters>
+            <FilterFoods
+              v-for="f in filter"
+              :key="f.label"
+              :filter="f"
+              :items="dishes"
+              v-model="foods"
+            />
+          </template>
+        </FilterSheet>
+      </div>
+    </section>
+
+    <section
+      class="grid md:grid-cols-2 lg:grid-cols-4 w-full pt-5 px-4 mx-auto w-4/5 md:w-full gap-3"
+    >
+      <DishCard v-for="dish in filterDishes" :key="dish.id" :dish="dish" />
+    </section>
   </main>
 </template>
