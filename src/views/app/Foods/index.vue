@@ -2,43 +2,19 @@
 import Chip from "@/components/utils/chip.vue";
 import ContentCard from "@/components/utils/ContentCard.vue";
 import FilterSheet, { type Filter } from "@/components/utils/FilterSheet.vue";
-import SelectFood from "@/components/utils/SelectFood.vue";
-import { CookingPot } from "@lucide/vue";
+import { CookingPot, Search } from "@lucide/vue";
 import { ref } from "vue";
-
+import FilterFoods from "./FilterFoods.vue";
+import { dishes, type Dish } from "@/lib/dishes";
+import Input from "@/components/ui/input/Input.vue";
 const foods = ref<string[]>([]);
 
-interface Menu {
-  name: string;
-  category: string;
-  color?: string;
-}
 
-const menu: Menu[] = [
-  {
-    name: "Egusi",
-    category: "Soup",
-    color: 'blue',
-  },
-  {
-    name: "Jollof Rice",
-    category: "Rice",
-  },
-  {
-    name: "Porridge Beans",
-    category: "Beans",
-  },
-];
-
-const filter: Filter<Menu>[] = [
+const filter: Filter<Dish>[] = [
   {
     label: "Category",
-    value: 'category'
+    value: "category",
   },
-  {
-    label: 'Name',
-    value: 'name'
-  }
 ];
 </script>
 
@@ -62,8 +38,23 @@ const filter: Filter<Menu>[] = [
       </ContentCard>
     </div>
 
-    <div class="px-4">
-      <FilterSheet :items="menu" :filter-keys="filter"/>
+    <div class="px-4 flex items-center justify-end text-end float-right md:w-3/5 w-full  gap-2">
+      <Input name="foodSearch" input-class="inline-block">
+        <template #append-icon>
+          <Search class="text-muted-foreground"/>
+        </template>
+      </Input>
+      <FilterSheet :items="dishes" :filters="filter" description="This is the description">
+        <template #filters>
+          <FilterFoods
+            v-for="f in filter"
+            :key="f.label"
+            :filter="f"
+            :items="dishes"
+            v-model="foods"
+          />
+        </template>
+      </FilterSheet>
       <!-- <SelectFood v-model="foods" /> -->
     </div>
   </main>
