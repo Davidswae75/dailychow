@@ -86,7 +86,7 @@ const filterDishes = computed(() => {
     </section>
 
     <section
-      class="grid md:grid-cols-2 lg:grid-cols-4 w-full pt-5 px-4 mx-auto w-4/5 md:w-full gap-3"
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pt-5 px-4 mx-auto gap-2"
     >
       <DishCard v-for="dish in filterDishes" :key="dish.id" :dish="dish" />
     </section>
