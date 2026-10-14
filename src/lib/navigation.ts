@@ -21,3 +21,6 @@ export const navItems: NavItem[] = [
 
 /** A nav item is active on its own page and on pages nested under it. */
 export const isActivePath = (current: string, to: string) => current === to || current.startsWith(`${to}/`);
+
+/** The nav item a path belongs to, e.g. a dish page belongs to Foods. */
+export const navItemFor = (path: string) => navItems.find((item) => isActivePath(path, item.to)) ?? null;

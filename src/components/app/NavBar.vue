@@ -1,38 +1,51 @@
 <script setup lang="ts">
-import { Bell, Search } from "@lucide/vue";
-import { storeToRefs } from "pinia";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { AnimatePresence, motion } from "motion-v";
 import Logo from "../site/Logo.vue";
-import UserAvatar from "./common/UserAvatar.vue";
-import { useUserStore } from "@/store";
+import DishSearch from "./topbar/DishSearch.vue";
+import TonightChip from "./topbar/TonightChip.vue";
+import UserMenu from "./topbar/UserMenu.vue";
+import { navItemFor } from "@/lib/navigation";
+import { formatLongDate } from "@/lib/dates";
 
-const { user } = storeToRefs(useUserStore());
+/**
+ * Dashboard top bar: where you are (title on desktop, logo on phones),
+ * search, tonight's pick and the account menu. Frosted to match the bottom nav.
+ */
+const route = useRoute();
+const title = computed(() => navItemFor(route.path)?.name ?? "Daily Chow");
+const today = formatLongDate(new Date());
 </script>
 
 <template>
   <header
-    class="h-16 sticky top-0 z-30 bg-cream/90 backdrop-blur-md flex items-center border-b border-border px-5 md:px-8"
+    class="glass sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b border-white/70 px-4 md:h-[4.5rem] md:rounded-t-[40px] md:px-8"
   >
-    <div class="flex items-center gap-3 w-full">
-      <Logo name="" bg size="md" class="md:hidden" />
-      <RouterLink
-        to="/dashboard/foods"
-        class="inline-flex h-10 items-center gap-2 rounded-full border border-border bg-paper px-4 text-sm text-ink transition-colors hover:text-charcoal"
-      >
-        <Search class="size-4" /> Search foods
-      </RouterLink>
+    <RouterLink to="/dashboard/home" aria-label="Daily Chow home" class="md:hidden">
+      <Logo name="" size="sm" />
+    </RouterLink>
 
-      <div class="ml-auto flex items-center gap-2">
-        <button
-          type="button"
-          aria-label="Notifications"
-          class="grid size-10 place-items-center rounded-full text-olive transition-colors hover:bg-muted"
+    <div class="hidden min-w-0 flex-col md:flex">
+      <span class="text-xs text-ink">{{ today }}</span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          :key="title"
+          class="font-display text-xl leading-tight font-bold text-charcoal"
+          :initial="{ opacity: 0, y: 6 }"
+          :animate="{ opacity: 1, y: 0 }"
+          :exit="{ opacity: 0, y: -6 }"
+          :transition="{ duration: 0.2 }"
         >
-          <Bell class="size-5" />
-        </button>
-        <RouterLink to="/dashboard/preferences" aria-label="Your preferences" class="rounded-full">
-          <UserAvatar :name="user?.fullName" size="sm" />
-        </RouterLink>
-      </div>
+          {{ title }}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+
+    <div class="ml-auto flex items-center gap-2">
+      <DishSearch />
+      <TonightChip />
+      <UserMenu />
     </div>
   </header>
 </template>
