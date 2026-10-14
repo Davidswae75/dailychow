@@ -29,7 +29,7 @@ const delay = Math.min(props.index, 12) * 0.04;
     :transition="{ type: 'spring', stiffness: 400, damping: 32, delay }"
   >
     <div
-      class="bg-saffron text-charcoal py-1.5 px-2.5 rounded-4xl text-xs font-medium absolute top-5 capitalize left-4 z-50"
+      class="bg-saffron text-charcoal py-1.5 px-2 rounded-4xl text-xs font-normal absolute top-5 capitalize left-4 z-50"
     >
       {{ dish.category }}
     </div>

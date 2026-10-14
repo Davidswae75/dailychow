@@ -20,11 +20,13 @@ interface Props {
   hover?: boolean;
   active?: boolean;
   type?: Type;
+  layoutId?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: "primary",
-  type: 'selection'
+  type: 'selection',
+  layoutId: 'selected-bg'
 });
 
 const types = computed(() => ({
@@ -46,7 +48,7 @@ const types = computed(() => ({
     <motion.span
       v-if="active"
       layout
-      layout-id="selected-bg"
+      :layout-id="layoutId"
       class="absolute inset-0 rounded-full bg-terracotta"
       :transition="{
         type: 'spring',
