@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -61,6 +60,9 @@
 
   --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Aliases for classes already used across the app (font-text, font-body) */
+  --font-text: var(--font-sans);
+  --font-body: var(--font-sans);
 
   --shadow-soft: 0 1px 2px oklch(0.35 0.05 50 / 0.05),
     0 12px 32px -14px oklch(0.45 0.08 50 / 0.18);
