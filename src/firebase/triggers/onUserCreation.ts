@@ -10,7 +10,6 @@ export async function onUserCreation(user: UserProps) {
     const payload: UserProps = {
       email: user.email,
       fullName: user.fullName,
-      password: user.password,
       id: user.id,
       foodEaten: [],
       notInterested: user.notInterested,

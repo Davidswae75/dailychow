@@ -11,7 +11,7 @@ import { useForm } from "vee-validate";
 import {
   registerSchema,
   type RegisterSchemaType,
-  type UserProps,
+  type NewUser,
 } from "@/types";
 import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
@@ -55,7 +55,7 @@ const toast = useToast()
 const submitForm = handleSubmit(async (formValues) => {
   loading.value = true;
   try {
-    const payload: Omit<UserProps, "id" | "userID"> = {
+    const payload: NewUser = {
       joinedDate: new Date(),
       dislikes: [],
       foodEaten: [],
