@@ -42,7 +42,7 @@ const delay = Math.min(props.index, 12) * 0.04;
     </div>
     <DarkShade />
     <div
-      class="absolute bottom-0 h-[4.5rem] z-20 border-t border-white/15 glass-dark w-full px-4 py-1.5"
+      class="absolute bottom-0 h-[4.5rem] z-20 border-t border-border backdrop-blur-sm w-full px-4 py-1 bg-charcoal/15"
     >
       <p class="font-bold font-display text-cream tracking-wide text-sm md:text-lg line-clamp-1">
         {{ dish.name }}

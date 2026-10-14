@@ -35,7 +35,7 @@ const getImage = computed(() => images[count.value % images.length])
           >Show Full Details</Button
         >
         <div
-          class="text-cream flex items-center gap-2 border border-white/20 px-3 py-1 rounded-3xl glass-dark"
+          class="text-cream flex items-center gap-2 border border-border px-2 py-0.5 rounded-3xl"
         >
           <span class="flex font-medium font-sans gap-px items-center text-sm"
             ><ForkKnife class="text-paper size-4" /> 2</span

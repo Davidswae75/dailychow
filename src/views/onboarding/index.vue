@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, provide } from "vue";
-import OContainer from "@/components/site/OContainer.vue";
+import OContainer, { barClasses, type BarStyle } from "@/components/site/OContainer.vue";
 import WhatBringYouHere from "./WhatBringYouHere.vue";
 import NotInterested from "./NotInterested.vue";
 import BodyTypes from "./BodyTypes.vue";
@@ -19,6 +19,9 @@ import { useScreenSize } from "@/hooks/useScreenSize";
 import { getError, initUser } from "@/firebase";
 import Button from "@/components/ui/button/Button.vue";
 import { useToast } from "vue-toastification";
+
+// Onboarding top and bottom bars: "classic" (solid cream, the original) or "glass" (frosted)
+const barStyle: BarStyle = "classic";
 
 const currentStep = ref(1);
 const totalSteps = 5;
@@ -138,7 +141,7 @@ const updateField = <T extends keyof RegisterSchemaType>(
   <main class="bg-cream grain">
     <!-- {{ values }} -->
     <section class="mx-auto max-w-2xl">
-      <OContainer :current-step="currentStep" :steps="totalSteps">
+      <OContainer :current-step="currentStep" :steps="totalSteps" :bar-style="barStyle">
         <template #content>
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -193,7 +196,8 @@ const updateField = <T extends keyof RegisterSchemaType>(
 
         <template #footer>
           <div
-            class="sticky bottom-0 z-30 flex items-center justify-between glass rounded-t-3xl px-3 py-4"
+            class="sticky bottom-0 z-30 flex items-center justify-between py-4"
+            :class="barClasses[barStyle].footer"
           >
             <Button
               v-if="currentStep > 1"

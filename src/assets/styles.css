@@ -363,7 +363,7 @@
   background-image: linear-gradient(135deg, oklch(1 0 0 / 0.42), transparent);
 }
 
-/* Frosted paper over photos, bars and overlays. Pair with a border class if needed. */
+/* Frosted paper, used by the optional "glass" onboarding bars. */
 @utility glass {
   background-color: oklch(0.9898 0.0079 73.75 / 0.62);
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
@@ -372,18 +372,6 @@
 
   @supports not (backdrop-filter: blur(1px)) {
     background-color: var(--paper);
-  }
-}
-
-/* Smoked glass for text sitting on photos or dark bands */
-@utility glass-dark {
-  background-color: oklch(0.2668 0.0187 66.88 / 0.38);
-  -webkit-backdrop-filter: blur(14px) saturate(1.3);
-  backdrop-filter: blur(14px) saturate(1.3);
-  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.14);
-
-  @supports not (backdrop-filter: blur(1px)) {
-    background-color: oklch(0.2668 0.0187 66.88 / 0.78);
   }
 }
 
