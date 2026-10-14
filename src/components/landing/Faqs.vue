@@ -7,7 +7,7 @@ import HeaderText from "./HeaderText.vue";
 
 const faqs = [
   {
-    q: "Is Naija Plate free?",
+    q: "Is Daily Chow free?",
     a: "Yes. Telling it your mood and getting your daily dish is free. A small paid tier for full weekly meal plans and market lists is planned later.",
   },
   {

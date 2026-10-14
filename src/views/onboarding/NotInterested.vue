@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeaderText from "@/components/landing/HeaderText.vue";
 import Chip from "@/components/utils/chip.vue";
+import { dietaryOptions, pepperOptions } from "@/lib/options";
 
 interface PreferenceOption {
   label: string;
@@ -17,24 +18,12 @@ const sections: PreferenceSection[] = [
   {
     title: "Dietary needs",
     type: "multiple",
-    options: [
-      { label: "Vegetarian", value: "vegetarian" },
-      { label: "No pork", value: "no_pork" },
-      { label: "No Seafood", value: "no_seafood" },
-      { label: "Peanut Allergy", value: "peanut_allergy" },
-      { label: "Lactose Intolerant", value: "lactose_intolerant" },
-    ],
+    options: dietaryOptions,
   },
   {
     title: "Pepper Level",
     type: "single",
-    options: [
-      { label: "Mild", value: "mild" },
-      { label: "Gentle", value: "gentle" },
-      { label: "Medium", value: "medium" },
-      { label: "Hot", value: "hot" },
-      { label: "Proper Pepper", value: "proper_pepper" },
-    ],
+    options: pepperOptions,
   },
 ];
 

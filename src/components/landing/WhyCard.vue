@@ -8,7 +8,7 @@ const reasons = [
   },
   {
     title: "It rotates you through food you'd forgotten",
-    body: "Naija Plate remembers what you ate this week and deliberately steers you elsewhere. In a month you will have cooked things you last had at your grandmother's house.",
+    body: "Daily Chow remembers what you ate this week and deliberately steers you elsewhere. In a month you will have cooked things you last had at your grandmother's house.",
   },
   {
     title: "It respects your money and your minutes",

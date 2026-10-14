@@ -81,7 +81,7 @@ const fields = computed<FieldsProp["fields"]>(() => [
 </script>
 
 <template>
-  <main class="h-full flex justify-center items-center grain bg-cream w-full">
+  <main class="h-full flex justify-center items-center w-full">
     <section class="space-y-7 w-full">
       <Logo v-if="mode == 'login'" />
       <section

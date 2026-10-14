@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useDoc } from "@/hooks/useDoc";
-import type { UserProps } from "@/types";
+import type { NewUser, UserProps } from "@/types";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../config";
 import { useAuthStore, useUserStore } from "@/store";
@@ -9,21 +9,16 @@ import { router } from "@/router";
 const { setDocument } = useDoc();
 const { signIn } = useAuth();
 
-export async function initUser(user: Omit<UserProps, "id" | "userID">) {
+export async function initUser(user: NewUser) {
   try {
-    const { uid } = await signIn("register", user.email, user.password);
+    // The password goes to Firebase Auth only, never into the user document
+    const { password, ...profile } = user;
+    const { uid } = await signIn("register", profile.email, password);
 
-    await setDocument({
-      col: "users",
-      data: {
-        ...user,
-        userID: uid,
-        id: uid,
-      },
-      id: uid,
-    });
+    const data: UserProps = { ...profile, userID: uid, id: uid };
+    await setDocument({ col: "users", data, id: uid });
 
-    return { ...user, userID: uid, id: uid };
+    return data;
   } catch (error: any) {
     throw new Error(error);
   }

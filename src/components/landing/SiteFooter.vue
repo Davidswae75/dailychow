@@ -52,7 +52,7 @@ const navLinks = [
     <div class="border-t py-6">
       <section class="mx-auto max-w-6xl">
         <p class="text-xs text-shadow-muted-foreground">
-          © 2026 Naija Plate. Made for Nigerian kitchens.
+          © 2026 Daily Chow. Made for Nigerian kitchens.
         </p>
       </section>
     </div>

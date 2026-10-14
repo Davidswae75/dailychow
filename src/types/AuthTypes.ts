@@ -1,18 +1,25 @@
 import type { Dish } from "@/lib/dishes";
+import type { MealLog, MealPlan } from "./MealTypes";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 
+/** The user document in Firestore. Never holds the password: Firebase Auth owns that. */
 export type UserProps = {
   fullName: string;
   email: string;
-  password: string;
   userID: string;
   role: "user";
-  dislikes: any[];
-  foodEaten: any[];
+  /** Dish ids the user never wants suggested */
+  dislikes: string[];
+  foodEaten: MealLog[];
+  plan?: MealPlan;
   id: string;
   joinedDate: Date | string;
+  createdAt?: Date | string;
 } & UserPreference;
+
+/** What registration collects: the profile plus the password Firebase Auth needs. */
+export type NewUser = Omit<UserProps, "id" | "userID"> & { password: string };
 
 export interface UserPreference {
   interests: string;
