@@ -11,7 +11,8 @@ import AddMealSheet from "@/components/app/meals/AddMealSheet.vue";
 import ShoppingListSheet from "@/components/app/meals/ShoppingListSheet.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { useMealsStore, usePickStore } from "@/store";
-import { useAlert, useWeek } from "@/hooks";
+import { useWeek } from "@/hooks";
+import { useToast } from "vue-toastification";
 import { dayMeals } from "@/hooks/useDayMeals";
 import { formatLongDate, isSameDay, toDateKey } from "@/lib/dates";
 import type { MealTime } from "@/lib/dishes";
@@ -20,7 +21,7 @@ const SLOTS: MealTime[] = ["breakfast", "lunch", "dinner", "snack"];
 
 const meals = useMealsStore();
 const { answers } = storeToRefs(usePickStore());
-const { alert } = useAlert();
+const toast = useToast();
 const week = useWeek();
 const { days, label } = week;
 
@@ -61,7 +62,7 @@ async function fillWeek() {
   filling.value = true;
   try {
     const count = await meals.fillEmptySlots(upcomingDays.value, ["breakfast", "lunch", "dinner"], answers.value);
-    alert.success(count ? `Planned ${count} meals for you.` : "Every meal this week is already planned.");
+    toast.success(count ? `Planned ${count} meals for you.` : "Every meal this week is already planned.");
   } finally {
     filling.value = false;
   }

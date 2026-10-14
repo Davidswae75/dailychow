@@ -1,7 +1,7 @@
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/store/user";
-import { useUiStore } from "@/store/ui";
+import { useToast } from "vue-toastification";
 import { updatePreferences, sendPasswordReset } from "@/firebase/services/meals";
 import { getError } from "@/firebase/utils/error";
 import type { UserPreference } from "@/types";
@@ -9,7 +9,7 @@ import type { UserPreference } from "@/types";
 /** Reads and saves the user's onboarding answers from the Preferences screen. */
 export function usePreferences() {
   const { user } = storeToRefs(useUserStore());
-  const { alert } = useUiStore();
+  const toast = useToast();
 
   const goal = computed(() => user.value?.interests ?? "");
   const dietaryNeeds = computed(() => user.value?.notInterested?.dietaryNeeds ?? []);
@@ -18,12 +18,12 @@ export function usePreferences() {
 
   async function save(changes: Partial<UserPreference>) {
     if (!user.value) {
-      alert.warning("Sign in to save your preferences.");
+      toast.warning("Sign in to save your preferences.");
       return false;
     }
     try {
       await updatePreferences(user.value.id, changes);
-      alert.success("Your preferences are updated.", { title: "Saved" });
+      toast.success("Saved. Your preferences are updated.");
       return true;
     } catch (error) {
       getError(error);
@@ -35,7 +35,7 @@ export function usePreferences() {
     if (!user.value?.email) return;
     try {
       await sendPasswordReset(user.value.email);
-      alert.info(`We sent a reset link to ${user.value.email}.`, { title: "Check your inbox" });
+      toast.info(`Check your inbox. We sent a reset link to ${user.value.email}.`);
     } catch (error) {
       getError(error);
     }

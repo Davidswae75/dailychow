@@ -25,13 +25,13 @@ const getLayout = computed(() => {
       <AlertBar />
       <component :is="getLayout">
         <RouterView v-slot="{ Component, route: current }">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             <motion.div
               :key="current.path"
               :initial="{ opacity: 0, y: 12 }"
               :animate="{ opacity: 1, y: 0 }"
-              :exit="{ opacity: 0, y: -8, transition: { duration: 0.18 } }"
-              :transition="{ duration: 0.35, ease: [0.21, 0.92, 0.25, 1] }"
+              :exit="{ opacity: 0, y: -8, transition: { duration: 0 } }"
+              :transition="{ duration: 0, ease: [0.21, 0.92, 0.25, 1] }"
             >
               <component :is="Component" />
             </motion.div>

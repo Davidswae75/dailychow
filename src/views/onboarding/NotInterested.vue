@@ -62,7 +62,7 @@ const toggleSelection = (value: string, type: "multiple" | "single"): void => {
 <template>
   <main class="space-y-3">
     <HeaderText
-      eyebrow="Question 2 of 5"
+      eyebrow="Question 2 of 4"
       title="Anything off the table?"
       description="We'll never suggest a dish that breaks these."
     />

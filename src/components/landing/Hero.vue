@@ -4,7 +4,7 @@ import Chip from "../utils/chip.vue";
 import heroSpread from "@/assets/hero-spread.jpg";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
-import { useAlert } from "@/hooks/useAlert";
+import { useToast } from "vue-toastification";
 
 const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
   [
@@ -22,7 +22,7 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
     },
   ];
 
-const { alert } = useAlert();
+const toast = useToast();
 </script>
 
 <template>
@@ -73,7 +73,7 @@ const { alert } = useAlert();
               variant="terracotta"
               size="xl"
               class="rounded-full flex items-center"
-              @click="alert.info('Test run')"
+              @click="toast.info('Test run')"
               >Find tonight's dish <ArrowBigDown />
             </Button>
             <Button variant="link" class="text-lg rounded-none !no-underline"

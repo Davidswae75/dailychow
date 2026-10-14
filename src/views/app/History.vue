@@ -8,14 +8,14 @@ import OptionGroup from "@/components/app/common/OptionGroup.vue";
 import MealRow from "@/components/app/meals/MealRow.vue";
 import PlanDishSheet from "@/components/app/meals/PlanDishSheet.vue";
 import { useMealsStore, type MealEntry } from "@/store";
-import { useAlert } from "@/hooks";
+import { useToast } from "vue-toastification";
 import { formatTime, relativeDayLabel } from "@/lib/dates";
 import { labelOf, mealOptions, type Option } from "@/lib/options";
 import type { Dish } from "@/lib/dishes";
 
 const meals = useMealsStore();
 const { history } = storeToRefs(meals);
-const { alert } = useAlert();
+const toast = useToast();
 
 const filterOptions: Option[] = [{ label: "All", value: "all" }, ...mealOptions];
 const filter = ref("all");
@@ -50,8 +50,8 @@ function planAgain(dish: Dish) {
 
 async function remove(entry: MealEntry) {
   await meals.removeMeal(entry.log);
-  alert.info(`${entry.dish.name} removed from your history.`, {
-    action: { label: "Undo", onClick: () => meals.logMeal(entry.log.dishId, entry.log.slot, entry.at) },
+  toast.info(`${entry.dish.name} removed from your history. Tap to undo.`, {
+    onClick: () => meals.logMeal(entry.log.dishId, entry.log.slot, entry.at),
   });
 }
 </script>

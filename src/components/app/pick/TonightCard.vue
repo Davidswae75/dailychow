@@ -4,6 +4,7 @@ import { RefreshCw } from "@lucide/vue";
 import VLazyImage from "v-lazy-image";
 import type { Recommendation } from "@/lib/recommend";
 import { dishFacts, whyText, capitalize } from "@/lib/format";
+import Shade from "@/components/utils/Shade.vue";
 
 /** The big terracotta card with tonight's dish. */
 defineProps<{ pick: Recommendation; mealLabel: string }>();
@@ -13,25 +14,26 @@ defineEmits<{ another: [] }>();
 <template>
   <section
     aria-label="Tonight's pick"
-    class="weave relative flex min-h-80 flex-col justify-between gap-6 overflow-hidden rounded-[34px] bg-terracotta-deep p-6 text-paper md:p-7"
+    class="weave isolate relative flex min-h-52 flex-col justify-between gap-6 overflow-hidden rounded-[34px] bg-terracotta-deep p-6 text-paper md:p-7"
   >
     <AnimatePresence>
       <motion.div
         :key="pick.dish.id"
-        class="absolute -top-8 -right-16 size-72 md:-right-10 md:size-96"
+        class="absolute -z-10 -top-8 -right-16 size-72 md:-right-10 md:size-96"
         :initial="{ opacity: 0, scale: 0.85, rotate: -12 }"
         :animate="{ opacity: 1, scale: 1, rotate: 0 }"
         :exit="{ opacity: 0, scale: 1.06, rotate: 8 }"
         :transition="{ type: 'spring', stiffness: 220, damping: 26 }"
         aria-hidden="true"
       >
-        <v-lazy-image :src="pick.dish.img" alt="" class="size-full animate-float-slower rounded-full object-cover" />
+        <v-lazy-image :src="pick.dish.img" alt="" class="size-100 md:size-120 animate-float-slower object-cover" />
       </motion.div>
     </AnimatePresence>
     <div
-      class="absolute inset-0 bg-linear-to-r from-terracotta-deep from-45% to-terracotta-deep/0 to-85%"
+      class="absolute inset-0 -z-10 bg-linear-to-r from-terracotta-deep from-55% to-terracotta-deep/0 to-100%"
       aria-hidden="true"
     />
+    <Shade from="right" :strength="0.25" class="-z-10" />
 
     <div class="relative max-w-sm space-y-2">
       <p class="text-sm font-semibold">{{ capitalize(mealLabel) }} pick for you</p>

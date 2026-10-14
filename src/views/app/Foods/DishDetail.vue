@@ -11,7 +11,7 @@ import PlanDishSheet from "@/components/app/meals/PlanDishSheet.vue";
 import Chip from "@/components/utils/chip.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { useMealsStore } from "@/store";
-import { useAlert } from "@/hooks";
+import { useToast } from "vue-toastification";
 import { bodyTypes, getDishById, type MealTime } from "@/lib/dishes";
 import { currentMealSlot } from "@/lib/dates";
 import { capitalize, joinReasons } from "@/lib/format";
@@ -21,7 +21,7 @@ const route = useRoute();
 const router = useRouter();
 const meals = useMealsStore();
 const { favourites, dislikes } = storeToRefs(meals);
-const { alert } = useAlert();
+const toast = useToast();
 
 const dish = computed(() => getDishById(String(route.params.id)));
 const isFavourite = computed(() => !!dish.value && favourites.value.includes(dish.value.id));
@@ -55,7 +55,7 @@ const planSlot = computed<MealTime>(() =>
 async function haveItNow() {
   if (!dish.value) return;
   await meals.logMeal(dish.value.id, planSlot.value);
-  alert.success(`${dish.value.name} added to your history.`, { title: "Enjoy your chow" });
+  toast.success(`Enjoy your chow! ${dish.value.name} added to your history.`);
   router.push("/dashboard/home");
 }
 
@@ -66,8 +66,8 @@ async function toggleDislike() {
     return;
   }
   await meals.dislike(dish.value.id);
-  alert.info(`We won't suggest ${dish.value.name} again.`, {
-    action: { label: "Undo", onClick: () => dish.value && meals.undoDislike(dish.value.id) },
+  toast.info(`We won't suggest ${dish.value.name} again. Tap to undo.`, {
+    onClick: () => dish.value && meals.undoDislike(dish.value.id),
   });
 }
 </script>

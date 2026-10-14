@@ -28,7 +28,7 @@ const moreItems = computed(() => dishes.length - visibleItems.value);
 <template>
   <main class="space-y-3 p-1">
     <HeaderText
-      eyebrow="Quetion 5 of 5"
+      eyebrow="Quetion 4 of 4"
       title="Pick a few old favourites"
     >
     <template #description>

@@ -8,14 +8,14 @@ import DishFacts from "@/components/app/dish/DishFacts.vue";
 import IngredientChecklist from "@/components/app/dish/IngredientChecklist.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { usePickStore } from "@/store";
-import { useAlert } from "@/hooks";
+import { useToast } from "vue-toastification";
 import { whyText } from "@/lib/format";
 import { labelOf, mealOptions } from "@/lib/options";
 
 const pick = usePickStore();
 const { current, answers } = storeToRefs(pick);
 const router = useRouter();
-const { alert } = useAlert();
+const toast = useToast();
 
 /** Ingredients already at home; resets when the dish changes. */
 const have = ref<string[]>([]);
@@ -30,7 +30,7 @@ async function haveIt() {
   saving.value = true;
   try {
     await pick.haveIt();
-    alert.success(`${name} added to your history.`, { title: "Enjoy your chow" });
+    toast.success(`Enjoy your chow! ${name} added to your history.`);
     router.push("/dashboard/home");
   } finally {
     saving.value = false;
