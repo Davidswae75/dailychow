@@ -17,7 +17,7 @@ withDefaults(defineProps<Props>(), {
 <template>
   <main class="bg-transparent px-5 md:px-8 min-h-screen relative  flex flex-col justify-between items-center">
     <slot name="header">
-      <div class="flex justify-between items-center sticky top-0 z-50 bg-cream grain py-4 w-full">
+      <div class="flex justify-between items-center sticky top-0 z-50 glass rounded-b-3xl px-3 py-4 w-full">
       <RouterLink to="/"><Logo /></RouterLink>
         <StepBar :current-step="currentStep" :steps="steps" />
       </div>

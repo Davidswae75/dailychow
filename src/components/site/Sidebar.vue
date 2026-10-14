@@ -84,7 +84,7 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
 
     <section class="w-full absolute left-0 px-1.5 lg:px-5 -bottom-5">
       <div
-        class="rounded-2xl border border-border bg-cream p-3.5 pr-10 space-y-2"
+        class="rounded-2xl border border-white/50 glass grain p-3.5 pr-10 space-y-2"
       >
         <p
           class="text-terracotta text-xs font-bold tracking-wide uppercase hidden lg:block"

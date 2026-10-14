@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, provide } from "vue";
+import { ref, computed, provide } from "vue";
 import OContainer from "@/components/site/OContainer.vue";
 import WhatBringYouHere from "./WhatBringYouHere.vue";
 import NotInterested from "./NotInterested.vue";
@@ -74,20 +74,20 @@ const submitForm = handleSubmit(async (formValues) => {
 });
 
 // ---------- Device detection ----------
-const isLowEndDevice = ref(false);
-const prefersReducedMotion = ref(false);
+// Decided before the first render: switching variants after mount left the
+// first step stuck blurred on low-end phones.
+const detectReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-onMounted(() => {
-  prefersReducedMotion.value = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
+const detectLowEndDevice = () => {
   const cores = navigator.hardwareConcurrency || 4;
   const memory = (navigator as any).deviceMemory || 4;
   const isAndroid = /Android/i.test(navigator.userAgent);
+  return (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
+};
 
-  isLowEndDevice.value = (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
-});
+const isLowEndDevice = ref(detectLowEndDevice());
+const prefersReducedMotion = ref(detectReducedMotion());
 
 // ---------- Animation variants ----------
 const animation = computed(() => {
@@ -193,7 +193,7 @@ const updateField = <T extends keyof RegisterSchemaType>(
 
         <template #footer>
           <div
-            class="sticky bottom-0 z-30 flex items-center justify-between bg-cream grain py-4"
+            class="sticky bottom-0 z-30 flex items-center justify-between glass rounded-t-3xl px-3 py-4"
           >
             <Button
               v-if="currentStep > 1"

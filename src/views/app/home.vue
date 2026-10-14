@@ -4,15 +4,19 @@ import Button from "@/components/ui/button/Button.vue";
 import { Calendar, Plus } from "@lucide/vue";
 import ContentCard from "@/components/utils/ContentCard.vue";
 import ShowCard from "@/components/site/ShowCard.vue";
+import Reveal from "@/components/utils/Reveal.vue";
 </script>
 <!-- todo note: build card for each of the dashboard ui cards -->
 
 <template>
   <main class="grid grid-cols-12 px-5 md:px-8 py-5 gap-3 *:rounded-2xl">
-    <ShowCard class="col-span-12 md:col-span-8" />
+    <Reveal class="col-span-12 md:col-span-8" :delay="0.05" :distance="16">
+      <ShowCard class="h-full rounded-2xl" />
+    </Reveal>
 
+    <Reveal class="md:col-span-4 col-span-12" :delay="0.15" :distance="16">
     <ContentCard
-      class="md:col-span-4 col-span-12"
+      class="h-full"
       eyebrow="Today"
       border
       title="Fixed Meals"
@@ -33,6 +37,7 @@ import ShowCard from "@/components/site/ShowCard.vue";
         </div>
       </div>
     </ContentCard>
+    </Reveal>
   
   </main>
 </template>

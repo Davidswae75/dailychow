@@ -2,6 +2,7 @@
 import { Archive, Clock, LayoutDashboard, Pickaxe, Plane, Settings } from "@lucide/vue";
 import Chip from "../utils/chip.vue";
 import { useRoute } from "vue-router";
+import { motion } from "motion-v";
 
 const routes = [
   {
@@ -43,8 +44,11 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
 
 <template>
   <main class="fixed bottom-5 left-0 md:hidden w-full">
-    <div
-      class="rounded-2xl border border-border h-16 w-11/12 mx-auto backdrop-blur-lg bg-cream/90"
+    <motion.div
+      class="rounded-2xl border border-white/50 h-16 w-11/12 mx-auto glass"
+      :initial="{ y: 40, opacity: 0 }"
+      :animate="{ y: 0, opacity: 1 }"
+      :transition="{ type: 'spring', stiffness: 380, damping: 30, delay: 0.2 }"
     >
       <section class="flex justify-between gap-1 transition-all p-3">
         <Chip
@@ -61,6 +65,6 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
           type="navigation"
         />
       </section>
-    </div>
+    </motion.div>
   </main>
 </template>

@@ -8,6 +8,7 @@ import VImg from "v-lazy-image";
 import { computed, ref } from 'vue';
 import Button from "../ui/button/Button.vue";
 import { Clock, ForkKnife } from "@lucide/vue";
+import { AnimatePresence, motion } from "motion-v";
 
 const images = [jollof, egusi, suya, ofada, moimoi];
 
@@ -34,7 +35,7 @@ const getImage = computed(() => images[count.value % images.length])
           >Show Full Details</Button
         >
         <div
-          class="text-cream flex items-center gap-2 border border-border px-2 py-0.5 rounded-3xl"
+          class="text-cream flex items-center gap-2 border border-white/20 px-3 py-1 rounded-3xl glass-dark"
         >
           <span class="flex font-medium font-sans gap-px items-center text-sm"
             ><ForkKnife class="text-paper size-4" /> 2</span
@@ -45,11 +46,22 @@ const getImage = computed(() => images[count.value % images.length])
           >
         </div>
       </div>
-      <v-img
-        :src="getImage"
-        alt="joll0f"
-        class="-z-70 object-cover size-65 sm:size-90 md:size-75 lg:size-115 top-0 -right-6 absolute animate-float-slower"
-      />
+      <AnimatePresence>
+        <motion.div
+          :key="getImage"
+          class="-z-70 size-65 sm:size-90 md:size-75 lg:size-115 top-0 -right-6 absolute"
+          :initial="{ opacity: 0, scale: 0.85, rotate: -12 }"
+          :animate="{ opacity: 1, scale: 1, rotate: 0 }"
+          :exit="{ opacity: 0, scale: 1.08, rotate: 8 }"
+          :transition="{ type: 'spring', stiffness: 220, damping: 26 }"
+        >
+          <v-img
+            :src="getImage"
+            alt="Today's dish"
+            class="object-cover size-full animate-float-slower"
+          />
+        </motion.div>
+      </AnimatePresence>
       <div
         class="bg-linear-to-l from-charcoal/55 to-charcoal/0 -z-10 absolute inset-0 top-0 bottom-0"
       ></div>

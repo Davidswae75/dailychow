@@ -54,7 +54,7 @@ const filterDishes = computed(() => {
             variant="saffron"
             class="inline-block !py-1 font-bold"
             :icon="CookingPot"
-            >All Available Dishes{{ foods }}</Chip
+            >All Available Dishes</Chip
           >
         </template>
       </ContentCard>
@@ -88,7 +88,7 @@ const filterDishes = computed(() => {
     <section
       class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pt-5 px-4 mx-auto gap-2"
     >
-      <DishCard v-for="dish in filterDishes" :key="dish.id" :dish="dish" />
+      <DishCard v-for="(dish, i) in filterDishes" :key="dish.id" :dish="dish" :index="i" />
     </section>
   </main>
 </template>

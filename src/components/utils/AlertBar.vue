@@ -21,22 +21,22 @@ const typeConfig: Record<
   { container: string; accent: string; progress: string }
 > = {
   info: {
-    container: "bg-cream border-line/50",
+    container: "glass border-line/60",
     accent: "bg-olive",
     progress: "bg-olive/65",
   },
   success: {
-    container: "bg-paper border-saffron/20",
+    container: "glass border-saffron/30",
     accent: "bg-saffron",
     progress: "bg-saffron",
   },
   warning: {
-    container: "bg-cream border-terracotta/20",
+    container: "glass border-terracotta/25",
     accent: "bg-terracotta",
     progress: "bg-terracotta",
   },
   error: {
-    container: "bg-paper border-terracotta-deep/25",
+    container: "glass border-terracotta-deep/30",
     accent: "bg-terracotta-deep",
     progress: "bg-terracotta-deep",
   },
@@ -107,7 +107,7 @@ const positions = Object.keys(positionClasses) as AlertPosition[];
           stiffness: 700,
           damping: 20,
         }"
-        class="pointer-events-auto w-full max-w-[340px] border rounded-3xl overflow-hidden shadow-sm"
+        class="pointer-events-auto w-full max-w-[340px] border rounded-3xl overflow-hidden"
         :class="typeConfig[alert.type].container"
       >
         <!-- ... rest of the alert content stays the same ... -->

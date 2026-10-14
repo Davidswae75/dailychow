@@ -81,12 +81,12 @@ const fields = computed<FieldsProp["fields"]>(() => [
 </script>
 
 <template>
-  <main class="h-full flex justify-center items-center grain bg-cream w-full">
+  <main class="h-full flex justify-center items-center w-full">
     <section class="space-y-7 w-full">
       <Logo v-if="mode == 'login'" />
       <section
         class="p-4 md:p-7 rounded-4xl space-y-3"
-        :class="mode == 'login' && 'bg-paper border border-line'"
+        :class="mode == 'login' && 'glass border border-white/60'"
       >
         <HeaderText
           :eyebrow="mode == 'register' ? 'SAVE YOUR PLATE' : ''"

@@ -43,7 +43,7 @@ const emit = defineEmits<{
       </slot>
     </SheetTrigger>
 
-    <SheetContent class="w-full md:min-w-[32rem]">
+    <SheetContent class="w-full md:min-w-[32rem] bg-paper/70 backdrop-blur-2xl backdrop-saturate-150 border-white/50">
       <SheetHeader class="pt-4 pb-0">
         <SheetTitle>{{ title }}</SheetTitle>
         <SheetDescription v-if="description">
