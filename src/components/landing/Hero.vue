@@ -60,7 +60,7 @@ const { alert } = useAlert();
 
         <Reveal once :delay="0.4">
           <p class="text-muted-foreground font-body">
-            Naija Plate answers that question for you. Tell it your mood, how
+            Daily Chow answers that question for you. Tell it your mood, how
             much time you have and what's in your pocket, and it names one
             Nigerian dish to cook or buy right now — jollof, egusi, ofada,
             pepper soup, akara — with the shortlist of what you need for it.
