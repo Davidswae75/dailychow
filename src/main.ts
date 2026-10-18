@@ -5,6 +5,7 @@ import { router } from "./router";
 import { createPinia } from "pinia";
 import Toast, { POSITION, type PluginOptions } from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import "./assets/toast.css";
 
 const toastOptions: PluginOptions = {
   position: POSITION.TOP_RIGHT,

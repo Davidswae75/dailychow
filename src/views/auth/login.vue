@@ -13,6 +13,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import Reveal from "@/components/utils/Reveal.vue";
 import heroSpread from "@/assets/hero-spread.webp";
+import Logo from "@/components/site/Logo.vue";
 
 const toast = useToast()
 const { signIn } = useAuth();
@@ -56,27 +57,53 @@ defineOptions({
 </script>
 
 <template>
-  <main class="relative min-h-screen bg-cream grain flex items-center overflow-hidden">
-    <!-- Food photo behind the frosted card -->
-    <div class="absolute inset-0 -z-0 pointer-events-none" aria-hidden="true">
-      <img :src="heroSpread" alt="" class="size-full object-cover animate-drift opacity-70" />
-      <div class="absolute inset-0 bg-linear-to-b from-cream/30 via-cream/50 to-cream/90"></div>
-    </div>
-    <Reveal class="relative w-full sm:w-2/3 lg:w-1/3 mx-auto px-5 md:px-8" :delay="0.1" :distance="24">
-    <section>
-      <form @submit.prevent="submitForm">
-        <AuthForm
-          :modelValue="{ email: values.email, password: values.password }"
-          @update:modelValue="
-            (val) => {
-              setFieldValue('email', val.email);
-              setFieldValue('password', val.password);
-            }
-          "
-          mode="login"
+  <main class="min-h-dvh bg-cream flex flex-col md:items-center md:justify-center md:p-8 bg-paper">
+    <!-- Mobile: photo header with the form as a bottom sheet. Desktop: one centered card. -->
+    <div
+      class="flex flex-1 flex-col w-full md:flex-none md:max-w-md md:rounded-4xl md:overflow-hidden md:border md:border-line md:shadow-lift"
+    >
+      <header
+        class="relative h-[34dvh] min-h-52 md:h-44 md:min-h-0 shrink-0 overflow-hidden"
+      >
+        <img
+          :src="heroSpread"
+          alt=""
+          class="absolute inset-0 size-full object-cover"
         />
-      </form>
-    </section>
-    </Reveal>
+        <div
+          class="absolute inset-0 bg-linear-to-b from-charcoal/40 via-transparent to-charcoal/30"
+        ></div>
+        <Logo
+          size="md"
+          :bg="true"
+          :name="''"
+          containerClass="absolute left-5 top-[max(1.25rem,env(safe-area-inset-top))] cursor-pointer"
+          @click="$router.push('/')"
+        />
+      </header>
+
+      <Reveal
+        class="relative -mt-8 flex-1 rounded-t-4xl bg-paper px-6 pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:mt-0 md:rounded-none md:px-8"
+        :delay="0.1"
+        :distance="24"
+      >
+        <div
+          class="mx-auto mb-6 h-1.5 w-10 rounded-full bg-line md:hidden"
+          aria-hidden="true"
+        ></div>
+        <form @submit.prevent="submitForm">
+          <AuthForm
+            :modelValue="{ email: values.email, password: values.password }"
+            @update:modelValue="
+              (val) => {
+                setFieldValue('email', val.email);
+                setFieldValue('password', val.password);
+              }
+            "
+            mode="login"
+          />
+        </form>
+      </Reveal>
+    </div>
   </main>
 </template>

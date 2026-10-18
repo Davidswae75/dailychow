@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import HeaderText from "@/components/landing/HeaderText.vue";
-import Logo from "@/components/site/Logo.vue";
 import Button from "@/components/ui/button/Button.vue";
 import Fields, { type FieldsProp } from "@/components/utils/Fields.vue";
 import { useScreenSize } from "@/composables/useScreenSize";
@@ -82,7 +81,7 @@ const fields = computed<FieldsProp["fields"]>(() => [
     inputClass: props.mode == "register" && "bg-paper",
     secondLabel: props.mode == "login" && {
       label: "Forgot Password",
-      labelAction: resetPassword,
+      labelAction: () => toast.error('I Sorry For You'),
       labelClass: "hover:underline",
     },
     name: "password",
@@ -97,11 +96,7 @@ const fields = computed<FieldsProp["fields"]>(() => [
 <template>
   <main class="h-full flex justify-center items-center w-full">
     <section class="space-y-7 w-full">
-      <Logo v-if="mode == 'login'" @click="$router.push('/')"/>
-      <section
-        class="p-4 md:p-7 rounded-4xl space-y-3"
-        :class="mode == 'login' && 'bg-paper border border-line'"
-      >
+      <section class="space-y-3" :class="mode == 'register' && 'p-4 md:p-7'">
         <HeaderText
           :eyebrow="mode == 'register' ? 'SAVE YOUR PLATE' : ''"
           :title="mode == 'login' ? 'Welcome back' : 'Create your account'"
