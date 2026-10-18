@@ -1,13 +1,11 @@
-<script setup lang="ts">
+  <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import Button from "@/components/ui/button/Button.vue";
 import OptionGroup from "../common/OptionGroup.vue";
 import { useMealsStore } from "@/store";
-import { useScreenSize } from "@/hooks";
-import { addDays, shortWeekday, toDateKey } from "@/lib/dates";
-import { mealOptions, type Option } from "@/lib/options";
-import type { Dish, MealTime } from "@/lib/dishes";
+import { useScreenSize } from "@/composables/index.ts";
+import { addDays, shortWeekday, toDateKey, mealOptions, type Option, type Dish, type MealTime } from "@/lib";
 
 /** Plan one known dish: choose a day this week and a meal slot. */
 const props = defineProps<{ dish: Dish }>();

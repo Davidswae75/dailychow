@@ -9,8 +9,7 @@ import IngredientChecklist from "@/components/app/dish/IngredientChecklist.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { usePickStore } from "@/store";
 import { useToast } from "vue-toastification";
-import { whyText } from "@/lib/format";
-import { labelOf, mealOptions } from "@/lib/options";
+import { whyText, labelOf, mealOptions } from "@/lib";
 
 const pick = usePickStore();
 const { current, answers } = storeToRefs(pick);

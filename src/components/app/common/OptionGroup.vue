@@ -5,7 +5,7 @@
  */
 import { computed, useId } from "vue";
 import Chip from "@/components/utils/chip.vue";
-import type { Option } from "@/lib/options";
+import type { Option } from "@/lib";
 
 const props = defineProps<{
   label: string;
@@ -56,11 +56,11 @@ function choose(value: V) {
           :active="isSelected(option.value)"
           :layout-id="layoutId"
           class="text-sm! tracking-normal!"
-        >
+          >
           <span class="relative z-20">{{ option.label }}</span>
         </Chip>
         <Chip
-          v-else
+        v-else
           hover
           :variant="isSelected(option.value) ? 'accent' : 'primary'"
           class="text-sm! tracking-normal!"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shortWeekday, toDateKey } from "@/lib/dates";
+import { shortWeekday, toDateKey } from "@/lib";
 
 /**
  * Seven day tiles with one dot per meal. Today is filled terracotta.

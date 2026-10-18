@@ -3,7 +3,7 @@ import HeaderText from "@/components/landing/HeaderText.vue";
 import Logo from "@/components/site/Logo.vue";
 import Button from "@/components/ui/button/Button.vue";
 import Fields, { type FieldsProp } from "@/components/utils/Fields.vue";
-import { useScreenSize } from "@/hooks/useScreenSize";
+import { useScreenSize } from "@/composables/useScreenSize";
 import { Eye, EyeClosed } from "@lucide/vue";
 import type { Ref } from "vue";
 import { computed, inject, reactive, ref } from "vue";

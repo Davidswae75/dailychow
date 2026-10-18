@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRef, type HTMLAttributes, type InputHTMLAttributes } from "vue";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { useField } from "vee-validate";
 
 export type BaseInput = {

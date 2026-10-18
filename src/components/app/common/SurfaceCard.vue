@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 
 /** The paper card every dashboard section sits on. */
 const props = withDefaults(defineProps<{ as?: string; class?: string; padded?: boolean }>(), {

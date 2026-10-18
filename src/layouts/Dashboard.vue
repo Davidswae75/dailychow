@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuth } from "@/hooks";
+import { useAuth } from "@/composables";
 import { useAuthStore, useUserStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
@@ -18,10 +18,12 @@ const { user } = storeToRefs(userStore);
 const { checkUser } = useAuth();
 
 onMounted(() => {
-  // checkUser();
-    authStore.$patch({
-      isLoggedIn: true
-    })
+  checkUser();
+  // setTimeout(() => {
+  //   authStore.$patch({
+  //     isLoggedIn: true
+  //   })
+  // }, 1500)
 });
 </script>
 

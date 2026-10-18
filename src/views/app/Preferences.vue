@@ -7,11 +7,10 @@ import SurfaceCard from "@/components/app/common/SurfaceCard.vue";
 import SettingsRow from "@/components/app/common/SettingsRow.vue";
 import EditChoiceSheet from "@/components/app/common/EditChoiceSheet.vue";
 import UserAvatar from "@/components/app/common/UserAvatar.vue";
-import { useAuth, usePreferences } from "@/hooks";
+import { useAuth, usePreferences } from "@/composables";
 import { useMealsStore } from "@/store";
 import { bodyTypes2 } from "@/types";
-import { getDishById } from "@/lib/dishes";
-import { dietaryOptions, goalOptions, labelOf, pepperOptions, type Option } from "@/lib/options";
+import { getDishById, dietaryOptions, goalOptions, labelOf, pepperOptions, type Option } from "@/lib";
 import type { UserPreference } from "@/types";
 
 const prefs = usePreferences();
@@ -97,8 +96,7 @@ const dislikedDishes = computed(() => dislikes.value.map(getDishById).filter((d)
 const joined = computed(() => {
   const date = user.value?.joinedDate ? new Date(user.value.joinedDate as string) : null;
   return date && !Number.isNaN(date.getTime())
-    ? `since ${date.toLocaleDateString("en-GB", { month: "short", year: "numeric" })}`
-    : "";
+    ? `since ${date.toLocaleDateString("en-GB", { month: "short", year: "numeric" })}` : "";
 });
 </script>
 
@@ -152,9 +150,9 @@ const joined = computed(() => {
     <section aria-labelledby="account" class="flex flex-col gap-2">
       <h2 id="account" class="text-[13px] font-bold tracking-wide text-ink uppercase">Account</h2>
       <SurfaceCard :padded="false" class="overflow-hidden">
-        <SettingsRow label="Change password" value="We'll email you a link" @select="prefs.resetPassword()">
+        <!-- <SettingsRow label="Change password" value="We'll email you a link" @select="prefs.resetPassword()">
           <template #icon><KeyRound class="size-[18px] text-ink" /></template>
-        </SettingsRow>
+        </SettingsRow> -->
         <SettingsRow label="Sign out" @select="signOutUser()">
           <template #icon><LogOut class="size-[18px] text-ink" /></template>
         </SettingsRow>

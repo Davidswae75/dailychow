@@ -1,4 +1,4 @@
-import type { Dish } from "@/lib/dishes";
+import type { Dish } from "@/lib";
 import type { MealLog, MealPlan } from "./MealTypes";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";

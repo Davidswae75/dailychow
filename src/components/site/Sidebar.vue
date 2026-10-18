@@ -6,8 +6,8 @@ import { storeToRefs } from "pinia";
 import { motion } from "motion-v";
 import { useUserStore } from "@/store";
 import Button from "../ui/button/Button.vue";
-import { useAuth } from "@/hooks";
-import { isActivePath, navItems as routes } from "@/lib/navigation";
+import { useAuth } from "@/composables/index.ts";
+import { isActivePath, navItems as routes } from "@/lib";
 
 const { user } = storeToRefs(useUserStore());
 const { signOutUser } = useAuth();

@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import { addDays, isSameDay, startOfDay, startOfWeek, weekDays, weekRangeLabel } from "@/lib/dates";
+import { addDays, isSameDay, startOfDay, startOfWeek, weekDays, weekRangeLabel } from "@/lib";
 
 /** A Monday-to-Sunday week the user can step through. Starts on the current week. */
 export function useWeek(initial: Date = new Date()) {

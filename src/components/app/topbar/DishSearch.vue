@@ -10,9 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Kbd } from "@/components/ui/kbd";
 import DishThumb from "../dish/DishThumb.vue";
-import { dishes } from "@/lib/dishes";
-import { capitalize, dishFactsShort } from "@/lib/format";
-import { navItems } from "@/lib/navigation";
+import { dishes, capitalize, dishFactsShort, navItems } from "@/lib";
 
 const open = ref(false);
 const router = useRouter();

@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { motion } from "motion-v";
-import { isActivePath, navItems } from "@/lib/navigation";
+import { isActivePath, navItems } from "@/lib";
 
 const route = useRoute();
 const items = computed(() =>

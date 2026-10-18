@@ -2,11 +2,9 @@
 import { computed } from "vue";
 import { CircleCheck, Plus, X } from "@lucide/vue";
 import DishThumb from "../dish/DishThumb.vue";
-import { dayMeals } from "@/hooks/useDayMeals";
+import { dayMeals } from "@/composables/useDayMeals.ts";
 import { useMealsStore } from "@/store";
-import { shortWeekday } from "@/lib/dates";
-import { labelOf, mealOptions } from "@/lib/options";
-import type { MealTime } from "@/lib/dishes";
+import { shortWeekday, labelOf, mealOptions, type MealTime } from "@/lib";
 
 /** The week as a slots-by-days grid (desktop). Emits `add` for an empty cell. */
 const props = defineProps<{

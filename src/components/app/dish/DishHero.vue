@@ -2,14 +2,15 @@
 import { ArrowLeft } from "@lucide/vue";
 import { AnimatePresence, motion } from "motion-v";
 import VLazyImage from "v-lazy-image";
-import type { Dish } from "@/lib/dishes";
+import type { Dish } from "@/lib";
+import Shade from "@/components/utils/Shade.vue";
 
 /** Big dish photo with a back link and category tag; extra buttons go in the `actions` slot. */
 defineProps<{ dish: Dish; backTo: string; backLabel: string }>();
 </script>
 
 <template>
-  <div class="relative h-56 overflow-hidden bg-charcoal md:h-full md:min-h-[28rem] md:rounded-[34px]">
+  <div class="relative h-80 overflow-hidden bg-charcoal md:h-full md:min-h-[28rem] md:rounded-[34px]">
     <AnimatePresence>
       <motion.div
         :key="dish.id"
@@ -22,7 +23,8 @@ defineProps<{ dish: Dish; backTo: string; backLabel: string }>();
         <v-lazy-image :src="dish.img" :alt="dish.name" class="size-full object-cover" />
       </motion.div>
     </AnimatePresence>
-    <div class="absolute inset-0 bg-linear-to-b from-charcoal/45 to-charcoal/0 to-40%" aria-hidden="true" />
+    <!-- <div class="absolute inset-0 bg-linear-to-b from-charcoal/45 to-charcoal/0 to-40%" aria-hidden="true" /> -->
+     <Shade from="full" :strength="0.15"/>
 
     <RouterLink
       :to="backTo"

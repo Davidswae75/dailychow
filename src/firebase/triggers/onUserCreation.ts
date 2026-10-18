@@ -1,4 +1,4 @@
-import { useDoc } from "@/hooks/useDoc";
+import { useDoc } from "@/composables/useDoc";
 import type { UserProps } from "@/types";
 import { getError} from "../utils/error";
 import { FirebaseError } from "firebase/app";

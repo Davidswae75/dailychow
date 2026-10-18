@@ -3,7 +3,7 @@ import { storeToRefs } from "pinia";
 import { AnimatePresence, motion } from "motion-v";
 import DishThumb from "../dish/DishThumb.vue";
 import { usePickStore } from "@/store";
-import { labelOf, mealOptions } from "@/lib/options";
+import { labelOf, mealOptions } from "@/lib";
 
 /** Tonight's pick, always one tap away: a photo bubble on phones, photo + name on desktop. */
 const { current, answers } = storeToRefs(usePickStore());

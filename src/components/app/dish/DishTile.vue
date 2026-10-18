@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { motion } from "motion-v";
-import type { Dish } from "@/lib/dishes";
+import type { Dish } from "@/lib";
 import DishThumb from "./DishThumb.vue";
 
 /** A square photo tile that opens the dish. Used in horizontal "try these" rows. */

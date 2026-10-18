@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "../common/UserAvatar.vue";
 import { useUserStore } from "@/store";
-import { useAuth } from "@/hooks";
+import { useAuth } from "@/composables/index.ts";
 
 /** Avatar button with account shortcuts. */
 const { user } = storeToRefs(useUserStore());

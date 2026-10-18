@@ -10,9 +10,7 @@ import DayMeals from "@/components/app/meals/DayMeals.vue";
 import WeekStrip from "@/components/app/meals/WeekStrip.vue";
 import DishTile from "@/components/app/dish/DishTile.vue";
 import { useMealsStore, usePickStore, useUserStore } from "@/store";
-import { addDays, formatLongDate, greeting, isSameDay, relativeDayLabel } from "@/lib/dates";
-import { labelOf, mealOptions } from "@/lib/options";
-import { notEatenRecently } from "@/lib/recommend";
+import { addDays, formatLongDate, greeting, isSameDay, relativeDayLabel, labelOf, mealOptions, notEatenRecently } from "@/lib";
 
 const { user } = storeToRefs(useUserStore());
 const meals = useMealsStore();

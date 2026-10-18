@@ -4,7 +4,7 @@ import AuthForm, {
 } from "@/components/site/Auth/AuthForm.vue";
 import { getUserByid } from "@/firebase";
 import { getError } from "@/firebase/utils/error";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/composables/useAuth";
 import { loginSchema } from "@/types";
 import { useForm } from "vee-validate";
 import { provide, ref } from "vue";

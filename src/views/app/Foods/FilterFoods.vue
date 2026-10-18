@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends Record<string,any>">
 import Chip from "@/components/utils/chip.vue";
 import type { Filter } from "@/components/utils/FilterSheet.vue";
-import { useScreenSize } from "@/hooks";
+import { useScreenSize } from "@/composables";
 import { computed } from "vue";
 
 interface FilterFoodProps {

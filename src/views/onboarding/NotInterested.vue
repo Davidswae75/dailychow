@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HeaderText from "@/components/landing/HeaderText.vue";
 import Chip from "@/components/utils/chip.vue";
-import { dietaryOptions, pepperOptions } from "@/lib/options";
+import { dietaryOptions, pepperOptions } from "@/lib";
 
 interface PreferenceOption {
   label: string;

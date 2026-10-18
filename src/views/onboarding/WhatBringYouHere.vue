@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HeaderText from "@/components/landing/HeaderText.vue";
 import Chip from "@/components/utils/chip.vue";
-import { goalOptions } from "@/lib/options";
+import { goalOptions } from "@/lib";
 
 
 const options = goalOptions;

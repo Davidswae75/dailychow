@@ -4,7 +4,7 @@ import Button from "@/components/ui/button/Button.vue";
 import { CheckCircle } from "@lucide/vue";
 import { computed, ref } from "vue";
 import VLazyImage from "v-lazy-image"
-import { dishes, type Dish } from "@/lib/dishes";
+import { dishes, type Dish } from "@/lib";
 
 const model = defineModel<Dish[]>({
   default: () => [],

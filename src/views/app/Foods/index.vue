@@ -5,10 +5,10 @@ import FilterSheet, { type Filter } from "@/components/utils/FilterSheet.vue";
 import { CookingPot } from "@lucide/vue";
 import { computed, ref } from "vue";
 import FilterFoods from "./FilterFoods.vue";
-import { dishes, type Dish } from "@/lib/dishes";
+import { dishes, type Dish } from "@/lib";
 import SearchInput from "@/components/utils/SearchInput.vue";
-
 import DishCard from "@/components/utils/DishCard.vue";
+import { refDebounced } from "@vueuse/core";
 
 const foods = ref<string[]>([]);
 
@@ -20,9 +20,10 @@ const filter: Filter<Dish>[] = [
 ];
 
 const search = ref("");
+const debouncedSearch = refDebounced(search, 500);
 
 const filterDishes = computed(() => {
-  const sL = search.value.toLowerCase();
+  const sL = debouncedSearch.value.toLowerCase();
 
   return dishes.filter((dish) => {
     const matchesCategoryFilter =
@@ -30,19 +31,19 @@ const filterDishes = computed(() => {
 
     const matchesSearch =
       !sL ||
-      [dish.name, dish.category, ...dish.ingredients, ...dish.sides].some((text) =>
-        text.toLowerCase().includes(sL)
+      [dish.name, dish.category, ...dish.ingredients, ...dish.sides].some(
+        (text) => text.toLowerCase().includes(sL)
       );
 
     return matchesSearch && matchesCategoryFilter;
   });
 });
-
-
 </script>
 
 <template>
-  <main class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-6 pb-32 md:px-8 md:pb-10">
+  <main
+    class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-6 pb-32 md:px-8 md:pb-10"
+  >
     <div class="flex flex-wrap items-end justify-between gap-5">
       <PageHeader
         title="Nigerian foods, pairings and details in one place"
@@ -72,11 +73,19 @@ const filterDishes = computed(() => {
     </div>
 
     <p class="-mb-2 text-sm text-ink" aria-live="polite">
-      <Chip variant="saffron" class="mr-2 inline-flex py-1! font-bold" :icon="CookingPot">{{ dishes.length }} dishes</Chip>
+      <Chip
+        variant="saffron"
+        class="mr-2 inline-flex py-1! font-bold"
+        :icon="CookingPot"
+        >{{ dishes.length }} dishes</Chip
+      >
       {{ filterDishes.length }} shown
     </p>
 
-    <section v-if="filterDishes.length" class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+    <section
+      v-if="filterDishes.length"
+      class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4"
+    >
       <RouterLink
         v-for="(dish, i) in filterDishes"
         :key="dish.id"
@@ -88,7 +97,11 @@ const filterDishes = computed(() => {
       </RouterLink>
     </section>
     <p v-else class="py-16 text-center text-ink">
-      {{ search ? `No dish matches “${search}”. Try a dish, ingredient or side.` : "No dish in those categories." }}
+      {{
+        search
+          ? `No dish matches “${search}”. Try a dish, ingredient or side.`
+          : "No dish in those categories."
+      }}
     </p>
   </main>
 </template>

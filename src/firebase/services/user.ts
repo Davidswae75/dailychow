@@ -1,7 +1,7 @@
-import { useAuth } from "@/hooks/useAuth";
-import { useDoc } from "@/hooks/useDoc";
+import { useAuth } from "@/composables/useAuth";
+import { useDoc } from "@/composables/useDoc";
 import type { NewUser, UserProps } from "@/types";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../config";
 import { useAuthStore, useUserStore } from "@/store";
 import { router } from "@/router";
@@ -9,13 +9,14 @@ import { router } from "@/router";
 const { setDocument } = useDoc();
 const { signIn } = useAuth();
 
+export const userDoc = (uid: string) => doc(db, "users", uid);
+
 export async function initUser(user: NewUser) {
   try {
-    // The password goes to Firebase Auth only, never into the user document
-    const { password, ...profile } = user;
-    const { uid } = await signIn("register", profile.email, password);
-
-    const data: UserProps = { ...profile, userID: uid, id: uid };
+    const { uid } = await signIn("register", user.email, user.password);
+    const data: UserProps = { ...user, userID: uid, id: uid };
+    
+    //For security reasons, best the password goes to Firebase Auth only, not to the user document
     await setDocument({ col: "users", data, id: uid });
 
     return data;
@@ -28,21 +29,17 @@ export async function getUserByid(id: string) {
   const { setUserState } = useUserStore();
   const { changeLoggedInStatus } = useAuthStore();
 
-
   try {
-    const colref = collection(db, "users");
-    const currentUserDoc = doc(colref, id);
-
-    onSnapshot(currentUserDoc, async (docRef) => {
+    onSnapshot(userDoc(id), async (docRef) => {
       if (docRef.exists()) {
         const data = docRef.data() as UserProps;
         setUserState(data);
         changeLoggedInStatus(true);
-        console.log(data)
+        console.log(data);
       } else {
         setUserState(null);
         changeLoggedInStatus(false);
-        router.push('/sign-in')
+        router.push("/sign-in");
       }
     });
   } catch (error: any) {

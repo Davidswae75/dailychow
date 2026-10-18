@@ -2,9 +2,9 @@
 import { computed, ref } from "vue";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import IngredientChecklist from "../dish/IngredientChecklist.vue";
-import { dayMeals } from "@/hooks/useDayMeals";
-import { useScreenSize } from "@/hooks";
-import type { MealTime } from "@/lib/dishes";
+import { dayMeals } from "@/composables/useDayMeals.ts";
+import { useScreenSize } from "@/composables/index.ts";
+import type { MealTime } from "@/lib";
 
 /** Every ingredient for the planned (not yet eaten) meals on the given days. */
 const props = defineProps<{ days: Date[]; slots: MealTime[] }>();

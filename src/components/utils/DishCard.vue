@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Dish } from "@/lib/dishes";
+import type { Dish } from "@/lib";
 import VImg from "v-lazy-image";
 import DarkShade from "@/components/utils/DarkShade.vue";
 import { motion } from "motion-v";
@@ -24,7 +24,6 @@ const delay = Math.min(props.index, 12) * 0.04;
     :initial="{ opacity: 0, y: 22, scale: 0.94 }"
     :animate="{ opacity: 1, y: 0, scale: 1 }"
     :exit="{ opacity: 0, y: 12, scale: 0.94 }"
-    :while-hover="{ y: -6 }"
     :while-press="{ scale: 0.98 }"
     :transition="{ type: 'spring', stiffness: 400, damping: 32, delay }"
   >

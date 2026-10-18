@@ -2,8 +2,7 @@
 import { AnimatePresence, motion } from "motion-v";
 import { RefreshCw } from "@lucide/vue";
 import VLazyImage from "v-lazy-image";
-import type { Recommendation } from "@/lib/recommend";
-import { dishFacts, whyText, capitalize } from "@/lib/format";
+import { type Recommendation, dishFacts, whyText, capitalize } from "@/lib";
 import Shade from "@/components/utils/Shade.vue";
 
 /** The big terracotta card with tonight's dish. */
@@ -20,7 +19,7 @@ defineEmits<{ another: [] }>();
       <motion.div
         :key="pick.dish.id"
         class="absolute -z-10 -top-8 -right-16 size-72 md:-right-10 md:size-96"
-        :initial="{ opacity: 0, scale: 0.85, rotate: -12 }"
+        :initial="{ opacity: 0, scale: 0.85, rotate: -18 }"
         :animate="{ opacity: 1, scale: 1, rotate: 0 }"
         :exit="{ opacity: 0, scale: 1.06, rotate: 8 }"
         :transition="{ type: 'spring', stiffness: 220, damping: 26 }"
@@ -66,9 +65,9 @@ defineEmits<{ another: [] }>();
       >
         <RefreshCw class="size-4" />
       </button>
-      <span class="hidden h-9 items-center rounded-full border border-paper/40 px-3.5 text-[13px] font-semibold sm:inline-flex">
+      <!-- <span class="hidden h-9 items-center rounded-full border border-paper/40 px-3.5 text-[13px] font-semibold sm:inline-flex">
         {{ dishFacts(pick.dish) }}
-      </span>
+      </span> -->
     </div>
   </section>
 </template>

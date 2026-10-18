@@ -5,8 +5,7 @@
 import { defineStore, storeToRefs } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useMealsStore } from "./meals";
-import { recommendDishes, type PickAnswers } from "@/lib/recommend";
-import { currentMealSlot } from "@/lib/dates";
+import { recommendDishes, type PickAnswers, currentMealSlot } from "@/lib";
 
 const STORAGE_KEY = "dailychow:last-answers";
 

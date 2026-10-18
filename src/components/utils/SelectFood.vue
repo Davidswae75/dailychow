@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dishes } from "@/lib/dishes";
+import { dishes } from "@/lib";
 import Chip from "./chip.vue";
 
 const modDishes = dishes.map((d) => ({

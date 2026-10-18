@@ -24,10 +24,10 @@ withDefaults(defineProps<Props>(), {
         :initial="{ opacity: 1 }"
         :exit="{
           opacity: 0,
-          filter: 'blur(1px)',
-          transition: { duration: 0.4, ease: 'easeInOut' },
+          backdropFilter: 'blur(30px)',
+          transition: { duration: 0.8, ease: 'easeInOut' },
         }"
-        :transition="{ duration: 0.5 }"
+        :transition="{ duration: 0.8 }"
         class="min-h-screen bg-terracotta flex justify-center items-center inset-0 absolute top-0 left-0 weave z-[990]"
       >
         <div>

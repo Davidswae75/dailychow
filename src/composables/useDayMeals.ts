@@ -1,7 +1,6 @@
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
 import { useMealsStore } from "@/store/meals";
-import { getDishById, type Dish, type MealTime } from "@/lib/dishes";
-import { labelOf, mealOptions } from "@/lib/options";
+import { getDishById, type Dish, type MealTime, labelOf, mealOptions } from "@/lib";
 import type { MealLog } from "@/types";
 
 export type SlotStatus = "eaten" | "planned" | "empty";

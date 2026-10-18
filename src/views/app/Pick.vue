@@ -5,7 +5,7 @@ import PageHeader from "@/components/app/common/PageHeader.vue";
 import OptionGroup from "@/components/app/common/OptionGroup.vue";
 import SurfaceCard from "@/components/app/common/SurfaceCard.vue";
 import { usePickStore } from "@/store";
-import { budgetOptions, cookOptions, mealOptions, moodOptions, timeOptions } from "@/lib/options";
+import { budgetOptions, cookOptions, mealOptions, moodOptions, timeOptions } from "@/lib";
 
 const { answers } = storeToRefs(usePickStore());
 </script>

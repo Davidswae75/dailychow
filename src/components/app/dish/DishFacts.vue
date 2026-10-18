@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Clock, Flame, Wallet } from "@lucide/vue";
-import type { Dish } from "@/lib/dishes";
-import { formatMinutes, formatPrice, pepperText } from "@/lib/format";
+import { type Dish, formatMinutes, formatPrice, pepperText } from "@/lib";
 
 /** Time, price and pepper for a dish as small chips. `onDark` for photo or dark backgrounds. */
 withDefaults(defineProps<{ dish: Dish; onDark?: boolean }>(), { onDark: false });

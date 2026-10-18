@@ -1,4 +1,4 @@
-import type { MealTime } from "@/lib/dishes";
+import type { MealTime } from "@/lib";
 
 /** One meal the user said they ate. Stored in the user doc's `foodEaten` array. */
 export interface MealLog {

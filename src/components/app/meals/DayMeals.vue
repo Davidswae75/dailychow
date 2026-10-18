@@ -3,10 +3,9 @@ import { ref } from "vue";
 import { CircleCheck } from "@lucide/vue";
 import MealRow from "./MealRow.vue";
 import AddMealSheet from "./AddMealSheet.vue";
-import { useDayMeals } from "@/hooks/useDayMeals";
+import { useDayMeals } from "@/composables/useDayMeals.ts";
 import { useMealsStore } from "@/store";
-import type { MealTime } from "@/lib/dishes";
-import { isSameDay } from "@/lib/dates";
+import { type MealTime, isSameDay } from "@/lib";
 
 /** A day's meal slots with eaten/planned state, plus the sheet to fill an empty one. */
 const props = withDefaults(defineProps<{ date: Date; slots?: MealTime[] }>(), {

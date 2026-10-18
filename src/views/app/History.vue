@@ -9,9 +9,7 @@ import MealRow from "@/components/app/meals/MealRow.vue";
 import PlanDishSheet from "@/components/app/meals/PlanDishSheet.vue";
 import { useMealsStore, type MealEntry } from "@/store";
 import { useToast } from "vue-toastification";
-import { formatTime, relativeDayLabel } from "@/lib/dates";
-import { labelOf, mealOptions, type Option } from "@/lib/options";
-import type { Dish } from "@/lib/dishes";
+import { formatTime, relativeDayLabel, labelOf, mealOptions, type Option, type Dish } from "@/lib";
 
 const meals = useMealsStore();
 const { history } = storeToRefs(meals);

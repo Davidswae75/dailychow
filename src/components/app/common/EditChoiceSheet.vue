@@ -3,8 +3,8 @@ import { ref, watch } from "vue";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import Button from "@/components/ui/button/Button.vue";
 import OptionGroup from "./OptionGroup.vue";
-import { useScreenSize } from "@/hooks/useScreenSize";
-import type { Option } from "@/lib/options";
+import { useScreenSize } from "@/composables/useScreenSize.ts";
+import type { Option } from "@/lib";
 
 /** Edit one preference in a sheet. Works on a draft; `save` gets the new value. */
 const props = defineProps<{

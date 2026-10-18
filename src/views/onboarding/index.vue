@@ -15,7 +15,7 @@ import {
 } from "@/types";
 import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
-import { useScreenSize } from "@/hooks/useScreenSize";
+import { useScreenSize } from "@/composables/useScreenSize.ts";
 import { getError, initUser } from "@/firebase";
 import Button from "@/components/ui/button/Button.vue";
 import { useToast } from "vue-toastification";

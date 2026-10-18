@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { motion } from "motion-v";
-import type { Dish } from "@/lib/dishes";
-import { capitalize } from "@/lib/format";
+import { type Dish, capitalize } from "@/lib";
 
 const props = defineProps<{ nutrition: Dish["nutrition"] }>();
 

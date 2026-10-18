@@ -11,11 +11,10 @@ import AddMealSheet from "@/components/app/meals/AddMealSheet.vue";
 import ShoppingListSheet from "@/components/app/meals/ShoppingListSheet.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { useMealsStore, usePickStore } from "@/store";
-import { useWeek } from "@/hooks";
+import { useWeek } from "@/composables";
 import { useToast } from "vue-toastification";
-import { dayMeals } from "@/hooks/useDayMeals";
-import { formatLongDate, isSameDay, toDateKey } from "@/lib/dates";
-import type { MealTime } from "@/lib/dishes";
+import { dayMeals } from "@/composables/useDayMeals";
+import { formatLongDate, isSameDay, toDateKey, type MealTime } from "@/lib";
 
 const SLOTS: MealTime[] = ["breakfast", "lunch", "dinner", "snack"];
 

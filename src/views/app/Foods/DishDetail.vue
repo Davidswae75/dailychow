@@ -12,10 +12,7 @@ import Chip from "@/components/utils/chip.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { useMealsStore } from "@/store";
 import { useToast } from "vue-toastification";
-import { bodyTypes, getDishById, type MealTime } from "@/lib/dishes";
-import { currentMealSlot } from "@/lib/dates";
-import { capitalize, joinReasons } from "@/lib/format";
-import { labelOf, mealOptions, moodOptions } from "@/lib/options";
+import { bodyTypes, getDishById, type MealTime, currentMealSlot, capitalize, joinReasons, labelOf, mealOptions, moodOptions } from "@/lib";
 
 const route = useRoute();
 const router = useRouter();
@@ -73,7 +70,7 @@ async function toggleDislike() {
 </script>
 
 <template>
-  <main v-if="dish" class="mx-auto max-w-6xl pb-32 md:grid md:grid-cols-[1fr_1.1fr] md:gap-8 md:px-8 md:py-6 md:pb-10">
+  <main v-if="dish" class="mx-auto max-w-6xl pb-32 md:grid md:grid-cols-[1fr_1fr] md:gap-8 md:px-8 md:py-6 md:pb-10">
     <div class="md:sticky md:top-20 md:h-[calc(100dvh-8rem)]">
       <DishHero :dish="dish" back-to="/dashboard/foods" back-label="Back to foods">
         <template #actions>
@@ -101,14 +98,14 @@ async function toggleDislike() {
       </DishHero>
     </div>
 
-    <div class="relative -mt-7 flex flex-col gap-5 rounded-t-[30px] bg-cream px-5 pt-6 md:mt-0 md:rounded-none md:px-0 md:pt-0">
+    <div class="relative -mt-6 flex flex-col gap-5 rounded-t-[30px] px-5 pt-6 md:mt-0 md:rounded-none md:px-0 md:pt-0">
       <div class="space-y-1.5">
         <p class="text-sm text-ink">{{ dish.region }}</p>
         <h1 class="text-4xl md:text-5xl font-bold">{{ dish.name }}</h1>
         <p class="text-[15px] text-ink">{{ dish.note }}</p>
       </div>
 
-      <DishFacts :dish="dish" />
+      <DishFac  ts :dish="dish" />
       <p v-if="dish.buyFriendly" class="-mt-2 text-sm text-ink">Easy to buy ready-made if you'd rather not cook.</p>
 
       <section aria-labelledby="good-for" class="space-y-2.5">

@@ -9,10 +9,7 @@ import { computed, reactive } from "vue";
 import { useUserStore } from "./user";
 import * as mealService from "@/firebase/services/meals";
 import { getError } from "@/firebase/utils/error";
-import { getDishById, type Dish, type MealTime } from "@/lib/dishes";
-import { bodyTypeFromId } from "@/lib/options";
-import { isSameDay, toDateKey } from "@/lib/dates";
-import { recommendDishes, type PickAnswers, type TasteProfile } from "@/lib/recommend";
+import { getDishById, type Dish, type MealTime, bodyTypeFromId, isSameDay, toDateKey, recommendDishes, type PickAnswers, type TasteProfile } from "@/lib";
 import type { DayPlan, MealLog, MealPlan } from "@/types";
 
 /** A history entry together with its dish, ready for display. */
