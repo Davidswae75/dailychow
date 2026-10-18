@@ -19,7 +19,7 @@ const today = formatLongDate(new Date());
 
 <template>
   <header
-    class="glass bg-cream/30 backdrop-blur-lg sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b border-white/70 px-4 md:h-[4.5rem] md:rounded-t-[40px] md:px-8"
+    class="bg-cream/30 backdrop-blur-lg sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b border-white/70 px-4 md:h-[4.5rem] md:rounded-t-[40px] md:px-8"
   >
     <RouterLink to="/dashboard/home" aria-label="Daily Chow home" class="md:hidden">
       <Logo name="" size="sm" />

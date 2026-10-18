@@ -97,7 +97,7 @@ const fields = computed<FieldsProp["fields"]>(() => [
 <template>
   <main class="h-full flex justify-center items-center w-full">
     <section class="space-y-7 w-full">
-      <Logo v-if="mode == 'login'" />
+      <Logo v-if="mode == 'login'" @click="$router.push('/')"/>
       <section
         class="p-4 md:p-7 rounded-4xl space-y-3"
         :class="mode == 'login' && 'bg-paper border border-line'"
