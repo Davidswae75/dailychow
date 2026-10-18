@@ -1,23 +1,16 @@
-import Foods from "@/views/app/Foods/index.vue";
-import History from "@/views/app/History.vue";
-import Home from "@/views/app/home.vue";
-import Pick from "@/views/app/Pick.vue";
-import Planner from "@/views/app/Planner.vue";
-import Preferences from "@/views/app/Preferences.vue";
-
 const dashboardRoutes = [
-  { path: "/dashboard/home", component: Home },
-  { path: "/dashboard/planner", component: Planner },
-  { path: "/dashboard/pick", component: Pick },
+  { path: "/dashboard/home", component: () => import("@/views/app/home.vue") },
+  { path: "/dashboard/planner", component: () => import("@/views/app/Planner.vue") },
+  { path: "/dashboard/pick", component: () => import("@/views/app/Pick.vue") },
   {
     path: "/dashboard/pick/result",
     component: () => import("@/views/app/PickResult.vue"),
     // Has its own bottom action bar
     meta: { hideBottomBar: true },
   },
-  { path: "/dashboard/preferences", component: Preferences },
-  { path: "/dashboard/history", component: History },
-  { path: "/dashboard/foods", component: Foods },
+  { path: "/dashboard/preferences", component: () => import("@/views/app/Preferences.vue") },
+  { path: "/dashboard/history", component: () => import("@/views/app/History.vue") },
+  { path: "/dashboard/foods", component: () => import("@/views/app/Foods/index.vue") },
   {
     path: "/dashboard/foods/:id",
     component: () => import("@/views/app/Foods/DishDetail.vue"),
@@ -25,7 +18,7 @@ const dashboardRoutes = [
   },
 ].map((route) => ({
   ...route,
-  meta: { ...("meta" in route ? route.meta : {}), layout: "dashboard" },
+  meta: { ...("meta" in route ? route.meta : {}), layout: "dashboard", requiresAuth: true },
 }));
 
 export default dashboardRoutes;

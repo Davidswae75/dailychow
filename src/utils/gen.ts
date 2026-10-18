@@ -1,11 +1,11 @@
-import { toast } from "vue-sonner";
+import { useToast } from "vue-toastification";
 
 export const scrollPage = (id: string) => {
 
   const getID = document.getElementById(id);
   
   if (!getID) {
-    toast.info("Document ID Not Found");
+    useToast().info("Document ID Not Found");
     return;
   }
 

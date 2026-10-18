@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { KeyRound, LogOut, X } from "@lucide/vue";
+import { LogOut, X } from "@lucide/vue";
 import PageHeader from "@/components/app/common/PageHeader.vue";
 import SurfaceCard from "@/components/app/common/SurfaceCard.vue";
 import SettingsRow from "@/components/app/common/SettingsRow.vue";

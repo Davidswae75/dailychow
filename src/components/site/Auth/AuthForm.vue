@@ -6,13 +6,16 @@ import Fields, { type FieldsProp } from "@/components/utils/Fields.vue";
 import { useScreenSize } from "@/composables/useScreenSize";
 import { Eye, EyeClosed } from "@lucide/vue";
 import type { Ref } from "vue";
-import { computed, inject, reactive, ref } from "vue";
+import { computed, inject, ref } from "vue";
+import { useToast } from "vue-toastification";
+import { getError, sendPasswordReset } from "@/firebase";
 
 interface Props {
   mode: "login" | "register";
 }
 
 const { greaterThan } = useScreenSize();
+const toast = useToast();
 
 const props = withDefaults(defineProps<Props>(), {
   mode: "login",
@@ -35,7 +38,20 @@ const model = defineModel<AuthFormType>({
 const pV = ref(false);
 
 const loading = inject<Ref<boolean>>('loading')
-console.log(loading)
+
+async function resetPassword() {
+  const email = model.value.email.trim();
+  if (!email) {
+    toast.info("Enter your email first, then tap Forgot Password");
+    return;
+  }
+  try {
+    await sendPasswordReset(email);
+    toast.success(`Reset link sent to ${email}`);
+  } catch (error) {
+    getError(error);
+  }
+}
 
 const fields = computed<FieldsProp["fields"]>(() => [
   ...(props.mode === "register"
@@ -66,9 +82,7 @@ const fields = computed<FieldsProp["fields"]>(() => [
     inputClass: props.mode == "register" && "bg-paper",
     secondLabel: props.mode == "login" && {
       label: "Forgot Password",
-      labelAction() {
-        console.log("second label action");
-      },
+      labelAction: resetPassword,
       labelClass: "hover:underline",
     },
     name: "password",

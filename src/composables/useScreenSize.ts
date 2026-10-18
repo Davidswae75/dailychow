@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 type ScreenSizes = "sm" | "md" | "lg" | "xl";
 
@@ -14,7 +14,7 @@ export function useScreenSize() {
   const width = ref(0);
 
   const updateScreen = () => {
-    const { sm, md, lg, xl } = screenSizes;
+    const { md, lg, xl } = screenSizes;
 
     if (width.value >= xl) {
       currentScreen.value = "xl";

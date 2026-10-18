@@ -1,24 +1,11 @@
 import { FirebaseError } from "firebase/app";
 import { useToast } from "vue-toastification";
 
-const errorCapture = async (
-  func: () => Promise<void>,
-  fallBack = "An Error As Occured"
-) => {
-  try {
-    Promise.resolve(func());
-  } catch (error) {
-    console.log(error);
-    throw new Error(fallBack);
-  }
-};
-
 export const firebaseError = (error: FirebaseError) => {
   const { error: toastError} = useToast();
   const msg = getFirebaseErrorMessage(error.code || error.message);
 
   toastError(msg || "An Error Occured");
-  console.log({ error, msg });
 };
 
 export const getError = (error: Error | unknown) => {
@@ -38,6 +25,8 @@ const getFirebaseErrorMessage = (code: string): string | null => {
     "auth/weak-password": "Password should be at least 6 characters.",
     "auth/invalid-email": "Please enter a valid email address.",
     "auth/too-many-requests": "Too many attempts. Please try again later.",
+    "auth/invalid-credential": "Incorrect email or password.",
+    "auth/network-request-failed": "Network error. Check your connection and try again.",
 
     // Firestore
     "permission-denied": "You don't have permission to perform this action.",

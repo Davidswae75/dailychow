@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import problem from "@/assets/illo-problem.png";
+import problem from "@/assets/illo-problem.webp";
 import HeaderText from "./HeaderText.vue";
 import Reveal from "../utils/Reveal.vue";
 </script>

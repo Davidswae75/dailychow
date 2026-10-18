@@ -57,7 +57,6 @@ export const useUiStore = defineStore("ui", () => {
     };
 
     if(alerts.value.length >= 5) return
-    console.log(alerts.value.length)
     alerts.value.push(newAlert);
 
     if (!newAlert.persistent) {

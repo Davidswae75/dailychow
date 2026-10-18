@@ -7,11 +7,10 @@ import {
   arrayRemove,
   arrayUnion,
   deleteField,
-  doc,
   updateDoc,
 } from "firebase/firestore";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth, db } from "../config";
+import { auth } from "../config";
 import type { MealTime } from "@/lib";
 import type { MealLog, UserPreference } from "@/types";
 import { userDoc } from "./user";
@@ -29,6 +28,7 @@ export const setPlannedMeal = (
   slot: MealTime,
   dishId: string | null
 ) =>
+  //using dots to create seperate path
   updateDoc(userDoc(uid), {
     [`plan.${dateKey}.${slot}`]: dishId ?? deleteField(),
   });

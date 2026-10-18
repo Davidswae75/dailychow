@@ -2,7 +2,7 @@
 import { AnimatePresence, motion } from "motion-v";
 import { RefreshCw } from "@lucide/vue";
 import VLazyImage from "v-lazy-image";
-import { type Recommendation, dishFacts, whyText, capitalize } from "@/lib";
+import { type Recommendation, whyText, capitalize } from "@/lib";
 import Shade from "@/components/utils/Shade.vue";
 
 /** The big terracotta card with tonight's dish. */

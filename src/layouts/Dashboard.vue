@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useAuth } from "@/composables";
-import { useAuthStore, useUserStore } from "@/store";
+import { useAuthStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { AnimatePresence, motion } from "motion-v";
 import LoadingScreen from "@/components/utils/LoadingScreen.vue";
 import Sidebar from "@/components/site/Sidebar.vue";
@@ -10,20 +10,13 @@ import Bottombar from "@/components/site/Bottombar.vue";
 import NavBar from "@/components/app/NavBar.vue";
 
 const authStore = useAuthStore();
-const { isLoggedIn } = storeToRefs(authStore);
+const { isLoggedIn, pending } = storeToRefs(authStore);
+const router = useRouter();
+const route = useRoute();
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
-
-const { checkUser } = useAuth();
-
-onMounted(() => {
-  checkUser();
-  // setTimeout(() => {
-  //   authStore.$patch({
-  //     isLoggedIn: true
-  //   })
-  // }, 1500)
+// The router guard handles navigation; this covers the session ending while on a page
+watch([isLoggedIn, pending], ([loggedIn, loading]) => {
+  if (!loading && !loggedIn) router.replace({ path: "/sign-in", query: { redirect: route.fullPath } });
 });
 </script>
 

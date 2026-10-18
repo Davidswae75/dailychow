@@ -1,61 +1,36 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { auth } from "@/firebase";
-import { useRouter } from "vue-router";
-import { getUserByid } from "@/firebase/services/user";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "@/firebase/config";
 import { getError } from "@/firebase/utils/error";
-import { useUserStore } from "@/store";
+import { useAuthStore } from "@/store";
+import { useRouter } from "vue-router";
+import { until } from "@vueuse/core";
 import { useToast } from "vue-toastification";
 
 export function useAuth() {
-  const toast = useToast()
+  const toast = useToast();
+  const router = useRouter();
+  const authStore = useAuthStore();
 
-  const signIn = async (
-    type: "register" | "login",
-    email: string,
-    password: string
-  ) => {
-    const cred =
-      type === "register"
-        ? await createUserWithEmailAndPassword(auth, email, password)
-        : await signInWithEmailAndPassword(auth, email, password);
-    return {
-      uid: cred.user.uid,
-    };
-  };
-
-  const checkUser = () => {
-    const { setUserState } = useUserStore();
-    const router = useRouter();
-
-    onAuthStateChanged(auth, async (cred) => {
-      try {
-        if (!cred) {
-          router.push("/sign-in");
-          setUserState(null);
-          return;
-        }
-        await getUserByid(cred.uid);
-      } catch (error: any) {
-        router.push("/sign-in");
-        getError(error);
-      }
-    });
+  /** Signs in and waits until the profile has loaded, so the next navigation passes the guard. */
+  const signIn = async (email: string, password: string) => {
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    authStore.start();
+    await until(() => authStore.authUser?.uid === user.uid && !authStore.pending).toBe(true);
+    return { uid: user.uid };
   };
 
   const signOutUser = async () => {
-    await signOut(auth).then(() => {
-      toast.info('Logged Out Successfully')
-    })
-  }
+    try {
+      await signOut(auth);
+      toast.info("Logged Out Successfully");
+      router.push("/sign-in");
+    } catch (error) {
+      getError(error);
+    }
+  };
 
   return {
     signIn,
-    checkUser,
-    signOutUser
+    signOutUser,
   };
 }

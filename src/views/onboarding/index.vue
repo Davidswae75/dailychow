@@ -17,6 +17,7 @@ import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
 import { useScreenSize } from "@/composables/useScreenSize.ts";
 import { getError, initUser } from "@/firebase";
+import { useAuthStore } from "@/store";
 import Button from "@/components/ui/button/Button.vue";
 import { useToast } from "vue-toastification";
 
@@ -51,9 +52,11 @@ const loading = ref(false);
 provide("loading", loading);
 const router = useRouter();
 const toast = useToast()
+const authStore = useAuthStore();
 
 const submitForm = handleSubmit(async (formValues) => {
   loading.value = true;
+  authStore.registering = true;
   try {
     const payload: NewUser = {
       joinedDate: new Date(),
@@ -63,15 +66,15 @@ const submitForm = handleSubmit(async (formValues) => {
       ...formValues,
     };
     await initUser(payload);
+    authStore.registering = false;
+    await authStore.settled();
 
     toast.success("Registered Successfully, Let's Chow");
-
-    loading.value = false;
     router.push("/dashboard/home");
-
   } catch (error) {
     getError(error);
   } finally {
+    authStore.registering = false;
     loading.value = false;
   }
 });

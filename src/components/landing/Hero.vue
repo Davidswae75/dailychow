@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowBigDown, Flame } from "@lucide/vue";
 import Chip from "../utils/chip.vue";
-import heroSpread from "@/assets/hero-spread.jpg";
+import heroSpread from "@/assets/hero-spread.webp";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
 import { useToast } from "vue-toastification";

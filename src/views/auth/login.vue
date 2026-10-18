@@ -2,20 +2,23 @@
 import AuthForm, {
   type AuthFormType,
 } from "@/components/site/Auth/AuthForm.vue";
-import { getUserByid } from "@/firebase";
-import { getError } from "@/firebase/utils/error";
+import { auth, getError } from "@/firebase";
+import { signOut } from "firebase/auth";
 import { useAuth } from "@/composables/useAuth";
+import { useAuthStore } from "@/store";
 import { loginSchema } from "@/types";
 import { useForm } from "vee-validate";
 import { provide, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import Reveal from "@/components/utils/Reveal.vue";
-import heroSpread from "@/assets/hero-spread.jpg";
+import heroSpread from "@/assets/hero-spread.webp";
 
 const toast = useToast()
 const { signIn } = useAuth();
+const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 
 const { values, setFieldValue, handleSubmit } = useForm<AuthFormType>({
   validationSchema: loginSchema,
@@ -32,16 +35,14 @@ const submitForm = handleSubmit(async (formValues) => {
   if (!formValues) return;
   loading.value = true;
   try {
-    const { uid } = await signIn(
-      "login",
-      formValues.email,
-      formValues.password
-    );
-    // await getUserByid(uid);
+    await signIn(formValues.email, formValues.password);
+    if (!authStore.isLoggedIn) {
+      toast.error("We couldn't find your profile. Please register again.");
+      await signOut(auth);
+      return;
+    }
     toast.success("Successfully Logged In");
-    router.push("/dashboard/home");
-    // setTimeout(() => {
-    // }, 3000);
+    router.push((route.query.redirect as string) || "/dashboard/home");
   } catch (error) {
     getError(error);
   } finally {

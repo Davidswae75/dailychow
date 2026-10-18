@@ -4,7 +4,6 @@ import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import { CalendarPlus, CircleCheck, Heart, ThumbsDown } from "@lucide/vue";
 import DishHero from "@/components/app/dish/DishHero.vue";
-import DishFacts from "@/components/app/dish/DishFacts.vue";
 import NutritionBars from "@/components/app/dish/NutritionBars.vue";
 import SurfaceCard from "@/components/app/common/SurfaceCard.vue";
 import PlanDishSheet from "@/components/app/meals/PlanDishSheet.vue";

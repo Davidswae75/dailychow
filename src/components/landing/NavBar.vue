@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { CookingPot } from "@lucide/vue";
 import { Button } from "../ui/button";
 import { scrollPage } from "@/utils";
 import Logo from "../site/Logo.vue";
