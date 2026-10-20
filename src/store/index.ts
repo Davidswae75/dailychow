@@ -1,5 +1,4 @@
 export * from './auth'
 export * from './user'
-export * from './ui'
 export * from './meals'
 export * from './pick'
