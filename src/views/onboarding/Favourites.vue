@@ -4,7 +4,7 @@ import Button from "@/components/ui/button/Button.vue";
 import { CheckCircle } from "@lucide/vue";
 import { computed, ref } from "vue";
 import VLazyImage from "v-lazy-image"
-import { dishes, type Dish } from "@/lib/dishes";
+import { dishes, type Dish } from "@/lib";
 
 const model = defineModel<Dish[]>({
   default: () => [],
@@ -28,7 +28,7 @@ const moreItems = computed(() => dishes.length - visibleItems.value);
 <template>
   <main class="space-y-3 p-1">
     <HeaderText
-      eyebrow="Quetion 5 of 5"
+      eyebrow="Quetion 4 of 4"
       title="Pick a few old favourites"
     >
     <template #description>

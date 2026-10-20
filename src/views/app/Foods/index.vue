@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import Chip from "@/components/utils/chip.vue";
-import ContentCard from "@/components/utils/ContentCard.vue";
+import PageHeader from "@/components/app/common/PageHeader.vue";
 import FilterSheet, { type Filter } from "@/components/utils/FilterSheet.vue";
 import { CookingPot } from "@lucide/vue";
 import { computed, ref } from "vue";
 import FilterFoods from "./FilterFoods.vue";
-import { dishes, type Dish } from "@/lib/dishes";
+import { dishes, type Dish } from "@/lib";
 import SearchInput from "@/components/utils/SearchInput.vue";
-
 import DishCard from "@/components/utils/DishCard.vue";
+import { refDebounced } from "@vueuse/core";
 
 const foods = ref<string[]>([]);
 
@@ -20,9 +20,10 @@ const filter: Filter<Dish>[] = [
 ];
 
 const search = ref("");
+const debouncedSearch = refDebounced(search, 500);
 
 const filterDishes = computed(() => {
-  const sL = search.value.toLowerCase();
+  const sL = debouncedSearch.value.toLowerCase();
 
   return dishes.filter((dish) => {
     const matchesCategoryFilter =
@@ -30,47 +31,40 @@ const filterDishes = computed(() => {
 
     const matchesSearch =
       !sL ||
-      dish.name.toLowerCase().includes(sL) ||
-      dish.category.toLowerCase().includes(sL);
+      [dish.name, dish.category, ...dish.ingredients, ...dish.sides].some(
+        (text) => text.toLowerCase().includes(sL)
+      );
 
     return matchesSearch && matchesCategoryFilter;
   });
 });
-
-
 </script>
 
 <template>
-  <main class="md:px-8 py-5 space-y-4">
-    <div class="grid md:grid-cols-[1.2fr_1fr]">
-      <ContentCard
-        class="bg-cream"
-        header
-        title="Nigerian foods, pairings and details in one place."
-        description="Search by dish, ingredient or pairing. Open any plate to see what goes with it, allergens, meal times and nutrition-style guidance."
+  <main
+    class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-6 pb-32 md:px-8 md:pb-10"
+  >
+    <div class="flex flex-wrap items-end justify-between gap-5">
+      <PageHeader
+        title="Nigerian foods, pairings and details in one place"
+        description="Search by dish, ingredient or pairing. Open any plate to see what goes with it, allergens, meal times and how filling it is."
       >
-        <template #eyebrow>
-          <Chip
-            variant="saffron"
-            class="inline-block !py-1 font-bold"
-            :icon="CookingPot"
-            >All Available Dishes{{ foods }}</Chip
-          >
-        </template>
-      </ContentCard>
-    </div>
-
-    <section>
-      <div
-        class="px-4 flex items-center justify-end text-end float-right md:w-3/5 w-full gap-2"
+      </PageHeader>
+      <Chip
+        variant="saffron"
+        class="mr-2 inline-flex py-1! font-bold"
+        :icon="CookingPot"
+        >{{ dishes.length }} dishes</Chip
       >
-        <SearchInput v-model="search" />
+      <div class="flex w-full items-center gap-2 md:w-auto md:min-w-[26rem]">
+        
+        <SearchInput v-model="search" class="grow" />
         <FilterSheet
           :items="dishes"
           :filters="filter"
-          description="This is the description"
-           @reset="foods = []"
-           @apply=""
+          title="Filter dishes"
+          description="Show only the categories you pick."
+          @reset="foods = []"
         >
           <template #filters>
             <FilterFoods
@@ -83,12 +77,33 @@ const filterDishes = computed(() => {
           </template>
         </FilterSheet>
       </div>
-    </section>
+    </div>
+
+    <p class="-mb-2 text-sm text-ink text-center capitalize" aria-live="polite">
+    
+      {{ filterDishes.length }} Delicacies just for you...
+    </p>
 
     <section
-      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pt-5 px-4 mx-auto gap-2"
+      v-if="filterDishes.length"
+      class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4"
     >
-      <DishCard v-for="dish in filterDishes" :key="dish.id" :dish="dish" />
+      <RouterLink
+        v-for="(dish, i) in filterDishes"
+        :key="dish.id"
+        :to="`/dashboard/foods/${dish.id}`"
+        :aria-label="dish.name"
+        class="rounded-4xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta-deep"
+      >
+        <DishCard :dish="dish" :index="i" class="w-full" />
+      </RouterLink>
     </section>
+    <p v-else class="py-16 text-center text-ink">
+      {{
+        search
+          ? `No dish matches “${search}”. Try a dish, ingredient or side.`
+          : "No dish in those categories."
+      }}
+    </p>
   </main>
 </template>

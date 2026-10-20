@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import problem from "@/assets/illo-problem.png";
+import problem from "@/assets/illo-problem.webp";
 import HeaderText from "./HeaderText.vue";
 import Reveal from "../utils/Reveal.vue";
 </script>
@@ -48,8 +48,7 @@ import Reveal from "../utils/Reveal.vue";
                   And the food rarely matches the day.</span
                 >
                 Some evenings you want light and peppery. Some mornings you want
-                akara and pap and nothing else. Some weeks the market money is
-                thin and you need something that stretches. Recipe apps don't
+                akara and pap and nothing else. Recipe apps don't
                 ask any of that. They just hand you ten thousand options.
               </p>
             </template>

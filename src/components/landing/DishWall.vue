@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import HeaderText from "./HeaderText.vue";
 
-import jollof from "@/assets/ng-jollof.jpg";
-import egusi from "@/assets/ng-egusi.jpg";
-import suya from "@/assets/ng-suya.jpg";
-import ofada from "@/assets/ng-ofada.jpg";
-import moimoi from "@/assets/ng-moimoi.jpg";
-import peppersoup from "@/assets/ng-peppersoup.jpg";
-import akara from "@/assets/ng-akara.jpg";
-import asun from "@/assets/ng-asun.jpg";
-import dodo from "@/assets/ng-dodo.jpg";
+import jollof from "@/assets/ng-jollof.webp";
+import egusi from "@/assets/ng-egusi.webp";
+import suya from "@/assets/ng-suya.webp";
+import ofada from "@/assets/ng-ofada.webp";
+import moimoi from "@/assets/ng-moimoi.webp";
+import peppersoup from "@/assets/ng-peppersoup.webp";
+import akara from "@/assets/ng-akara.webp";
+import asun from "@/assets/ng-asun.webp";
+import dodo from "@/assets/ng-dodo.webp";
 import DishWallCard from "./DishWallCard.vue";
 
 const dishes = [
@@ -41,7 +41,7 @@ const dishes = [
     img: moimoi,
     name: "Moi moi",
     note: "Steamed beans, soft",
-    tags: ["veg", "cheap"],
+    tags: ["veg", "light"],
   },
   {
     img: peppersoup,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, provide } from "vue";
-import OContainer from "@/components/site/OContainer.vue";
+import { ref, computed, provide } from "vue";
+import OContainer, { barClasses, type BarStyle } from "@/components/site/OContainer.vue";
 import WhatBringYouHere from "./WhatBringYouHere.vue";
 import NotInterested from "./NotInterested.vue";
 import BodyTypes from "./BodyTypes.vue";
@@ -11,14 +11,18 @@ import { useForm } from "vee-validate";
 import {
   registerSchema,
   type RegisterSchemaType,
-  type UserProps,
+  type NewUser,
 } from "@/types";
 import Favourites from "./Favourites.vue";
 import { useRouter } from "vue-router";
-import { useScreenSize } from "@/hooks/useScreenSize";
+import { useScreenSize } from "@/composables/useScreenSize.ts";
 import { getError, initUser } from "@/firebase";
+import { useAuthStore } from "@/store";
 import Button from "@/components/ui/button/Button.vue";
 import { useToast } from "vue-toastification";
+
+// Onboarding top and bottom bars: "classic" (solid cream, the original) or "glass" (frosted)
+const barStyle: BarStyle = "classic";
 
 const currentStep = ref(1);
 const totalSteps = 5;
@@ -48,11 +52,13 @@ const loading = ref(false);
 provide("loading", loading);
 const router = useRouter();
 const toast = useToast()
+const authStore = useAuthStore();
 
 const submitForm = handleSubmit(async (formValues) => {
   loading.value = true;
+  authStore.registering = true;
   try {
-    const payload: Omit<UserProps, "id" | "userID"> = {
+    const payload: NewUser = {
       joinedDate: new Date(),
       dislikes: [],
       foodEaten: [],
@@ -60,34 +66,34 @@ const submitForm = handleSubmit(async (formValues) => {
       ...formValues,
     };
     await initUser(payload);
+    authStore.registering = false;
+    await authStore.settled();
 
     toast.success("Registered Successfully, Let's Chow");
-
-    loading.value = false;
     router.push("/dashboard/home");
-
   } catch (error) {
     getError(error);
   } finally {
+    authStore.registering = false;
     loading.value = false;
   }
 });
 
 // ---------- Device detection ----------
-const isLowEndDevice = ref(false);
-const prefersReducedMotion = ref(false);
+// Decided before the first render: switching variants after mount left the
+// first step stuck blurred on low-end phones.
+const detectReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-onMounted(() => {
-  prefersReducedMotion.value = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
+const detectLowEndDevice = () => {
   const cores = navigator.hardwareConcurrency || 4;
   const memory = (navigator as any).deviceMemory || 4;
   const isAndroid = /Android/i.test(navigator.userAgent);
+  return (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
+};
 
-  isLowEndDevice.value = (isAndroid && cores <= 4) || memory <= 2 || cores <= 2;
-});
+const isLowEndDevice = ref(detectLowEndDevice());
+const prefersReducedMotion = ref(detectReducedMotion());
 
 // ---------- Animation variants ----------
 const animation = computed(() => {
@@ -138,7 +144,7 @@ const updateField = <T extends keyof RegisterSchemaType>(
   <main class="bg-cream grain">
     <!-- {{ values }} -->
     <section class="mx-auto max-w-2xl">
-      <OContainer :current-step="currentStep" :steps="totalSteps">
+      <OContainer :current-step="currentStep" :steps="totalSteps" :bar-style="barStyle">
         <template #content>
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -193,7 +199,8 @@ const updateField = <T extends keyof RegisterSchemaType>(
 
         <template #footer>
           <div
-            class="sticky bottom-0 z-30 flex items-center justify-between bg-cream grain py-4"
+            class="sticky bottom-0 z-30 flex items-center justify-between py-4"
+            :class="barClasses[barStyle].footer"
           >
             <Button
               v-if="currentStep > 1"

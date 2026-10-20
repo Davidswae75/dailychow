@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import HeaderText from "@/components/landing/HeaderText.vue";
 import Chip from "@/components/utils/chip.vue";
+import { goalOptions } from "@/lib";
 
 
-const options = [
-
-  { label: "Eat Healthier", value: "eat_healthier" },
-  { label: "Lose Weight", value: "lose_weight" },
-  { label: "Maintain My Weight", value: "maintain_my_weight" },
-  { label: "Gain Weight", value: "gain_weight" },
-  { label: "Eat Nigerian Food", value: "eat_nigerian_food" },
-  { label: "Spend Less On Food", value: "spend_less_on_food" },
-];
+const options = goalOptions;
 
 const model = defineModel<string>({ default: "eat_healthier" });
 const isSelected = (value: string) => model.value === value;
@@ -21,7 +14,7 @@ const isSelected = (value: string) => model.value === value;
 <template>
   <main class="space-y-3">
     <HeaderText
-      eyebrow="Question 1 of 5"
+      eyebrow="Question 1 of 4"
       title="What brings you here?"
       description="This shapes every pick we make for you."
     />

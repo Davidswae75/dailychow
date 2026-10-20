@@ -2,7 +2,7 @@
 import type { WithClassAsProps } from "./interface"
 import type { ButtonVariants } from '@/components/ui/button'
 import { ArrowRight } from "@lucide/vue"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib"
 import { Button } from '@/components/ui/button'
 import { useCarousel } from "./useCarousel"
 

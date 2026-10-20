@@ -1,32 +1,32 @@
-import jollof from "@/assets/ng-jollof.jpg";
-import egusi from "@/assets/ng-egusi.jpg";
-import suya from "@/assets/ng-suya.jpg";
-import ofada from "@/assets/ng-ofada.jpg";
-import moimoi from "@/assets/ng-moimoi.jpg";
-import peppersoup from "@/assets/ng-peppersoup.jpg";
-import akara from "@/assets/ng-akara.jpg";
-import asun from "@/assets/ng-asun.jpg";
-import dodo from "@/assets/ng-dodo.jpg";
-import ewaRiro from "@/assets/ng-ewa-riro.jpg";
-import yamEggSauce from "@/assets/ng-yam-egg-sauce.jpg";
-import okraEba from "@/assets/ng-okra-eba.jpg";
-import bangaStarch from "@/assets/ng-banga-starch.jpg";
-import nkwobiImg from "@/assets/ng-nkwobi.jpg";
-import edikangIkong from "@/assets/ng-edikang-ikong.jpg";
-import friedRice from "@/assets/ng-fried-rice.jpg";
-import amalaEweduGbegiri from "@/assets/ng-amala-ewedu-gbegiri.jpg";
-import ogbonoEba from "@/assets/ng-ogbono-eba.jpg";
-import catfishPepperSoup from "@/assets/ng-catfish-pepper-soup.jpg";
-import riceStew from "@/assets/ng-rice-stew.jpg";
-import tuwoMiyanKuka from "@/assets/ng-tuwo-miyan-kuka.jpg";
-import abachaImg from "@/assets/ng-abacha.jpg";
-import plantainPorridge from "@/assets/ng-plantain-porridge.jpg";
-import bukkaStewBeans from "@/assets/ng-bukka-stew-beans.jpg";
-import grilledFishPlantain from "@/assets/ng-grilled-fish-plantain.jpg";
-import afangSoup from "@/assets/ng-afang-soup.jpg";
-import ohaSoup from "@/assets/ng-oha-soup.jpg";
-import ekpangNkukwo from "@/assets/ng-ekpang-nkukwo.jpg";
-import kilishi from "@/assets/ng-kilishi.jpg";
+import jollof from "@/assets/ng-jollof.webp";
+import egusi from "@/assets/ng-egusi.webp";
+import suya from "@/assets/ng-suya.webp";
+import ofada from "@/assets/ng-ofada.webp";
+import moimoi from "@/assets/ng-moimoi.webp";
+import peppersoup from "@/assets/ng-peppersoup.webp";
+import akara from "@/assets/ng-akara.webp";
+import asun from "@/assets/ng-asun.webp";
+import dodo from "@/assets/ng-dodo.webp";
+import ewaRiro from "@/assets/ng-ewa-riro.webp";
+import yamEggSauce from "@/assets/ng-yam-egg-sauce.webp";
+import okraEba from "@/assets/ng-okra-eba.webp";
+import bangaStarch from "@/assets/ng-banga-starch.webp";
+import nkwobiImg from "@/assets/ng-nkwobi.webp";
+import edikangIkong from "@/assets/ng-edikang-ikong.webp";
+import friedRice from "@/assets/ng-fried-rice.webp";
+import amalaEweduGbegiri from "@/assets/ng-amala-ewedu-gbegiri.webp";
+import ogbonoEba from "@/assets/ng-ogbono-eba.webp";
+import catfishPepperSoup from "@/assets/ng-catfish-pepper-soup.webp";
+import riceStew from "@/assets/ng-rice-stew.webp";
+import tuwoMiyanKuka from "@/assets/ng-tuwo-miyan-kuka.webp";
+import abachaImg from "@/assets/ng-abacha.webp";
+import plantainPorridge from "@/assets/ng-plantain-porridge.webp";
+import bukkaStewBeans from "@/assets/ng-bukka-stew-beans.webp";
+import grilledFishPlantain from "@/assets/ng-grilled-fish-plantain.webp";
+import afangSoup from "@/assets/ng-afang-soup.webp";
+import ohaSoup from "@/assets/ng-oha-soup.webp";
+import ekpangNkukwo from "@/assets/ng-ekpang-nkukwo.webp";
+import kilishi from "@/assets/ng-kilishi.webp";
 
 export type PriceBand = "0-1000" | "1000-3000" | "3000-5000" | "5000+";
 export type MealTime = "breakfast" | "lunch" | "dinner" | "snack";
@@ -1076,141 +1076,6 @@ export const dishes: Dish[] = [
 ];
 
 
-
-export interface PickProfile {
-  goal: string | null;
-  budget_range: string | null;
-  cook_time: string | null;
-  cook_or_buy: string | null;
-  dietary: string[] | null;
-  spice_level: number | null;
-  favourite_dishes: string[] | null;
-}
-
-const priceOrder: PriceBand[] = ["0-1000", "1000-3000", "3000-5000", "5000+"];
-
-export function getDishById(id: string) {
+export function getDishById(id: string): Dish | null {
   return dishes.find((dish) => dish.id === id) ?? null;
-}
-
-export function scoreDishes(
-  profile: PickProfile,
-  bodyType?: BodyType | null
-): Dish[] {
-  const dietary = profile.dietary ?? [];
-  const budgetIdx = profile.budget_range
-    ? priceOrder.indexOf(profile.budget_range as PriceBand)
-    : 1;
-  const maxMinutes =
-    profile.cook_time === "quick_15"
-      ? 20
-      : profile.cook_time === "up_to_45"
-      ? 50
-      : 999;
-  const favourites = profile.favourite_dishes ?? [];
-
-  const eligible = dishes.filter((d) => {
-    if (dietary.includes("vegetarian") && !d.vegetarian) return false;
-    if (dietary.includes("no_seafood") && d.seafood) return false;
-    if (dietary.includes("peanut_allergy") && d.peanut) return false;
-    return true;
-  });
-
-  const scored = eligible.map((d) => {
-    let score = 0;
-    const reasons: string[] = [];
-
-    if (profile.budget_range) {
-      const dishIdx = priceOrder.indexOf(d.price);
-      if (dishIdx <= (budgetIdx < 0 ? 1 : budgetIdx)) {
-        score += 3;
-        reasons.push("inside your budget");
-      }
-    }
-    if (profile.cook_time && d.minutes <= maxMinutes) {
-      score += 2;
-      reasons.push(
-        profile.cook_time === "quick_15" ? "ready in minutes" : "fits your time"
-      );
-    }
-    if (profile.cook_or_buy === "buy" && d.buyFriendly) {
-      score += 1;
-      reasons.push("easy to buy near you");
-    }
-    if (profile.spice_level != null) {
-      const gap = Math.abs(d.spice - profile.spice_level);
-      if (gap === 0) {
-        score += 2;
-        reasons.push("matches your pepper level");
-      } else if (gap === 1) {
-        score += 1;
-      }
-    }
-    if (favourites.includes(d.id)) {
-      score += 2;
-      reasons.push("one of your favourites");
-    }
-    if (profile.goal === "save_money" && d.price === "0-1000") {
-      score += 2;
-      reasons.push("kind to your pocket");
-    }
-    if (
-      (profile.goal === "lose" || profile.goal === "healthier") &&
-      d.goals.includes("lighter")
-    ) {
-      score += 2;
-      reasons.push("on the lighter side");
-    }
-    if (profile.goal === "gain" && d.goals.includes("energy")) {
-      score += 2;
-      reasons.push("good energy for weight gain");
-    }
-    if (bodyType && d.bodyTypes.includes(bodyType)) {
-      score += 2;
-      reasons.push("fits your body type setting");
-    }
-
-    return { dish: d, score, reasons };
-  });
-
-  scored.sort((a, b) => b.score - a.score || a.dish.minutes - b.dish.minutes);
-  return scored.map((s) => s.dish);
-}
-
-export function reasonsFor(
-  dish: Dish,
-  profile: PickProfile,
-  bodyType?: BodyType | null
-): string[] {
-  const reasons: string[] = [];
-  if (
-    profile.budget_range &&
-    priceOrder.indexOf(dish.price) <=
-      priceOrder.indexOf(profile.budget_range as PriceBand)
-  ) {
-    reasons.push("it's inside your budget");
-  }
-  if (profile.cook_time === "quick_15" && dish.minutes <= 20)
-    reasons.push("it's ready fast");
-  if (profile.cook_time === "up_to_45" && dish.minutes <= 50)
-    reasons.push("it fits your evening");
-  if (
-    profile.spice_level != null &&
-    Math.abs(dish.spice - profile.spice_level) === 0
-  ) {
-    reasons.push("the pepper level is exactly yours");
-  }
-  if ((profile.favourite_dishes ?? []).includes(dish.id))
-    reasons.push("it's on your favourites list");
-  if (bodyType && dish.bodyTypes.includes(bodyType))
-    reasons.push("it matches your body type setting");
-  if (reasons.length === 0) reasons.push("it's a solid plate any night");
-  return reasons;
-}
-
-export function dishMatchesDateRange(eatenAt: string, days: number | "all") {
-  if (days === "all") return true;
-  const date = new Date(eatenAt).getTime();
-  if (Number.isNaN(date)) return false;
-  return Date.now() - date <= days * 24 * 60 * 60 * 1000;
 }

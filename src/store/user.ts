@@ -1,6 +1,6 @@
 import type { UserProps } from "@/types";
 import { defineStore } from "pinia";
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 
 type User = UserProps | null;
 

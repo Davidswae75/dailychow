@@ -1,56 +1,27 @@
-import { useAuth } from "@/hooks/useAuth";
-import { useDoc } from "@/hooks/useDoc";
-import type { UserProps } from "@/types";
-import { collection, doc, onSnapshot } from "firebase/firestore";
-import { db } from "../config";
-import { useAuthStore, useUserStore } from "@/store";
-import { router } from "@/router";
+import type { NewUser, UserProps } from "@/types";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../config";
 
-const { setDocument } = useDoc();
-const { signIn } = useAuth();
+export const userDoc = (uid: string) => doc(db, "users", uid);
 
-export async function initUser(user: Omit<UserProps, "id" | "userID">) {
+/**
+ * Creates the Auth account, then the profile document. If the profile write
+ * fails the Auth account is deleted again, so we never leave an account
+ * without a profile behind.
+ */
+export async function initUser(user: NewUser) {
+  // The password goes to Firebase Auth only, never to the user document
+  const { password, ...profile } = user;
+
+  const { user: authUser } = await createUserWithEmailAndPassword(auth, profile.email, password);
+
+  const data: UserProps = { ...profile, userID: authUser.uid, id: authUser.uid };
   try {
-    const { uid } = await signIn("register", user.email, user.password);
-
-    await setDocument({
-      col: "users",
-      data: {
-        ...user,
-        userID: uid,
-        id: uid,
-      },
-      id: uid,
-    });
-
-    return { ...user, userID: uid, id: uid };
-  } catch (error: any) {
-    throw new Error(error);
+    await setDoc(userDoc(authUser.uid), data);
+  } catch (error) {
+    await deleteUser(authUser).catch(() => {});
+    throw error;
   }
-}
-
-export async function getUserByid(id: string) {
-  const { setUserState } = useUserStore();
-  const { changeLoggedInStatus } = useAuthStore();
-
-
-  try {
-    const colref = collection(db, "users");
-    const currentUserDoc = doc(colref, id);
-
-    onSnapshot(currentUserDoc, async (docRef) => {
-      if (docRef.exists()) {
-        const data = docRef.data() as UserProps;
-        setUserState(data);
-        changeLoggedInStatus(true);
-        console.log(data)
-      } else {
-        setUserState(null);
-        changeLoggedInStatus(false);
-        router.push('/sign-in')
-      }
-    });
-  } catch (error: any) {
-    throw new Error(error);
-  }
+  return data;
 }

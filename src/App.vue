@@ -2,9 +2,11 @@
 import { RouterView, useRoute } from "vue-router";
 import DefaultLayout from "./layouts/DefaultLayout.vue";
 import { computed } from "vue";
+import { checkingAuth } from "./router";
+import LoadingScreen from "./components/utils/LoadingScreen.vue";
 import Dashboard from "./layouts/Dashboard.vue";
 import AlertBar from "./components/utils/AlertBar.vue";
-import { AnimatePresence, motion } from "motion-v";
+import { AnimatePresence, MotionConfig, motion } from "motion-v";
 
 const layouts = {
   default: DefaultLayout,
@@ -19,35 +21,26 @@ const getLayout = computed(() => {
 </script>
 
 <template>
-  <main>
-    <AlertBar />
-    <component :is="getLayout">
-      <AnimatePresence mode="popLayout">
-        <!-- <motion.div
-          :key="$route.fullPath"
-          :initial="{
-            opacity: 0,
-            scale: 0.9,
-          }"
-          :animate="{
-            opacity: 1,
-            scale: 1,
-          }"
-          :exit="{
-            opacity: 0,
-            scale: 0.9,
-            transition: {
-              duration: 0.5,
-            },
-          }"
-          :transition="{
-            ease: 'easeInOut',
-            duration: 0.7,
-          }"
-        > -->
-          <RouterView />
-        <!-- </motion.div> -->
-      </AnimatePresence>
-    </component>
-  </main>
+  <!-- reducedMotion="user": follows the device's "reduce motion" setting -->
+  <MotionConfig reduced-motion="user">
+    <main>
+      <AlertBar />
+      <LoadingScreen :state="checkingAuth" />
+      <component :is="getLayout">
+        <RouterView v-slot="{ Component, route: current }">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              :key="current.path"
+              :initial="{ opacity: 0, y: 12 }"
+              :animate="{ opacity: 1, y: 0 }"
+              :exit="{ opacity: 0, y: -8, transition: { duration: 0 } }"
+              :transition="{ duration: 0, ease: [0.21, 0.92, 0.25, 1] }"
+            >
+              <component :is="Component" />
+            </motion.div>
+          </AnimatePresence>
+        </RouterView>
+      </component>
+    </main>
+  </MotionConfig>
 </template>

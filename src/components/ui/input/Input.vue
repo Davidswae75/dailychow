@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { toRef, type HTMLAttributes, type InputHTMLAttributes } from "vue";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { useField } from "vee-validate";
+import { AnimatePresence, motion } from "motion-v";
 
 export type BaseInput = {
   attrs?: InputHTMLAttributes;
@@ -60,12 +61,18 @@ const handleInput = (e: Event) => {
       <div v-if="$slots['append-icon']" class="absolute right-6 top-3">
         <slot name="append-icon" />
       </div>
-      <p
-        v-if="errorMessage"
-        class="text-red-500 text-sm animate__animated animate__headShake text-center pt-1.5"
-      >
-        {{ errorMessage }}
-      </p>
+      <AnimatePresence :initial="false">
+        <motion.p
+          v-if="errorMessage"
+          :initial="{ opacity: 0, height: 0, y: -4 }"
+          :animate="{ opacity: 1, height: 'auto', y: 0, x: [0, -6, 5, -3, 2, 0] }"
+          :exit="{ opacity: 0, height: 0, y: -4 }"
+          :transition="{ duration: 0.25, ease: 'easeOut', x: { duration: 0.4 } }"
+          class="text-destructive text-sm text-center pt-1.5 overflow-hidden"
+        >
+          {{ errorMessage }}
+        </motion.p>
+      </AnimatePresence>
     </div>
   </div>
 </template>

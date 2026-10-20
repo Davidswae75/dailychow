@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ArrowBigDown, Flame } from "@lucide/vue";
 import Chip from "../utils/chip.vue";
-import heroSpread from "@/assets/hero-spread.jpg";
+import heroSpread from "@/assets/hero-spread.webp";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
-import { useAlert } from "@/hooks/useAlert";
+import { scrollPage } from "@/utils/gen.ts";
 
 const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
   [
@@ -13,7 +13,7 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
       type: "accent",
     },
     {
-      label: "₦2,500 for two",
+      label: "Serves two",
       type: "secondary",
     },
     {
@@ -21,8 +21,6 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
       type: "primary",
     },
   ];
-
-const { alert } = useAlert();
 </script>
 
 <template>
@@ -60,7 +58,7 @@ const { alert } = useAlert();
 
         <Reveal once :delay="0.4">
           <p class="text-muted-foreground font-body">
-            Naija Plate answers that question for you. Tell it your mood, how
+            Daily Chow answers that question for you. Tell it your mood, how
             much time you have and what's in your pocket, and it names one
             Nigerian dish to cook or buy right now — jollof, egusi, ofada,
             pepper soup, akara — with the shortlist of what you need for it.
@@ -72,11 +70,14 @@ const { alert } = useAlert();
             <Button
               variant="terracotta"
               size="xl"
-              class="rounded-full flex items-center"
-              @click="alert.info('Test run')"
+              class="rounded-full flex items-center whitespace-nowrap"
+              to="/onboarding/registration"
               >Find tonight's dish <ArrowBigDown />
             </Button>
-            <Button variant="link" class="text-lg rounded-none !no-underline"
+            <Button
+              variant="link"
+              class="text-lg rounded-none !no-underline"
+              @click="scrollPage('how')"
               ><p class="border-b border-ink/50 pb-2 text-sm">How it works</p>
             </Button>
           </div>

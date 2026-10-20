@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { cn } from "@/lib/utils";
-import { computed, onMounted, ref } from "vue";
+import { cn } from "@/lib";
+import { computed } from "vue";
 
 interface Props {
   color?: string;
@@ -9,19 +9,10 @@ const props = withDefaults(defineProps<Props>(), {
   color: "border",
 });
 
-const borderColor = computed(() => cn('border-' + props.color));
-console.log(borderColor.value);
-
-const borderD = ref()
-
-onMounted(() => {
-    const borderDiv = document.getElementById('borderDiv')
-    console.log(borderDiv)
-    console.log(borderD)
-})
+const borderColor = computed(() => cn("border-" + props.color));
 
 </script>
 
 <template>
-  <div id="borderDiv" ref="borderD" :class="['border-[0.2px]', borderColor]" />
+  <div :class="['border-[0.2px]', borderColor]" />
 </template>

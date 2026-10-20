@@ -36,7 +36,7 @@ const navLinks = [
           <p class="font-text text-xl font-bold">Daily Chow</p>
         </div>
         <p class="text-muted-foreground text-sm">
-          One Nigerian dish, chosen for your mood, your minutes and your money.
+          One Nigerian dish, chosen for your mood, and your minutes.
         </p>
       </div>
 
@@ -52,7 +52,7 @@ const navLinks = [
     <div class="border-t py-6">
       <section class="mx-auto max-w-6xl">
         <p class="text-xs text-shadow-muted-foreground">
-          © 2026 Naija Plate. Made for Nigerian kitchens.
+          © 2026 Daily Chow. Made for Nigerian kitchens.
         </p>
       </section>
     </div>

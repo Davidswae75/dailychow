@@ -140,7 +140,7 @@ const positions = Object.keys(positionClasses) as AlertPosition[];
                   {{ alert.title }}
                 </p>
                 <p
-                  class="text-[13px] leading-[1.4] text-ink-muted mt-0.5 pr-1"
+                  class="text-[13px] leading-[1.4] text-ink mt-0.5 pr-1"
                   :class="{ 'mt-1': !alert.title }"
                 >
                   {{ alert.message }}
@@ -149,7 +149,7 @@ const positions = Object.keys(positionClasses) as AlertPosition[];
 
               <button
                 type="button"
-                class="text-ink-muted/50 hover:text-ink-muted transition-colors shrink-0 -mr-0.5 mt-0.5"
+                class="text-ink/50 hover:text-ink transition-colors shrink-0 -mr-0.5 mt-0.5"
                 @click="removeAlert(alert.id)"
               >
                 <X :size="13" stroke-width="3" />

@@ -7,7 +7,7 @@ import HeaderText from "./HeaderText.vue";
 
 const faqs = [
   {
-    q: "Is Naija Plate free?",
+    q: "Is Daily Chow free?",
     a: "Yes. Telling it your mood and getting your daily dish is free. A small paid tier for full weekly meal plans and market lists is planned later.",
   },
   {
@@ -21,10 +21,6 @@ const faqs = [
   {
     q: "What about allergies, and food I don't touch?",
     a: "Set them once. Groundnut, seafood, offal, alcohol in cooking, or anything else you avoid, and no suggestion will ever include it.",
-  },
-  {
-    q: "Does it handle budget in naira?",
-    a: "It does. Enter a rough figure and every dish shows an estimated market cost for the number of people you're feeding.",
   },
   {
     q: "Do I need an account?",

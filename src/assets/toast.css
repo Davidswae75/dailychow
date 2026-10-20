@@ -1,0 +1,76 @@
+/* Daily Chow theme for vue-toastification. Load after "vue-toastification/dist/index.css". */
+
+.Vue-Toastification__toast {
+  --toast-accent: var(--primary);
+
+  font-family: var(--font-sans);
+  min-height: 0;
+  max-width: 360px;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  align-items: center;
+}
+
+.Vue-Toastification__toast--success { --toast-accent: var(--success); }
+.Vue-Toastification__toast--error   { --toast-accent: var(--destructive); }
+.Vue-Toastification__toast--warning { --toast-accent: var(--saffron); }
+.Vue-Toastification__toast--info    { --toast-accent: var(--olive); }
+
+/* The library gives each type its own background; keep them all on the card surface. */
+.Vue-Toastification__toast--default,
+.Vue-Toastification__toast--success,
+.Vue-Toastification__toast--error,
+.Vue-Toastification__toast--warning,
+.Vue-Toastification__toast--info {
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+.Vue-Toastification__toast-body {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.Vue-Toastification__icon {
+  color: var(--toast-accent);
+  width: 18px;
+  height: 18px;
+  margin-right: 0.625rem;
+}
+
+.Vue-Toastification__close-button {
+  color: var(--muted-foreground);
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+.Vue-Toastification__close-button:hover {
+  opacity: 1;
+}
+
+/* Hidden but still animating: the library closes the toast when this animation ends. */
+.Vue-Toastification__progress-bar {
+  opacity: 0;
+}
+
+/* Phones: the library goes full-bleed (100vw, square corners), which reads left-aligned on
+   iPhone once max-width kicks in. Keep a centered, rounded card with gutters on every device. */
+@media only screen and (max-width: 600px) {
+  .Vue-Toastification__container {
+    left: 0;
+    right: 0;
+    width: auto;
+    padding: calc(env(safe-area-inset-top) + 0.75rem) 1rem 0;
+    align-items: center;
+  }
+
+  .Vue-Toastification__container .Vue-Toastification__toast {
+    width: 100%;
+    min-width: 0;
+    max-width: 360px;
+    margin-inline: auto;
+    border-radius: var(--radius-md);
+  }
+}

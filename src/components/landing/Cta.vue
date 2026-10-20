@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Button from '../ui/button/Button.vue';
+import Reveal from '../utils/Reveal.vue';
 
 </script>
 
 <template>
-    <main class="bg-cream/30 grain py-20 md:py-24 border border-line border-y animate__animated animate__headShake  animate__infinite" id="cta">
+    <main class="bg-cream/30 grain py-20 md:py-24 border border-line border-y" id="cta">
+        <Reveal once :distance="24">
         <section class="mx-auto max-w-3xl">
             <div class="flex flex-col justify-center items-center gap-5">
                 <p class="text-charcoal text-2xl font-bold md:text-5xl font-text">Stop wondering. Start cooking.</p>
@@ -18,12 +20,6 @@ import Button from '../ui/button/Button.vue';
                 </div>
             </div>
         </section>
+        </Reveal>
     </main>
 </template>
-
-
-<style scoped>
-.animate__animated animate__headShake  {
-    animation-duration: 10s;
-}
-</style>

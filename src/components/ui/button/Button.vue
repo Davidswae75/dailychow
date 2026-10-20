@@ -3,7 +3,7 @@ import type { PrimitiveProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
 import type { ButtonVariants } from ".";
 import { Primitive } from "reka-ui";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { buttonVariants } from ".";
 import { Loader2 } from "@lucide/vue";
 
@@ -24,7 +24,20 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
+  <RouterLink
+    v-if="to && !loading"
+    :to="to"
+    data-slot="button"
+    :data-variant="variant"
+    :data-size="size"
+    :data-block="block"
+    :data-rounded="rounded"
+    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class)"
+  >
+    <slot />
+  </RouterLink>
   <Primitive
+    v-else
     data-slot="button"
     :data-variant="variant"
     :data-size="size"
@@ -40,11 +53,6 @@ const props = withDefaults(defineProps<Props>(), {
         <Loader2 class="animate-spin" />
      </div>
     </template>
-    <div class="w-full h-full" v-else-if="to">
-      <RouterLink :to="to">
-        <slot />
-      </RouterLink>
-    </div>
     <template v-else><slot /></template>
   </Primitive>
 </template>

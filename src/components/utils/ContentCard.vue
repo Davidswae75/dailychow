@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import Button from "../ui/button/Button.vue";
 import type { Component } from "vue";
 

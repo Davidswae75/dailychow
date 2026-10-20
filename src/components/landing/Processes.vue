@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HeaderText from "./HeaderText.vue";
-import processes from "@/assets/illo-journey.png";
+import processes from "@/assets/illo-journey.webp";
 import ProcessesCard from "./ProcessesCard.vue";
 import Reveal from "../utils/Reveal.vue";
 </script>

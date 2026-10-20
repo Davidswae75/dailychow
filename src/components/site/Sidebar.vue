@@ -1,51 +1,19 @@
 <script setup lang="ts">
-import { LayoutDashboard, Pickaxe, Plane, Settings, LogOut, Clock, Archive } from "@lucide/vue";
+import { LogOut } from "@lucide/vue";
 import Logo from "./Logo.vue";
 import { useRoute } from "vue-router";
-import Chip from "../utils/chip.vue";
+import { storeToRefs } from "pinia";
+import { motion } from "motion-v";
 import { useUserStore } from "@/store";
 import Button from "../ui/button/Button.vue";
-import { useAuth } from "@/hooks";
+import { useAuth } from "@/composables/index.ts";
+import { isActivePath, navItems as routes } from "@/lib";
 
-const { user } = useUserStore();
+const { user } = storeToRefs(useUserStore());
 const { signOutUser } = useAuth();
-
-const routes = [
-  {
-    name: "Home",
-    to: "/dashboard/home",
-    icon: LayoutDashboard,
-  },
-  {
-    name: "Pick",
-    to: "/dashboard/pick",
-    icon: Pickaxe,
-  },
-  {
-    name: "Foods",
-    to: "/dashboard/foods",
-    icon: Archive,
-  },
-  {
-    name: "Planner",
-    to: "/dashboard/planner",
-    icon: Plane,
-  },
-  {
-    name: "Preferences",
-    to: "/dashboard/preferences",
-    icon: Settings,
-  },
-  {
-    name: "History",
-    to: "/dashboard/history",
-    icon: Clock,
-  },
-];
-
 const route = useRoute();
 
-const getActiveRoute = (path: string): boolean => route.fullPath === path;
+const getActiveRoute = (path: string): boolean => isActivePath(route.path, path);
 </script>
 
 <template>
@@ -58,29 +26,27 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
 
     <div class="h-px bg-terracotta w-full" />
 
-    <section class="flex flex-col gap-3 transition-all">
-      <Chip
-        v-for="route in routes"
-        :class="[getActiveRoute(route.to) && '*:text-cream!']"
-        :key="route.to"
-        class="border-0 group no-underline! hover:bg-cream/100 bg-transparent shadow-none! *:text-muted-foreground"
-        size="lg"
-        :to="route.to"
-        :active="getActiveRoute(route.to)"
-        @click="$router.push(route.to)"
-        :icon="route.icon"
-        iconClass="z-20 text-crem"
-        type="navigation"
+    <nav aria-label="Main" class="flex flex-col gap-1.5">
+      <RouterLink
+        v-for="item in routes"
+        :key="item.to"
+        :to="item.to"
+        :aria-label="item.name"
+        :aria-current="getActiveRoute(item.to) ? 'page' : undefined"
+        class="relative flex h-12 items-center justify-center gap-3 rounded-full px-4 text-base transition-colors lg:justify-start"
+        :class="getActiveRoute(item.to) ? 'text-paper font-semibold' : 'text-muted-foreground hover:bg-cream hover:text-charcoal'"
       >
-        <div
-          class="flex items-center justify-between w-full gap-3 z-20 hidden lg:block"
-        >
-          <span class="block text-base font-normal">
-            {{ route.name }}
-          </span>
-        </div>
-      </Chip>
-    </section>
+        <motion.span
+          v-if="getActiveRoute(item.to)"
+          layout
+          layout-id="sidebar-active"
+          class="absolute inset-0 rounded-full bg-terracotta-deep"
+          :transition="{ type: 'spring', stiffness: 400, damping: 32 }"
+        />
+        <component :is="item.icon" class="relative size-5 shrink-0" />
+        <span class="relative hidden lg:block">{{ item.name }}</span>
+      </RouterLink>
+    </nav>
 
     <section class="w-full absolute left-0 px-1.5 lg:px-5 -bottom-5">
       <div
@@ -92,7 +58,7 @@ const getActiveRoute = (path: string): boolean => route.fullPath === path;
           Signed in
         </p>
         <p class="text-xs text-muted-foreground hidden lg:block">
-          {{ user?.email || "swae@yahoo.com" }}
+          {{ user?.email }}
         </p>
         <Button
         @click="signOutUser"

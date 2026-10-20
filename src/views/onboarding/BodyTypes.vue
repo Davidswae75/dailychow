@@ -24,7 +24,7 @@ const model = defineModel<BodyType>({
 <template>
   <main class="space-y-3 p-1">
     <HeaderText
-      eyebrow="Question 3 of 5"
+      eyebrow="Question 3 of 4"
       title="Tell Us Your Body Type"
       description="Make we help your life"
     />
