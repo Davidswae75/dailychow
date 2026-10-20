@@ -48,6 +48,7 @@ const navLinks = [
       <div class="flex item-center gap-1.5" >
         <Button to="/sign-in" variant="link">Sign In</Button>
         <Button
+          to="/onboarding/registration"
           class="rounded-3xl bg-terracotta hover:bg-terracotta-deep"
           variant="default"
           >Find tonight's dish</Button

@@ -4,7 +4,6 @@ import Chip from "../utils/chip.vue";
 import heroSpread from "@/assets/hero-spread.webp";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
-import { useToast } from "vue-toastification";
 
 const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
   [
@@ -22,7 +21,6 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
     },
   ];
 
-const toast = useToast();
 </script>
 
 <template>
@@ -73,7 +71,7 @@ const toast = useToast();
               variant="terracotta"
               size="xl"
               class="rounded-full flex items-center"
-              @click="toast.info('Test run')"
+              to="/onboarding/registration"
               >Find tonight's dish <ArrowBigDown />
             </Button>
             <Button variant="link" class="text-lg rounded-none !no-underline"
