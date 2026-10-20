@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { LogOut, X } from "@lucide/vue";
+import { Bell, LogOut, X } from "@lucide/vue";
 import PageHeader from "@/components/app/common/PageHeader.vue";
 import SurfaceCard from "@/components/app/common/SurfaceCard.vue";
 import SettingsRow from "@/components/app/common/SettingsRow.vue";
 import EditChoiceSheet from "@/components/app/common/EditChoiceSheet.vue";
 import UserAvatar from "@/components/app/common/UserAvatar.vue";
-import { useAuth, usePreferences } from "@/composables";
+import { useAuth, useNotifications, usePreferences } from "@/composables";
 import { useMealsStore } from "@/store";
 import { bodyTypes2 } from "@/types";
 import { getDishById, dietaryOptions, goalOptions, labelOf, pepperOptions, type Option } from "@/lib";
@@ -18,6 +18,13 @@ const { user, goal, dietaryNeeds, pepperLevel, bodyTypeId } = prefs;
 const meals = useMealsStore();
 const { favourites, dislikes } = storeToRefs(meals);
 const { signOutUser } = useAuth();
+const notifications = useNotifications();
+const notificationStatus = computed(() => ({
+  granted: "On",
+  denied: "Blocked in browser",
+  unsupported: "Not supported here",
+  default: "Off",
+})[notifications.permission.value]);
 
 const bodyTypeOptions: Option[] = bodyTypes2.map((b) => ({ label: b.name, value: b.id }));
 
@@ -153,6 +160,9 @@ const joined = computed(() => {
         <!-- <SettingsRow label="Change password" value="We'll email you a link" @select="prefs.resetPassword()">
           <template #icon><KeyRound class="size-[18px] text-ink" /></template>
         </SettingsRow> -->
+        <SettingsRow label="Notifications" :value="notificationStatus" @select="notifications.enable()">
+          <template #icon><Bell class="size-[18px] text-ink" /></template>
+        </SettingsRow>
         <SettingsRow label="Sign out" @select="signOutUser()">
           <template #icon><LogOut class="size-[18px] text-ink" /></template>
         </SettingsRow>

@@ -7,16 +7,21 @@ import { AnimatePresence, motion } from "motion-v";
 import Sidebar from "@/components/site/Sidebar.vue";
 import Bottombar from "@/components/site/Bottombar.vue";
 import NavBar from "@/components/app/NavBar.vue";
+import { useNotifications } from "@/composables";
 
 const authStore = useAuthStore();
 const { isLoggedIn, pending } = storeToRefs(authStore);
 const router = useRouter();
 const route = useRoute();
+const notifications = useNotifications();
 
 // The router guard handles navigation; this covers the session ending while on a page
 watch([isLoggedIn, pending], ([loggedIn, loading]) => {
   if (!loading && !loggedIn) router.replace({ path: "/sign-in", query: { redirect: route.fullPath } });
 });
+
+// Once signed in, keep this device's push token fresh and show foreground messages as toasts
+watch(isLoggedIn, (loggedIn) => loggedIn && notifications.listen(), { immediate: true });
 </script>
 
 <template>
