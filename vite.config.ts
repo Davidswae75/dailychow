@@ -11,6 +11,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      injectRegister: false,
       includeAssets: ["favicon.svg", "apple-touch-icon.png"],
       manifest: {
         name: "Daily Chow",
@@ -30,6 +31,9 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,webp,gif,woff2}"],
         navigateFallback: "/index.html",
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.origin === "https://fonts.googleapis.com" || url.origin === "https://fonts.gstatic.com",
