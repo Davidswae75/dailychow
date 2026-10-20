@@ -16,7 +16,7 @@ const quotes = [
   },
   {
     quote:
-      "I set my budget for the week and it stopped suggesting anything I couldn't afford. That alone was worth it.",
+      "I told it I had twenty minutes and it stopped suggesting anything I couldn't finish in time. That alone was worth it.",
     name: "Halima",
     role: "Kano, student",
   },

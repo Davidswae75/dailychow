@@ -10,12 +10,12 @@ const processes = [
   {
     label: "We sift",
     title: "We filter what's real",
-    body: "Your minutes, your budget in naira, what you ate the last three days, allergies, and whether you're cooking or buying from the closest bukka.",
+    body: "Your minutes, what you ate the last three days, allergies, and whether you're cooking or buying from the closest bukka.",
   },
   {
     label: "You eat",
     title: "One dish, not a list",
-    body: "A single confident answer with the ingredient list, the rough cost, the cooking time and two backups if the first one doesn't land.",
+    body: "A single confident answer with the ingredient list, the cooking time and two backups if the first one doesn't land.",
   },
 ];
 </script>

@@ -27,7 +27,7 @@ export default defineConfig({
         start_url: "/dashboard/home",
         scope: "/",
         display: "standalone",
-        background_color: "#f7f1e8",
+        background_color: "#f7f1e8",    
         theme_color: "#c45c26",
         icons: [
           { src: "pwa-192x192.png", sizes: "192x192", type: "image/png" },

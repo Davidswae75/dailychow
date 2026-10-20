@@ -99,7 +99,7 @@ async function toggleDislike() {
 
     <div class="relative -mt-6 flex flex-col gap-5 rounded-t-[30px] px-5 pt-6 md:mt-0 md:rounded-none md:px-0 md:pt-0">
       <div class="space-y-1.5">
-        <p class="text-sm text-ink">{{ dish.region }}</p>
+        <p class="text-sm text-ink mt-3">{{ dish.region }}</p>
         <h1 class="text-4xl md:text-5xl font-bold">{{ dish.name }}</h1>
         <p class="text-[15px] text-ink">{{ dish.note }}</p>
       </div>

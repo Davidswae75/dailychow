@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { ref } from "vue";
 import index from "../views/index.vue";
+import Login from "@/views/auth/login.vue";
+import Onboarding from "@/views/onboarding/index.vue";
+import NotFound from "@/components/site/Error.vue";
 import DashboardRoutes from "./dashboardRoutes";
 import { useAuthStore } from "@/store";
 
@@ -16,13 +19,13 @@ const routes = [
   {
     path: "/sign-in",
     name: "sign-in",
-    component: () => import("@/views/auth/login.vue"),
+    component: Login,
     meta: { guestOnly: true },
   },
   {
     path: "/onboarding/registration",
     name: "registration",
-    component: () => import("@/views/onboarding/index.vue"),
+    component: Onboarding,
     meta: { guestOnly: true },
   },
 
@@ -32,7 +35,7 @@ const routes = [
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
-    component: () => import("@/components/site/Error.vue"),
+    component: NotFound,
   },
 ];
 

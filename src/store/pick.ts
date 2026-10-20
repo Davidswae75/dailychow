@@ -5,7 +5,7 @@
 import { defineStore, storeToRefs } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useMealsStore } from "./meals";
-import { recommendDishes, type PickAnswers, currentMealSlot } from "@/lib";
+import { matchDishes, type PickAnswers, currentMealSlot } from "@/lib";
 
 const STORAGE_KEY = "dailychow:last-answers";
 
@@ -47,20 +47,33 @@ export const usePickStore = defineStore("pick", () => {
     { deep: true }
   );
 
-  const ranked = computed(() =>
-    recommendDishes(
+  const match = computed(() =>
+    matchDishes(
       answers.value,
       taste.value,
       history.value.map((e) => e.log)
     )
   );
+  const ranked = computed(() => match.value.ranked);
+  /** Answers that had to be ignored because nothing matched them all. */
+  const relaxed = computed(() => match.value.relaxed);
 
   const current = computed(() => {
     const list = ranked.value;
     return list.length ? list[position.value % list.length] : null;
   });
 
-  const pickAnother = () => (position.value += 1);
+  /** Moves to the next dish; returns false when it has wrapped back to the first. */
+  function pickAnother() {
+    position.value += 1;
+    return ranked.value.length > 1 && position.value % ranked.value.length !== 0;
+  }
+
+  /** Index of the showing dish within `ranked`. */
+  const index = computed({
+    get: () => (ranked.value.length ? position.value % ranked.value.length : 0),
+    set: (i: number) => (position.value = i),
+  });
 
   function setAnswer<K extends keyof PickAnswers>(key: K, value: PickAnswers[K]) {
     answers.value = { ...answers.value, [key]: value };
@@ -69,5 +82,5 @@ export const usePickStore = defineStore("pick", () => {
   /** Logs the current dish as eaten for the chosen meal. */
   const haveIt = () => (current.value ? meals.logMeal(current.value.dish.id, answers.value.meal) : Promise.resolve());
 
-  return { answers, ranked, current, pickAnother, setAnswer, haveIt };
+  return { answers, ranked, relaxed, current, index, pickAnother, setAnswer, haveIt };
 });

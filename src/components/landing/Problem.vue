@@ -48,8 +48,7 @@ import Reveal from "../utils/Reveal.vue";
                   And the food rarely matches the day.</span
                 >
                 Some evenings you want light and peppery. Some mornings you want
-                akara and pap and nothing else. Some weeks the market money is
-                thin and you need something that stretches. Recipe apps don't
+                akara and pap and nothing else. Recipe apps don't
                 ask any of that. They just hand you ten thousand options.
               </p>
             </template>

@@ -1,19 +1,28 @@
+import Home from "@/views/app/home.vue";
+import Planner from "@/views/app/Planner.vue";
+import Pick from "@/views/app/Pick.vue";
+import PickResult from "@/views/app/PickResult.vue";
+import Preferences from "@/views/app/Preferences.vue";
+import History from "@/views/app/History.vue";
+import Foods from "@/views/app/Foods/index.vue";
+import DishDetail from "@/views/app/Foods/DishDetail.vue";
+
 const dashboardRoutes = [
-  { path: "/dashboard/home", component: () => import("@/views/app/home.vue") },
-  { path: "/dashboard/planner", component: () => import("@/views/app/Planner.vue") },
-  { path: "/dashboard/pick", component: () => import("@/views/app/Pick.vue") },
+  { path: "/dashboard/home", component: Home },
+  { path: "/dashboard/planner", component: Planner },
+  { path: "/dashboard/pick", component: Pick },
   {
     path: "/dashboard/pick/result",
-    component: () => import("@/views/app/PickResult.vue"),
+    component: PickResult,
     // Has its own bottom action bar
     meta: { hideBottomBar: true },
   },
-  { path: "/dashboard/preferences", component: () => import("@/views/app/Preferences.vue") },
-  { path: "/dashboard/history", component: () => import("@/views/app/History.vue") },
-  { path: "/dashboard/foods", component: () => import("@/views/app/Foods/index.vue") },
+  { path: "/dashboard/preferences", component: Preferences },
+  { path: "/dashboard/history", component: History },
+  { path: "/dashboard/foods", component: Foods },
   {
     path: "/dashboard/foods/:id",
-    component: () => import("@/views/app/Foods/DishDetail.vue"),
+    component: DishDetail,
     meta: { hideBottomBar: true },
   },
 ].map((route) => ({

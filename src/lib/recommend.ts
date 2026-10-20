@@ -31,7 +31,6 @@ export interface Recommendation {
   reasons: string[];
 }
 
-const priceOrder: PriceBand[] = ["0-1000", "1000-3000", "3000-5000", "5000+"];
 
 /** Dishes the user can eat at all: no-go foods, pepper ceiling and dislikes. */
 export function allowedDishes(taste: TasteProfile, dishes: Dish[] = allDishes): Dish[] {
@@ -71,12 +70,65 @@ export function recommendDishes(
   now: Date = new Date(),
   dishes: Dish[] = allDishes
 ): Recommendation[] {
+  return matchDishes(answers, taste, history, now, dishes).ranked;
+}
+
+/** The answers that can be loosened when nothing matches them all, least important first. */
+export type RelaxedAnswer = "mood" | "time" | "cook" | "meal";
+
+export interface PickMatch {
+  ranked: Recommendation[];
+  /** Answers that had to be ignored to find anything; empty when every answer is met. */
+  relaxed: RelaxedAnswer[];
+}
+
+/**
+ * Tonight's answers are hard filters: every dish returned fits the meal, the time,
+ * cook-or-buy and the mood. If nothing fits them all, the least important answers
+ * are dropped one at a time and reported in `relaxed`.
+ */
+export function matchDishes(
+  answers: PickAnswers,
+  taste: TasteProfile,
+  history: MealLog[] = [],
+  now: Date = new Date(),
+  dishes: Dish[] = allDishes
+): PickMatch {
   const allowed = allowedDishes(taste, dishes);
-  const forMeal = allowed.filter((d) => d.mealTimes.includes(answers.meal));
-  const pool = forMeal.length ? forMeal : allowed;
-  const { byDish, byCategory } = lastEaten(history, dishes);
   const maxMinutes = answers.time === "60" ? Infinity : Number(answers.time);
-  const budgetIdx = priceOrder.indexOf(answers.budget);
+
+  const fits: Record<RelaxedAnswer, (d: Dish) => boolean> = {
+    meal: (d) => d.mealTimes.includes(answers.meal),
+    cook: (d) => answers.cook !== "buy" || d.buyFriendly,
+    // Buying ready food doesn't take cooking time
+    time: (d) =>
+      d.minutes <= maxMinutes || (answers.cook === "buy" && d.buyFriendly) || (answers.cook === "either" && d.buyFriendly),
+    mood: (d) => d.goals.includes(answers.mood),
+  };
+
+  const order: RelaxedAnswer[] = ["mood", "time", "cook", "meal"];
+  let pool: Dish[] = [];
+  let relaxed: RelaxedAnswer[] = [];
+  for (let i = 0; i <= order.length; i++) {
+    const active = order.slice(i);
+    pool = allowed.filter((d) => active.every((key) => fits[key](d)));
+    relaxed = order.slice(0, i);
+    if (pool.length) break;
+  }
+
+  return { ranked: rank(pool, answers, taste, history, now, dishes, maxMinutes), relaxed };
+}
+
+function rank(
+  pool: Dish[],
+  answers: PickAnswers,
+  taste: TasteProfile,
+  history: MealLog[],
+  now: Date,
+  dishes: Dish[],
+  maxMinutes: number
+): Recommendation[] {
+  const { byDish, byCategory } = lastEaten(history, dishes);
 
   const ranked = pool.map((dish) => {
     let score = 0;
@@ -85,22 +137,13 @@ export function recommendDishes(
     if (dish.minutes <= maxMinutes) {
       score += 3;
       if (maxMinutes !== Infinity) reasons.push(`it fits your ${answers.time} minutes`);
-    } else {
-      score -= 3;
-    }
-
-    if (priceOrder.indexOf(dish.price) <= budgetIdx) {
-      score += 3;
-      reasons.push("it's inside your budget");
-    } else {
-      score -= 2;
     }
 
     if (answers.cook === "buy") {
       if (dish.buyFriendly) {
         score += 2;
         reasons.push("it's easy to buy");
-      } else score -= 2;
+      }
     }
 
     if (dish.goals.includes(answers.mood)) {

@@ -11,8 +11,8 @@ const reasons = [
     body: "Daily Chow remembers what you ate this week and deliberately steers you elsewhere. In a month you will have cooked things you last had at your grandmother's house.",
   },
   {
-    title: "It respects your money and your minutes",
-    body: "Set a budget in naira and the minutes you actually have. Every suggestion fits both, with the market list and a rough cost so nothing surprises you at the stall.",
+    title: "It respects your minutes",
+    body: "Set the minutes you actually have. Every suggestion fits, with the market list so nothing surprises you at the stall.",
   },
   {
     title: "It is built for Nigerian food, only",

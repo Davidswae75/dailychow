@@ -26,14 +26,14 @@ watch(isLoggedIn, (loggedIn) => loggedIn && notifications.listen(), { immediate:
 
 <template>
   <main
-    class="relative grid md:grid-cols-[100px_calc(100%-100px)] lg:grid-cols-[300px_calc(100%-300px)] bg-paper md:py-3 md:pr-3 transition-all grain"
+    class="relative grid h-dvh overflow-hidden md:grid-cols-[100px_calc(100%-100px)] lg:grid-cols-[300px_calc(100%-300px)] bg-paper md:py-3 md:pr-3 transition-all grain"
   >
     <section class="bg-inherit text-cream hidden md:block">
       <Sidebar />
     </section>
 
     <section
-      class="h-screen min-h-screen relative md:min-h-0 md:h-[calc(100vh-23px)] self-center bg-cream md:rounded-[40px] flex flex-col shadow-terracotta-deep grain overflow-scroll"
+      class="h-dvh relative md:h-[calc(100dvh-23px)] self-center bg-cream md:rounded-[40px] flex flex-col shadow-terracotta-deep grain overflow-y-auto overscroll-contain"
     >
       <NavBar />
 

@@ -36,7 +36,7 @@ const navLinks = [
           <p class="font-text text-xl font-bold">Daily Chow</p>
         </div>
         <p class="text-muted-foreground text-sm">
-          One Nigerian dish, chosen for your mood, your minutes and your money.
+          One Nigerian dish, chosen for your mood, and your minutes.
         </p>
       </div>
 

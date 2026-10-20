@@ -112,7 +112,7 @@ const tryAgain = computed(() => notEatenRecently(taste.value, history.value.map(
 
     <section v-if="tryAgain.length" aria-labelledby="try-again" class="flex flex-col gap-3">
       <h2 id="try-again" class="text-xl font-bold">You haven't had these in a while</h2>
-      <div class="-mx-5 flex gap-3 overflow-x-auto px-5 pb-2 md:mx-0 md:px-0">
+      <div class="-mx-5 flex gap-3 overflow-x-auto scrollbar-none px-5 pb-2 md:mx-0 md:px-0">
         <DishTile v-for="dish in tryAgain" :key="dish.id" :dish="dish" />
       </div>
     </section>

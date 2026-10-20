@@ -4,6 +4,7 @@ import Chip from "../utils/chip.vue";
 import heroSpread from "@/assets/hero-spread.webp";
 import Button from "../ui/button/Button.vue";
 import Reveal from "../utils/Reveal.vue";
+import { scrollPage } from "@/utils/gen.ts";
 
 const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
   [
@@ -12,7 +13,7 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
       type: "accent",
     },
     {
-      label: "₦2,500 for two",
+      label: "Serves two",
       type: "secondary",
     },
     {
@@ -20,7 +21,6 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
       type: "primary",
     },
   ];
-
 </script>
 
 <template>
@@ -74,7 +74,10 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
               to="/onboarding/registration"
               >Find tonight's dish <ArrowBigDown />
             </Button>
-            <Button variant="link" class="text-lg rounded-none !no-underline"
+            <Button
+              variant="link"
+              class="text-lg rounded-none !no-underline"
+              @click="scrollPage('how')"
               ><p class="border-b border-ink/50 pb-2 text-sm">How it works</p>
             </Button>
           </div>

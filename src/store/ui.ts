@@ -1,3 +1,4 @@
+import { uuid } from "@/utils";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -46,7 +47,7 @@ export const useUiStore = defineStore("ui", () => {
   }
 
   function addAlert(alert: Omit<Alert, "id">) {
-    const id = crypto.randomUUID();
+    const id = uuid();
 
     const newAlert: Alert = {
       id,

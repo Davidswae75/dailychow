@@ -23,10 +23,6 @@ const faqs = [
     a: "Set them once. Groundnut, seafood, offal, alcohol in cooking, or anything else you avoid, and no suggestion will ever include it.",
   },
   {
-    q: "Does it handle budget in naira?",
-    a: "It does. Enter a rough figure and every dish shows an estimated market cost for the number of people you're feeding.",
-  },
-  {
     q: "Do I need an account?",
     a: "Not for your first picks. An account only matters once you want your taste profile, saved dishes and cooking history kept across devices.",
   },

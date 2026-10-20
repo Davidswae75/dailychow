@@ -5,7 +5,8 @@ import MealRow from "./MealRow.vue";
 import AddMealSheet from "./AddMealSheet.vue";
 import { useDayMeals } from "@/composables/useDayMeals.ts";
 import { useMealsStore } from "@/store";
-import { type MealTime, isSameDay } from "@/lib";
+import { type Dish, type MealTime, isSameDay } from "@/lib";
+import { useToast } from "vue-toastification";
 
 /** A day's meal slots with eaten/planned state, plus the sheet to fill an empty one. */
 const props = withDefaults(defineProps<{ date: Date; slots?: MealTime[] }>(), {
@@ -17,10 +18,17 @@ const rows = useDayMeals(() => props.date, props.slots);
 
 const sheetOpen = ref(false);
 const sheetSlot = ref<MealTime>("lunch");
+const toast = useToast();
 
 /** Logging today uses the current time; another day keeps that day's date. */
-const markEaten = (dishId: string, slot: MealTime) =>
-  meals.logMeal(dishId, slot, isSameDay(props.date, new Date()) ? new Date() : props.date);
+async function markEaten(dish: Dish, slot: MealTime) {
+  try {
+    await meals.logMeal(dish.id, slot, isSameDay(props.date, new Date()) ? new Date() : props.date);
+    toast.success(`${dish.name} marked as eaten.`);
+  } catch {
+    // The meals store already shows the error toast
+  }
+}
 
 function openSheet(slot: MealTime) {
   sheetSlot.value = slot;
@@ -48,7 +56,7 @@ function openSheet(slot: MealTime) {
           v-else-if="row.status === 'planned' && row.dish"
           type="button"
           class="h-9 rounded-full border border-border px-3 text-xs font-semibold transition-colors hover:border-olive hover:text-olive"
-          @click="markEaten(row.dish.id, row.slot)"
+          @click="markEaten(row.dish, row.slot)"
         >
           Mark eaten
         </button>

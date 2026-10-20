@@ -50,7 +50,14 @@ const filterDishes = computed(() => {
         description="Search by dish, ingredient or pairing. Open any plate to see what goes with it, allergens, meal times and how filling it is."
       >
       </PageHeader>
+      <Chip
+        variant="saffron"
+        class="mr-2 inline-flex py-1! font-bold"
+        :icon="CookingPot"
+        >{{ dishes.length }} dishes</Chip
+      >
       <div class="flex w-full items-center gap-2 md:w-auto md:min-w-[26rem]">
+        
         <SearchInput v-model="search" class="grow" />
         <FilterSheet
           :items="dishes"
@@ -72,14 +79,9 @@ const filterDishes = computed(() => {
       </div>
     </div>
 
-    <p class="-mb-2 text-sm text-ink" aria-live="polite">
-      <Chip
-        variant="saffron"
-        class="mr-2 inline-flex py-1! font-bold"
-        :icon="CookingPot"
-        >{{ dishes.length }} dishes</Chip
-      >
-      {{ filterDishes.length }} shown
+    <p class="-mb-2 text-sm text-ink text-center capitalize" aria-live="polite">
+    
+      {{ filterDishes.length }} Delicacies just for you...
     </p>
 
     <section

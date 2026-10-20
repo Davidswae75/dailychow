@@ -4,6 +4,7 @@
  * document; signed out (local development), it keeps the same data in memory so
  * every screen still works.
  */
+import { uuid } from "@/utils";
 import { defineStore, storeToRefs } from "pinia";
 import { computed, reactive } from "vue";
 import { useUserStore } from "./user";
@@ -68,7 +69,7 @@ export const useMealsStore = defineStore("meals", () => {
   }
 
   function logMeal(dishId: string, slot: MealTime, at: Date = new Date()) {
-    const meal: MealLog = { id: crypto.randomUUID(), dishId, slot, eatenAt: at.toISOString() };
+    const meal: MealLog = { id: uuid(), dishId, slot, eatenAt: at.toISOString() };
     return write(
       (id) => mealService.logMeal(id, meal),
       () => local.foodEaten.push(meal)

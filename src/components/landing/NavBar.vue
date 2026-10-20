@@ -46,13 +46,13 @@ const navLinks = [
       </ul>
 
       <div class="flex items-center gap-1.5 shrink-0">
-        <Button to="/sign-in" variant="link" class="hidden sm:inline-flex">Sign In</Button>
-        <Button
+        <Button to="/sign-in" variant="link" class="sm:inline-flex">Sign In</Button>
+        <!-- <Button
           to="/onboarding/registration"
-          class="rounded-3xl bg-terracotta hover:bg-terracotta-deep whitespace-nowrap"
+          class="rounded-3xl bg-terracotta hover:bg-terracotta-deep whitespace-nowrap hidden sm:inline-flex"
           variant="default"
           >Find tonight's dish</Button
-        >
+        > -->
       </div>
     </nav>
   </header>

@@ -14,6 +14,7 @@ import { useToast } from "vue-toastification";
 import Reveal from "@/components/utils/Reveal.vue";
 import heroSpread from "@/assets/hero-spread.webp";
 import Logo from "@/components/site/Logo.vue";
+import VLazyImage from "v-lazy-image";
 
 const toast = useToast()
 const { signIn } = useAuth();
@@ -63,9 +64,9 @@ defineOptions({
       class="flex flex-1 flex-col w-full md:flex-none md:max-w-md md:rounded-4xl md:overflow-hidden md:border md:border-line md:shadow-lift"
     >
       <header
-        class="relative h-[34dvh] min-h-52 md:h-44 md:min-h-0 shrink-0 overflow-hidden"
+        class="relative h-[34dvh] min-h-52 md:h-44 md:min-h-0 shrink-0 overflow-hidden bg-terracotta-deep"
       >
-        <img
+        <VLazyImage
           :src="heroSpread"
           alt=""
           class="absolute inset-0 size-full object-cover"
@@ -82,10 +83,9 @@ defineOptions({
         />
       </header>
 
-      <Reveal
+      <div
         class="relative -mt-8 flex-1 rounded-t-4xl bg-paper px-6 pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:mt-0 md:rounded-none md:px-8"
-        :delay="0.1"
-        :distance="24"
+  
       >
         <div
           class="mx-auto mb-6 h-1.5 w-10 rounded-full bg-line md:hidden"
@@ -103,7 +103,7 @@ defineOptions({
             mode="login"
           />
         </form>
-      </Reveal>
+      </div>
     </div>
   </main>
 </template>

@@ -41,7 +41,7 @@ const dishes = [
     img: moimoi,
     name: "Moi moi",
     note: "Steamed beans, soft",
-    tags: ["veg", "cheap"],
+    tags: ["veg", "light"],
   },
   {
     img: peppersoup,
