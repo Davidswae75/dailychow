@@ -2,6 +2,8 @@
 import { RouterView, useRoute } from "vue-router";
 import DefaultLayout from "./layouts/DefaultLayout.vue";
 import { computed } from "vue";
+import { checkingAuth } from "./router";
+import LoadingScreen from "./components/utils/LoadingScreen.vue";
 import Dashboard from "./layouts/Dashboard.vue";
 import AlertBar from "./components/utils/AlertBar.vue";
 import { AnimatePresence, MotionConfig, motion } from "motion-v";
@@ -23,6 +25,7 @@ const getLayout = computed(() => {
   <MotionConfig reduced-motion="user">
     <main>
       <AlertBar />
+      <LoadingScreen :state="checkingAuth" />
       <component :is="getLayout">
         <RouterView v-slot="{ Component, route: current }">
           <AnimatePresence mode="popLayout">

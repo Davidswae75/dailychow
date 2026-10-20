@@ -23,11 +23,14 @@ export const pepperText = (spice: number) => {
   return /pepper$/i.test(label) ? label : `${label} pepper`;
 };
 
-/** "45 mins · ₦1,000–₦3,000" */
-export const dishFacts = (dish: Dish) => `${formatMinutes(dish.minutes)} · ${formatPrice(dish.price)}`;
+/** "45 mins" (price is kept on the dish but not shown) */
+export const dishFacts = (dish: Dish) => formatMinutes(dish.minutes);
 
-/** "45 mins · ₦1–3k" for tight spaces */
-export const dishFactsShort = (dish: Dish) => `${formatMinutes(dish.minutes)} · ${formatPriceShort(dish.price)}`;
+/** "45 mins" for tight spaces */
+export const dishFactsShort = (dish: Dish) => formatMinutes(dish.minutes);
+
+/** "Jollof rice" → "Jollof r..."; text of `max` characters or fewer is returned as is. */
+export const truncateText = (text: string, max = 10) => (text.length > max ? `${text.slice(0, max)}...` : text);
 
 export const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 

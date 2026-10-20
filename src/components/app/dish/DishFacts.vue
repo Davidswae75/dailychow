@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Clock, Flame, Wallet } from "@lucide/vue";
-import { type Dish, formatMinutes, formatPrice, pepperText } from "@/lib";
+import { Clock, Flame } from "@lucide/vue";
+import { type Dish, formatMinutes, pepperText } from "@/lib";
 
-/** Time, price and pepper for a dish as small chips. `onDark` for photo or dark backgrounds. */
+/** Time and pepper for a dish as small chips. `onDark` for photo or dark backgrounds. */
 withDefaults(defineProps<{ dish: Dish; onDark?: boolean }>(), { onDark: false });
 </script>
 
@@ -11,7 +11,6 @@ withDefaults(defineProps<{ dish: Dish; onDark?: boolean }>(), { onDark: false })
     <li
       v-for="fact in [
         { icon: Clock, text: formatMinutes(dish.minutes) },
-        { icon: Wallet, text: formatPrice(dish.price) },
         { icon: Flame, text: pepperText(dish.spice) },
       ]"
       :key="fact.text"

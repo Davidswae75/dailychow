@@ -4,7 +4,6 @@ import { storeToRefs } from "pinia";
 import { watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AnimatePresence, motion } from "motion-v";
-import LoadingScreen from "@/components/utils/LoadingScreen.vue";
 import Sidebar from "@/components/site/Sidebar.vue";
 import Bottombar from "@/components/site/Bottombar.vue";
 import NavBar from "@/components/app/NavBar.vue";
@@ -31,7 +30,6 @@ watch([isLoggedIn, pending], ([loggedIn, loading]) => {
     <section
       class="h-screen min-h-screen relative md:min-h-0 md:h-[calc(100vh-23px)] self-center bg-cream md:rounded-[40px] flex flex-col shadow-terracotta-deep grain overflow-scroll"
     >
-    <LoadingScreen :state="!isLoggedIn" />
       <NavBar />
 
 

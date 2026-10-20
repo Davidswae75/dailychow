@@ -70,7 +70,7 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
             <Button
               variant="terracotta"
               size="xl"
-              class="rounded-full flex items-center"
+              class="rounded-full flex items-center whitespace-nowrap"
               to="/onboarding/registration"
               >Find tonight's dish <ArrowBigDown />
             </Button>

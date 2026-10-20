@@ -54,3 +54,23 @@
 .Vue-Toastification__progress-bar {
   opacity: 0;
 }
+
+/* Phones: the library goes full-bleed (100vw, square corners), which reads left-aligned on
+   iPhone once max-width kicks in. Keep a centered, rounded card with gutters on every device. */
+@media only screen and (max-width: 600px) {
+  .Vue-Toastification__container {
+    left: 0;
+    right: 0;
+    width: auto;
+    padding: calc(env(safe-area-inset-top) + 0.75rem) 1rem 0;
+    align-items: center;
+  }
+
+  .Vue-Toastification__container .Vue-Toastification__toast {
+    width: 100%;
+    min-width: 0;
+    max-width: 360px;
+    margin-inline: auto;
+    border-radius: var(--radius-md);
+  }
+}

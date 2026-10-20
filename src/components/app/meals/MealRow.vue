@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Plus } from "@lucide/vue";
-import type { Dish } from "@/lib";
+import { truncateText, type Dish } from "@/lib";
 import DishThumb from "../dish/DishThumb.vue";
 
 /**
@@ -28,7 +28,7 @@ defineEmits<{ add: [] }>();
     <div class="flex min-w-0 grow flex-col">
       <span class="text-xs font-semibold text-ink">{{ label }}</span>
       <RouterLink :to="`/dashboard/foods/${dish.id}`" class="truncate text-[15px] font-semibold hover:underline">
-        {{ dish.name }}
+        {{ truncateText(dish.name) }}
       </RouterLink>
       <span v-if="meta" class="text-xs text-ink">{{ meta }}</span>
     </div>

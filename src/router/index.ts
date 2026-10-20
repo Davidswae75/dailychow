@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { ref } from "vue";
 import index from "../views/index.vue";
 import DashboardRoutes from "./dashboardRoutes";
 import { useAuthStore } from "@/store";
@@ -40,12 +41,18 @@ export const router = createRouter({
   routes,
 });
 
+/** True while a navigation is waiting on the auth check, drives the app's loading screen */
+export const checkingAuth = ref(false);
+router.afterEach(() => (checkingAuth.value = false));
+router.onError(() => (checkingAuth.value = false));
+
 router.beforeEach(async (to) => {
   if (!to.meta.requiresAuth && !to.meta.guestOnly) return;
 
   const authStore = useAuthStore();
   // Registration navigates on its own once the profile exists
   if (authStore.registering) return;
+  if (authStore.pending) checkingAuth.value = true;
   await authStore.settled();
 
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
