@@ -5,7 +5,6 @@ import { computed } from "vue";
 import { checkingAuth } from "./router";
 import LoadingScreen from "./components/utils/LoadingScreen.vue";
 import Dashboard from "./layouts/Dashboard.vue";
-import AlertBar from "./components/utils/AlertBar.vue";
 import { AnimatePresence, MotionConfig, motion } from "motion-v";
 
 const layouts = {
@@ -24,7 +23,6 @@ const getLayout = computed(() => {
   <!-- reducedMotion="user": follows the device's "reduce motion" setting -->
   <MotionConfig reduced-motion="user">
     <main>
-      <AlertBar />
       <LoadingScreen :state="checkingAuth" />
       <component :is="getLayout">
         <RouterView v-slot="{ Component, route: current }">
