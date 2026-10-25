@@ -32,7 +32,7 @@ const faqs = [
 <template>
   <main class="bg-cream py-20 md:py-24" id="faqs">
     <section class="mx-auto max-w-4xl px-5 md:px-8 space-y-5">
-      <HeaderText eyebrow="questions" title="Short answers, no long story." />
+      <HeaderText eyebrow="questions" title="Short answers," accent="no long story." />
 
       <Accordion type="single" collapsible>
         <AccordionItem v-for="(f, index) in faqs" :key="f.a" :value="index.toString()">

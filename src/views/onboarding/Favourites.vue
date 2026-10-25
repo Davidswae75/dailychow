@@ -29,7 +29,7 @@ const moreItems = computed(() => dishes.length - visibleItems.value);
   <main class="space-y-3 p-1">
     <HeaderText
       eyebrow="Quetion 4 of 4"
-      title="Pick a few old favourites"
+      title="Pick a few" accent="old favourites"
     >
     <template #description>
      <div class="flex justify-between items-center flex-wrap">

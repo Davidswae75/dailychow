@@ -199,10 +199,17 @@ const ringText = "Spin a dish • What should I eat? • ";
       >
         <!-- The slip: what the guest is in the mood for -->
         <section class="grain relative bg-cream p-6 md:max-h-[94dvh] md:overflow-y-auto md:p-9">
+          <!-- On mobile the panels stack, so close lives up here instead of on the stage -->
+          <DialogClose
+            class="absolute top-4 right-4 z-10 grid size-9 place-items-center rounded-full bg-charcoal/8 text-charcoal transition-colors hover:bg-charcoal/15 focus-visible:ring-2 focus-visible:ring-terracotta/50 outline-none md:hidden"
+          >
+            <X class="size-4" />
+            <span class="sr-only">Close</span>
+          </DialogClose>
           <p class="text-xs font-semibold tracking-[0.25em] text-terracotta uppercase">The chop wheel</p>
           <DialogTitle class="mt-3 text-3xl text-charcoal md:text-4xl">
             Tell us the vibe.<br />
-            <span class="text-terracotta italic">We'll turn the tray.</span>
+            <span class="accent-italic">We'll turn the tray.</span>
           </DialogTitle>
           <DialogDescription class="mt-3 text-sm text-ink measure">
             Pick a few answers, then spin. The tray only carries dishes that fit, so wherever it stops is a
@@ -278,7 +285,7 @@ const ringText = "Spin a dish • What should I eat? • ";
           />
 
           <DialogClose
-            class="absolute top-4 right-4 z-10 grid size-9 place-items-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-cream/20 focus-visible:ring-2 focus-visible:ring-saffron outline-none"
+            class="absolute top-4 right-4 z-10 hidden size-9 place-items-center rounded-full bg-cream/10 md:grid text-cream transition-colors hover:bg-cream/20 focus-visible:ring-2 focus-visible:ring-saffron outline-none"
           >
             <X class="size-4" />
             <span class="sr-only">Close</span>

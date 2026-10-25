@@ -8,7 +8,7 @@ import WhyCard from './WhyCard.vue';
 <template>
     <main class="bg-cream" id="why">
         <section class="standard_width">
-            <HeaderText eyebrow="Why use it" title="Four reasons this beats staring into the pot."/>
+            <HeaderText eyebrow="Why use it" title="Four reasons this beats" accent="staring into the pot."/>
         <div class="grid md:grid-cols-2">
             <WhyCard/>
         </div>

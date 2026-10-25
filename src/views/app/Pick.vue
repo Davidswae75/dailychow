@@ -35,7 +35,7 @@ function pick() {
 <template>
   <main class="mx-auto flex max-w-2xl flex-col gap-6 px-5 py-6 pb-32 md:px-8 md:pb-10">
     <PageHeader
-      title="What's tonight like?"
+      title="What's tonight" accent="like?"
       description="A few quick taps. Your no-go foods and pepper level are already set."
     />
 

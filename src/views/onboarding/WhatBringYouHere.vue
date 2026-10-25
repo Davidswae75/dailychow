@@ -15,7 +15,7 @@ const isSelected = (value: string) => model.value === value;
   <main class="space-y-3">
     <HeaderText
       eyebrow="Question 1 of 4"
-      title="What brings you here?"
+      title="What brings you" accent="here?"
       description="This shapes every pick we make for you."
     />
 

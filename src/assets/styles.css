@@ -281,6 +281,14 @@
 }
 
 
+/* Closing phrase of a heading: serif italic in terracotta ("We'll turn the tray.") */
+@utility accent-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
 @utility measure {
   max-width: 34rem;
 }

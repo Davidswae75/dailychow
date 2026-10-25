@@ -52,7 +52,7 @@ const processes: { label: string; type: "accent" | "secondary" | "primary" }[] =
           <Reveal once :delay="0.3">
             <span>What should </span>
             <span>we eat </span>
-            <span class="text-terracotta">tonight?</span>
+            <span class="accent-italic">tonight?</span>
           </Reveal>
         </div>
 

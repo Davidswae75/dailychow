@@ -8,7 +8,7 @@ import VoicesCard from './VoicesCard.vue';
 <template>
     <main class="bg-terracotta weave ">
         <section class="standard_width">
-            <HeaderText class="*:text-cream!" reduce-width eyebrow="" title="Deciding what to eat is the most tiring small choice of the day."/>
+            <HeaderText class="*:text-cream!" reduce-width eyebrow="" title="Deciding what to eat is" accent="the most tiring small choice of the day." accent-class="text-saffron"/>
 
             <VoicesCard/>
         </section>

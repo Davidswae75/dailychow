@@ -22,7 +22,8 @@ import Reveal from "../utils/Reveal.vue";
          <Reveal direction="left" once>
           <HeaderText
             eyebrow="The daily stall"
-            title="It is 7pm, everyone is hungry, and nobody will say what they want."
+            title="It is 7pm, everyone is hungry, and"
+            accent="nobody will say what they want."
           >
             <template #description>
               <p class="text-muted-foreground">

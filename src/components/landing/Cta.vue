@@ -9,7 +9,7 @@ import Reveal from '../utils/Reveal.vue';
         <Reveal once :distance="24">
         <section class="mx-auto max-w-3xl">
             <div class="flex flex-col justify-center items-center gap-5">
-                <p class="text-charcoal text-2xl font-bold md:text-5xl font-text">Stop wondering. Start cooking.</p>
+                <p class="text-charcoal text-2xl font-bold md:text-5xl font-text">Stop wondering. <span class="accent-italic">Start cooking.</span></p>
                 <p class="text-muted-foreground text-center">Leave your email and we'll send your first dish, picked for a Nigerian kitchen, the day the picker opens.</p>
 
                 <div>

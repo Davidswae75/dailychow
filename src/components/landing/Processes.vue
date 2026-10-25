@@ -11,7 +11,8 @@ import Reveal from "../utils/Reveal.vue";
       <div>
         <HeaderText
           eyebrow="how it work"
-          :title="`Three small steps between 'I don't know' and food on the table.`"
+          :title="`Three small steps between 'I don't know' and`"
+          accent="food on the table."
           reduce-width
         />
       </div>

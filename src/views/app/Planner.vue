@@ -70,7 +70,7 @@ async function fillWeek() {
 
 <template>
   <main class="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-6 pb-32 md:px-8 md:pb-10">
-    <PageHeader title="This week's plate">
+    <PageHeader title="This week's" accent="plate">
       <template #actions>
         <Button variant="outline" size="lg" class="gap-2 bg-paper" @click="shoppingOpen = true">
           <ShoppingBasket class="size-4" /> Shopping list

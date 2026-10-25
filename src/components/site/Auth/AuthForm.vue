@@ -99,7 +99,8 @@ const fields = computed<FieldsProp["fields"]>(() => [
       <section class="space-y-3" :class="mode == 'register' && 'p-4 md:p-7'">
         <HeaderText
           :eyebrow="mode == 'register' ? 'SAVE YOUR PLATE' : ''"
-          :title="mode == 'login' ? 'Welcome back' : 'Create your account'"
+          :title="mode == 'login' ? 'Welcome' : 'Create your'"
+          :accent="mode == 'login' ? 'back' : 'account'"
           :description="
             mode == 'login'
               ? 'Tonights pick is already thinking about you.'

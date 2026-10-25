@@ -56,7 +56,7 @@ async function remove(entry: MealEntry) {
 
 <template>
   <main class="mx-auto flex max-w-3xl flex-col gap-5 px-5 py-6 pb-32 md:px-8 md:pb-10">
-    <PageHeader title="What you've eaten" />
+    <PageHeader title="What you've" accent="eaten" />
 
     <div class="grid grid-cols-3 gap-2">
       <StatTile :value="thisMonth.length" label="meals this month" />

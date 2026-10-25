@@ -3,6 +3,8 @@ defineProps<{
   title: string;
   eyebrow?: string;
   description?: string;
+  /** Closing phrase of the title, set in serif italic */
+  accent?: string;
 }>();
 </script>
 
@@ -10,7 +12,7 @@ defineProps<{
   <header class="flex flex-wrap items-end justify-between gap-4">
     <div class="max-w-2xl space-y-2">
       <p v-if="eyebrow" class="text-sm text-ink">{{ eyebrow }}</p>
-      <h1 class="text-3xl md:text-4xl font-bold text-charcoal">{{ title }}</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-charcoal">{{ title }} <span v-if="accent" class="accent-italic">{{ accent }}</span></h1>
       <p v-if="description" class="text-sm md:text-base text-muted-foreground">{{ description }}</p>
     </div>
     <div v-if="$slots.actions" class="flex flex-wrap items-center gap-2">

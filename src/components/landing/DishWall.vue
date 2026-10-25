@@ -75,7 +75,8 @@ const dishes = [
     <section class="standard_width">
       <HeaderText
         eyebrow="On the plate"
-        title="Over 300 Nigerian dishes, from every corner of the country."
+        title="Over 300 Nigerian dishes,"
+        accent="from every corner of the country."
         description="Yoruba, Igbo, Hausa, Efik, Tiv, Ijaw and everything cooked in between — street food, Sunday food, market-day food, and the small things you snack on while the stew reduces."
         reduce-width
       />
