@@ -25,7 +25,6 @@ import {
   cookOptions,
   currentMealSlot,
   formatMinutes,
-  formatPriceShort,
   matchDishes,
   mealOptions,
   moodOptions,
@@ -122,7 +121,8 @@ function spin() {
   // Turn clockwise until `slot` sits under the pointer, with a little wobble so it never looks canned
   const target = (360 - slot * STEP) % 360;
   const now = ((rotation.value % 360) + 360) % 360;
-  const wobble = (Math.random() - 0.5) * STEP * 0.5;
+  // Small enough that the winning plate still sits squarely under the pin
+  const wobble = (Math.random() - 0.5) * STEP * 0.2;
   rotation.value += 360 * 5 + ((target - now + 360) % 360) + wobble;
 
   winnerSlot.value = null;
@@ -139,8 +139,15 @@ function spin() {
 
 const plateStyle = (i: number) => {
   const angle = (i * STEP * Math.PI) / 180;
-  return { left: `${50 + 36 * Math.sin(angle)}%`, top: `${50 - 36 * Math.cos(angle)}%` };
+  return { left: `${50 + 34 * Math.sin(angle)}%`, top: `${50 - 34 * Math.cos(angle)}%` };
 };
+
+// On mobile the tray sits below the slip, so the slip's spin button brings it into view first
+const trayEl = ref<HTMLElement | null>(null);
+function spinFromSlip() {
+  trayEl.value?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "center" });
+  spin();
+}
 
 const relaxedLabel: Record<RelaxedAnswer, string> = {
   mood: "the mood",
@@ -170,7 +177,7 @@ const ringText = "Spin a dish • What should I eat? • ";
       <button
         v-if="showLauncher"
         type="button"
-        class="group fixed right-4 bottom-4 z-90 size-24 rounded-full bg-charcoal text-cream shadow-lift outline-none transition-transform duration-300 hover:scale-105 focus-visible:ring-4 focus-visible:ring-saffron/60 md:right-8 md:bottom-8 md:size-28"
+        class="group fixed right-4 bottom-4 z-90 size-20 rounded-full bg-charcoal text-cream shadow-lift outline-none transition-transform duration-300 hover:scale-105 focus-visible:ring-4 focus-visible:ring-saffron/60 sm:size-24 md:right-8 md:bottom-8 md:size-28"
         aria-label="Open the chop wheel and spin for a dish"
         @click="open = true"
       >
@@ -198,7 +205,7 @@ const ringText = "Spin a dish • What should I eat? • ";
         class="fixed top-1/2 left-1/2 z-[121] grid max-h-[94dvh] w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto overscroll-contain rounded-[2rem] bg-paper shadow-lift outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-4 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 md:grid-cols-[1fr_1.05fr] md:overflow-hidden"
       >
         <!-- The slip: what the guest is in the mood for -->
-        <section class="grain relative bg-cream p-6 md:max-h-[94dvh] md:overflow-y-auto md:p-9">
+        <section class="grain relative bg-cream p-6 pb-0 md:max-h-[94dvh] md:overflow-y-auto md:p-9">
           <!-- On mobile the panels stack, so close lives up here instead of on the stage -->
           <DialogClose
             class="absolute top-4 right-4 z-10 grid size-9 place-items-center rounded-full bg-charcoal/8 text-charcoal transition-colors hover:bg-charcoal/15 focus-visible:ring-2 focus-visible:ring-terracotta/50 outline-none md:hidden"
@@ -216,7 +223,7 @@ const ringText = "Spin a dish • What should I eat? • ";
             good call.
           </DialogDescription>
 
-          <ol class="mt-7 space-y-5">
+          <ol class="my-7 space-y-5">
             <li v-for="(q, qi) in questions" :key="q.key" class="grid grid-cols-[2rem_1fr] gap-x-2">
               <span class="pt-0.5 font-display text-sm text-terracotta/70 italic">{{ String(qi + 1).padStart(2, "0") }}</span>
               <div role="radiogroup" :aria-label="q.label">
@@ -273,6 +280,14 @@ const ringText = "Spin a dish • What should I eat? • ";
               </div>
             </li>
           </ol>
+
+          <!-- Mobile: the tray is below the fold, so keep a spin button in reach while answering -->
+          <!-- <div class="sticky bottom-0 z-10 -mx-6 mt-6 bg-gradient-to-t from-cream from-60% to-transparent px-6 pt-6 pb-5 md:hidden">
+            <Button variant="terracotta" size="lg" class="w-full" :disabled="spinning || !plates.length" @click="spinFromSlip">
+              <RotateCw class="size-4" :class="spinning && 'animate-spin'" />
+              {{ spinning ? "Turning…" : plates.length ? "Spin the tray" : "Nothing fits yet" }}
+            </Button>
+          </div> -->
         </section>
 
         <!-- The stage: tray, pointer and the ticket it prints -->
@@ -296,19 +311,9 @@ const ringText = "Spin a dish • What should I eat? • ";
           </p>
 
           <!-- Tray -->
-          <div class="relative aspect-square w-full max-w-[21rem]">
-            <!-- Pointer -->
-            <svg
-              viewBox="0 0 24 30"
-              class="absolute -top-4 left-1/2 z-20 w-6 -translate-x-1/2 drop-shadow-[0_4px_6px_rgb(0_0_0/0.4)]"
-              aria-hidden="true"
-            >
-              <path d="M12 30 L2 10 A10 10 0 1 1 22 10 Z" class="fill-saffron" />
-              <circle cx="12" cy="10" r="3.5" class="fill-charcoal" />
-            </svg>
-
+          <div ref="trayEl" class="relative isolate mx-auto mt-2 aspect-square w-full max-w-[21rem]">
             <div
-              class="chop-tray absolute inset-0 rounded-full"
+              class="chop-tray absolute inset-0 z-0 rounded-full"
               :style="{
                 transform: `rotate(${rotation}deg)`,
                 transition: `transform ${SPIN_MS}ms cubic-bezier(0.12, 0.72, 0.1, 1)`,
@@ -318,9 +323,9 @@ const ringText = "Spin a dish • What should I eat? • ";
               <div
                 v-for="(plate, i) in plates"
                 :key="i"
-                class="absolute size-[25%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-paper p-[5%] shadow-[0_8px_18px_-6px_rgb(0_0_0/0.55)] transition-all duration-500"
+                class="absolute size-[23%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-paper p-[5%] shadow-[0_8px_18px_-6px_rgb(0_0_0/0.55)] transition-all duration-500"
                 :class="[
-                  winnerSlot === i && 'z-10 scale-[1.22] ring-4 ring-saffron',
+                  winnerSlot === i && 'z-10 scale-[1.15] ring-4 ring-saffron',
                   winnerSlot !== null && winnerSlot !== i && 'opacity-45 saturate-50',
                 ]"
                 :style="plateStyle(i)"
@@ -332,7 +337,7 @@ const ringText = "Spin a dish • What should I eat? • ";
             <!-- Hub -->
             <button
               type="button"
-              class="absolute inset-[34%] z-10 grid place-items-center rounded-full bg-cream text-charcoal shadow-[0_0_0_6px_rgb(0_0_0/0.18),0_12px_24px_-8px_rgb(0_0_0/0.6)] transition-transform outline-none hover:scale-105 focus-visible:ring-4 focus-visible:ring-saffron active:scale-95 disabled:cursor-progress disabled:hover:scale-100"
+              class="absolute inset-[34%] z-20 grid transform-gpu place-items-center rounded-full bg-cream text-charcoal shadow-[0_0_0_6px_rgb(0_0_0/0.18),0_12px_24px_-8px_rgb(0_0_0/0.6)] transition-transform outline-none hover:scale-105 focus-visible:ring-4 focus-visible:ring-saffron active:scale-95 disabled:cursor-progress disabled:hover:scale-100"
               :disabled="spinning || !plates.length"
               @click="spin"
             >
@@ -342,6 +347,16 @@ const ringText = "Spin a dish • What should I eat? • ";
               </span>
               <span class="sr-only">the tray</span>
             </button>
+
+            <!-- Pointer: last and on its own layer, so iOS never paints the turning tray over it -->
+            <svg
+              viewBox="0 0 24 30"
+              class="absolute -top-5 left-1/2 z-30 w-6 -translate-x-1/2 transform-gpu drop-shadow-[0_4px_6px_rgb(0_0_0/0.4)]"
+              aria-hidden="true"
+            >
+              <path d="M12 30 L2 10 A10 10 0 1 1 22 10 Z" class="fill-saffron" />
+              <circle cx="12" cy="10" r="3.5" class="fill-charcoal" />
+            </svg>
           </div>
 
           <!-- Ticket -->
@@ -364,7 +379,7 @@ const ringText = "Spin a dish • What should I eat? • ";
                 <h3 class="mt-3 text-3xl">{{ result.dish.name }}</h3>
                 <p class="mt-1 text-sm text-ink">{{ result.dish.note }}</p>
 
-                <dl class="mt-4 grid grid-cols-3 gap-2 text-xs">
+                <dl class="mt-4 grid grid-cols-2 gap-2 text-xs">
                   <div class="rounded-2xl bg-cream px-3 py-2">
                     <dt class="text-ink/70">Time</dt>
                     <dd class="mt-0.5 inline-flex items-center gap-1 font-medium"><Clock class="size-3" />{{ formatMinutes(result.dish.minutes) }}</dd>
@@ -372,10 +387,6 @@ const ringText = "Spin a dish • What should I eat? • ";
                   <div class="rounded-2xl bg-cream px-3 py-2">
                     <dt class="text-ink/70">Pepper</dt>
                     <dd class="mt-0.5"><PepperMeter :level="result.dish.spice" /></dd>
-                  </div>
-                  <div class="rounded-2xl bg-cream px-3 py-2">
-                    <dt class="text-ink/70">Spend</dt>
-                    <dd class="mt-0.5 font-medium">{{ formatPriceShort(result.dish.price) }}</dd>
                   </div>
                 </dl>
 

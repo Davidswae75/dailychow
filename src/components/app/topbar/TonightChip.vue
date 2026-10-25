@@ -14,7 +14,7 @@ const { current, answers } = storeToRefs(usePickStore());
     v-if="current"
     to="/dashboard/pick/result"
     :aria-label="`${labelOf(mealOptions, answers.meal)} pick: ${current.dish.name}`"
-    class="flex h-10 items-center gap-2.5 rounded-full border border-border bg-paper/80 p-1 transition-colors hover:border-terracotta-deep lg:pr-4"
+    class="flex h-10 items-center gap-2.5 rounded-full border border-border bg-paper/80 p-1 transition-colors hover:border-terracotta-deep 2xl:pr-4"
   >
     <span class="relative size-8 overflow-hidden rounded-full ring-2 ring-saffron">
       <AnimatePresence>
@@ -30,7 +30,7 @@ const { current, answers } = storeToRefs(usePickStore());
         </motion.span>
       </AnimatePresence>
     </span>
-    <span class="hidden flex-col leading-tight lg:flex">
+    <span class="hidden flex-col leading-tight 2xl:flex">
       <span class="text-[11px] font-semibold tracking-wide text-ink uppercase">
         {{ labelOf(mealOptions, answers.meal) }} pick
       </span>

@@ -49,7 +49,7 @@ const tryAgain = computed(() => notEatenRecently(taste.value, history.value.map(
   <main class="mx-auto flex max-w-6xl flex-col gap-5 px-5 py-6 pb-32 md:px-8 md:pb-10">
     <header class="flex flex-wrap items-end justify-between gap-3">
       <div class="space-y-1">
-        <p class="text-sm text-ink">{{ formatLongDate(today) }}</p>
+        <!-- <p class="text-sm text-ink">{{ formatLongDate(today) }}</p> -->
         <h1 class="text-3xl md:text-4xl font-bold">{{ greeting(today) }}, {{ firstName }}</h1>
       </div>
       <RouterLink

@@ -24,8 +24,8 @@ import {
   type MealTime,
 } from "@/lib";
 
-/** Bottom sheet (side panel on desktop) to fill one planner slot. */
-const props = defineProps<{ date: Date; slot: MealTime }>();
+/** Bottom sheet (side panel on desktop) to fill one planner slot, or swap the dish planned in it. */
+const props = defineProps<{ date: Date; slot: MealTime; replacing?: Dish | null }>();
 const open = defineModel<boolean>("open", { default: false });
 
 const meals = useMealsStore();
@@ -48,7 +48,7 @@ const slotLabel = computed(() => labelOf(mealOptions, props.slot));
 
 /** Favourites first; a search looks through every dish the user can eat. */
 const choices = computed(() => {
-  const allowed = allowedDishes(taste.value);
+  const allowed = allowedDishes(taste.value).filter((d) => d.id !== props.replacing?.id);
   const q = query.value.trim().toLowerCase();
   if (q) {
     return allowed.filter((d) =>
@@ -74,12 +74,12 @@ async function save(dish: Dish) {
 }
 
 function letUsPick() {
-  const [best] = recommendDishes(
+  const best = recommendDishes(
     { ...answers.value, meal: props.slot },
     taste.value,
     history.value.map((e) => e.log),
     props.date
-  );
+  ).find((r) => r.dish.id !== props.replacing?.id);
   if (best) save(best.dish);
 }
 </script>
@@ -95,8 +95,11 @@ function letUsPick() {
           formatLongDate(date)
         }}</SheetDescription>
         <SheetTitle class="font-display text-2xl"
-          >Add {{ slotLabel.toLowerCase() }}</SheetTitle
+          >{{ replacing ? "Swap" : "Add" }} {{ slotLabel.toLowerCase() }}</SheetTitle
         >
+        <p v-if="replacing" class="text-sm text-ink">
+          Replacing {{ replacing.name }}
+        </p>
       </SheetHeader>
 
       <div class="flex flex-col gap-4 overflow-y-auto px-5 pb-6">

@@ -60,7 +60,7 @@ async function haveIt() {
     <div class="relative -mt-7 flex flex-col gap-4 rounded-t-[30px] bg-cream px-5 pt-6 md:mt-0 md:rounded-none md:px-0 md:pt-0">
       <div class="space-y-1.5">
         <p class="text-sm font-bold tracking-wide text-terracotta-deep uppercase">
-          {{ labelOf(mealOptions, answers.meal) }} · tonight's dish
+          Dish for {{ labelOf(mealOptions, answers.meal) }} 
         </p>
         <h1 class="text-4xl md:text-5xl font-bold">{{ current.dish.name }}</h1>
         <p class="text-[15px] text-ink">{{ current.dish.note }}</p>

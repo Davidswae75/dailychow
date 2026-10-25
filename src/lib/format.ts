@@ -11,7 +11,14 @@ const priceShortLabel: Record<PriceBand, string> = {
 
 export const formatPrice = (band: PriceBand) => priceLabel[band];
 export const formatPriceShort = (band: PriceBand) => priceShortLabel[band];
-export const formatMinutes = (minutes: number) => `${minutes} mins`;
+/** 45 → "45 mins", 60 → "1 hr", 90 → "1 hr 30 mins", 150 → "2 hrs 30 mins" */
+export const formatMinutes = (minutes: number) => {
+  if (minutes < 60) return `${minutes} mins`;
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  const h = `${hours} ${hours === 1 ? "hr" : "hrs"}`;
+  return rest ? `${h} ${rest} mins` : h;
+};
 
 /** Dish spice (1–5) as the user's pepper words. */
 export const spiceLabel = (spice: number) =>

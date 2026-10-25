@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
     :data-rounded="rounded"
     :as="as"
     :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class, loading && 'animate-pulse opacity-70 pointer-events-none')"
+    :class="cn(buttonVariants({ variant, size, block, rounded }), props.class, loading && 'opacity-70 pointer-events-none')"
   >
     <template v-if="loading">
      <div class="flex gap-2 items-center">

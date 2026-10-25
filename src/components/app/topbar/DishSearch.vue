@@ -36,12 +36,12 @@ function go(to: string) {
 <template>
   <button
     type="button"
-    class="group flex h-10 items-center gap-2.5 rounded-full border border-border bg-paper/80 px-3.5 text-sm text-ink transition-colors hover:border-ink/40 hover:text-charcoal md:w-72 lg:w-80"
+    class="group flex size-10 items-center justify-center gap-2.5 rounded-full border border-border bg-paper/80 text-sm text-ink transition-colors hover:border-ink/40 hover:text-charcoal md:w-56 md:justify-start md:px-3.5 lg:w-64 xl:w-80"
     aria-label="Search dishes"
     @click="open = true"
   >
     <Search class="size-4 shrink-0" />
-    <span class="hidden grow text-left md:block">Search dishes or ingredients</span>
+    <span class="hidden grow truncate text-left md:block">Search dishes<span class="hidden xl:inline"> or ingredients</span></span>
     <Kbd class="hidden bg-cream md:inline-flex">{{ shortcutLabel }}</Kbd>
   </button>
 

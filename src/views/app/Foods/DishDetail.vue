@@ -71,7 +71,7 @@ async function toggleDislike() {
 <template>
   <main v-if="dish" class="mx-auto max-w-6xl pb-32 md:grid md:grid-cols-[1fr_1fr] md:gap-8 md:px-8 md:py-6 md:pb-10">
     <div class="md:sticky md:top-20 md:h-[calc(100dvh-8rem)]">
-      <DishHero :dish="dish" back-to="/dashboard/foods" back-label="Back to foods">
+      <DishHero :dish="dish" back-to="/dashboard/foods" back-label="Go back">
         <template #actions>
           <button
             type="button"

@@ -12,6 +12,7 @@
  * Colours are hex versions of the tokens in src/assets/styles.css (no oklch in email).
  */
 import type { Dish, MealTime } from "./dishes";
+import { formatMinutes } from "./format";
 
 const c = {
   cream: "#F5EEE4",
@@ -97,7 +98,7 @@ export function welcomeEmail({ name }: { name: string }) {
 
 /** After "I'll have this": the dish, its time and what to buy. */
 export function dishEmail({ name, dish, meal }: { name: string; dish: Dish; meal: MealTime }) {
-  const chips = [`⏱ ${dish.minutes} mins`, dish.region, dish.category]
+  const chips = [`⏱ ${formatMinutes(dish.minutes)}`, dish.region, dish.category]
     .map(
       (t) => `<span style="display:inline-block;margin:0 6px 6px 0;background:${c.cream};border-radius:99px;padding:6px 14px;font-size:13px;font-weight:600;text-transform:capitalize;">${esc(t)}</span>`
     )
