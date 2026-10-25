@@ -38,11 +38,11 @@ withDefaults(defineProps<Props>(), {
       >
         <div class="relative">
           <span class="absolute inset-0 -z-10 rounded-full bg-cream/10 blur-2xl scale-125" />
-          <img :src="image" alt="" class="size-32 md:size-40 object-contain animate-simmer" />
+          <img :src="image" alt="" class="size-32 md:size-40 object-contain animate-float-slow" />
         </div>
 
-        <p class="mt-6 font-display text-2xl md:text-3xl font-bold">{{ title }}</p>
-        <p class="mt-1.5 text-sm text-cream/75">{{ subtitle }}</p>
+        <p class="mt-6 font-display text-2xl md:text-3xl font-bold animate-simmer">{{ title }}</p>
+        <p class="mt-1.5 text-sm text-cream/75 animate-simmer">{{ subtitle }}</p>
 
         <div class="mt-6 h-1 w-40 overflow-hidden rounded-full bg-cream/20">
           <div class="h-full w-1/2 rounded-full bg-cream animate-loading-bar" />
